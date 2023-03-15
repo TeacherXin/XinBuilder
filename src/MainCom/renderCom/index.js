@@ -4,16 +4,16 @@ import './index.css'
 export default function RenderCom(props) {
   const [comList, setComList] = useState([])
   let dragCom = null;
-  const {NowCom,nowStyle} = props
+  const {NowCom} = props
 
 
   const onDrop = (e) => {
     const style = {
       position: 'absolute',
-      left: e.clientX - parseInt(nowStyle.width) / 2 + 'px',
-      top: e.clientY - parseInt(nowStyle.height) / 2 + 'px',
+      left: e.clientX + 'px',
+      top: e.clientY + 'px',
     }
-    setComList([...comList,{component: dragCom || NowCom, style,dragId: style.left + style.right}])
+    setComList([...comList,{component: dragCom || NowCom.component, style,dragId: NowCom.name + e.clientX}])
   }
 
   const onDragEnter = (e) => {

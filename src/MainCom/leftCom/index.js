@@ -4,23 +4,16 @@ import * as myComponent from '../../Component'
 
 export default function LeftCom(props) {
 
-  const {changeTopCom, changeChildStyle} = props
+  const {changeTopCom} = props
 
-  const [style,setStyle] = useState({})
-
-  const onDragStart = (Com) =>{
+  const onDragStart = (Com,cName) =>{
     return () => {
-      changeTopCom(<Com/>)
-      changeChildStyle(style)
+      changeTopCom({component: <Com/>, name: cName})
     }
   }
 
   const onDragEnd = (e) => {
     
-  }
-
-  const setChildStyle = (style) => {
-    setStyle(style)
   }
 
 
@@ -29,8 +22,8 @@ export default function LeftCom(props) {
       <div className='componentList'>
         {Object.keys(myComponent).map(cName => {
           const Com = myComponent[cName];
-          return  <div onDragEnd={onDragEnd} onDragStart={onDragStart(Com)} key={cName} className='componentItem'>
-            <div style={{display: 'inline-block'}} draggable><Com setChildStyle={setChildStyle} /></div>
+          return  <div onDragEnd={onDragEnd} onDragStart={onDragStart(Com,cName)} key={cName} className='componentItem'>
+            <div style={{display: 'inline-block'}} draggable><Com /></div>
         </div>
         })}
       </div>
