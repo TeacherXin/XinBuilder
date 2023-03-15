@@ -6,21 +6,18 @@ import { useState } from 'react';
 
 function App() {
 
+  //用来存储当前拖拽的组件
   const [nowCom, changeNowCom] = useState()
-  const [style,changeStyle] = useState({})
 
+  //左侧组件列表拖拽时更新nowCom
   const changeTopCom =(Com) => {
     changeNowCom(Com)
   }
 
-  const changeChildStyle = (style) => {
-    changeStyle(style)
-  }
-
   return (
     <div className="App">
-      <LeftCom changeTopCom={changeTopCom} changeChildStyle={changeChildStyle}></LeftCom>
-      <RenderCom  NowCom={nowCom} nowStyle={style}></RenderCom>
+      <LeftCom changeTopCom={changeTopCom}></LeftCom>
+      <RenderCom  NowCom={nowCom}></RenderCom>
       <RightCom></RightCom>
     </div>
   );
