@@ -1,0 +1,19 @@
+.leftCom{
+  height: 100%;
+  background-color:aliceblue;
+  width: 20%;
+}
+
+.componentList{
+  margin-top: 20px;
+}
+
+.componentItem{
+  width: 200px;
+  height: 30px;
+  margin-top: 10px;
+  margin-left: 15px;
+  border: 1px solid rgb(187, 181, 181);
+  border-radius: 4px;
+  padding: 10px;
+}
