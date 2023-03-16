@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 
 export default function Label(props) {
 
-  const {attributeValue,onClick,className} = props
+  const {attributeValue,onClick,className,onContextMenu} = props
   return (
     <div>
-      <span onClick={onClick} className={className}>{attributeValue || '标签'}</span>
+      <span onContextMenu={onContextMenu} onClick={onClick} className={className}>{attributeValue || '标签'}</span>
     </div>
   )
 }

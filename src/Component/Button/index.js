@@ -3,11 +3,11 @@ import './index.css'
 
 export default function Button(props) {
 
-  const {attributeValue,onClick,className} = props
+  const {attributeValue,onClick,className,onContextMenu} = props
 
   return (
     <div>
-      <button className={className} onClick={onClick}>{attributeValue || '按钮'}</button>
+      <button onContextMenu={onContextMenu} className={className} onClick={onClick}>{attributeValue || '按钮'}</button>
     </div>
   )
 }

@@ -1,0 +1,13 @@
+.menu{
+  width: 60px;
+  height: 100px;
+  box-shadow: 0 0 5px 0 rgb(67 74 84 / 30%);
+  border: 1px solid #cbcdd0;
+}
+.menuItem{
+  width: 60px;
+  height: 16px;
+  line-height: 10px;
+  text-align: center;
+  font-size: 12px;
+}
