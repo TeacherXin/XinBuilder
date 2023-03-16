@@ -31,7 +31,7 @@ export default function RenderCom(props) {
         top: e.clientY + 'px',
       }
     }
-    setComList([...comList,{component: dragCom || NowCom.component, style,dragId: NowCom.name + e.clientX}])
+    setComList([...comList,{component: dragCom || NowCom.component, style,dragId: NowCom.name + e.clientX,code: NowCom.name}])
   }
 
   //通过删除后再添加拖拽的节点，实现节点的画布区拖拽
@@ -56,11 +56,22 @@ export default function RenderCom(props) {
     e.preventDefault()
   }
 
+  const onSelect=(item) => {
+    return () => {
+      if(item.code === 'Input'){
+        return;
+      }
+      item.selected = !item.selected;
+      setComList([...comList])
+    }
+  }
+
   return (
     <div onDrop={onDrop} onDragOver={onDragOver} onDragEnter={onDragEnter} className='renderCom'>
       {comList.map(item => {
+        const Com = item.component;
         return <div id={item.dragId} key={item.dragId} onDragStart={onDragStart} draggable style={item.style}>
-          {item.component}
+          {<Com attributeValue={''} onClick={onSelect(item)} className={item.selected? 'selected':''} />}
         </div>
       })}
     </div>

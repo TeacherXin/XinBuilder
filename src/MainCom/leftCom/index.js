@@ -8,7 +8,7 @@ export default function LeftCom(props) {
 
   const onDragStart = (Com,cName) =>{
     return () => {
-      changeTopCom({component: <Com/>, name: cName})
+      changeTopCom({component: Com, name: cName})
     }
   }
 

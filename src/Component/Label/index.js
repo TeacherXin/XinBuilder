@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
-export default function Label() {
+export default function Label(props) {
 
-  const [value,setValue] = useState('标签')
+  const {attributeValue,onClick,className} = props
   return (
     <div>
-      <span>{value}</span>
+      <span onClick={onClick} className={className}>{attributeValue || '标签'}</span>
     </div>
   )
 }

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
+import './index.css'
 
 export default function Button(props) {
 
-  const [value, setValue] = useState('按钮')
+  const {attributeValue,onClick,className} = props
 
   return (
     <div>
-      <button>{value}</button>
+      <button className={className} onClick={onClick}>{attributeValue || '按钮'}</button>
     </div>
   )
 }

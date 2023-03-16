@@ -1,3 +1,6 @@
 .renderCom{
   flex:1;
 }
+.selected{
+  border: 1.3px solid blue;
+}
