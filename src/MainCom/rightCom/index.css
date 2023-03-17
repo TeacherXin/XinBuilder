@@ -5,3 +5,8 @@
   position: absolute;
   right: 0;
 }
+
+.attributeItem{
+  width: 200px;
+  height: 80px;
+}

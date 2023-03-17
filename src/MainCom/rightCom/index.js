@@ -1,15 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './index.css'
 
-export default function rightCom(props) {
+export default function RightCom(props) {
 
-  const {rightPanel} = props;
+  const {rightPanel,setRightAttributeMap,comId,atrributeMapRight} = props;
+
+  const attributeMap = {}
+
+  const onChange = (name) => {
+    return (e) => {
+      attributeMap[name] = e.target.value;
+      setRightAttributeMap({...attributeMap},comId);
+    }
+  }
+
   return (
     <div className='rightCom'>
       {
-        rightPanel.map(item => {
-          return <div>
-            {item}
+        (rightPanel[comId] || []).map((item,index) => {
+          return <div key={index} className='attributeItem'>
+            <label>{item}</label>
+            {atrributeMapRight?.[comId]?.[item]}
+            <input key={index} onChange={onChange(item)} value={atrributeMapRight?.[comId]?.[item] || ''}></input>
           </div>
         })
       }

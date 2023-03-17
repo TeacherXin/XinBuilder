@@ -10,7 +10,7 @@ export default function RenderCom(props) {
   let startLeft,startTop,endLeft,endTop,itemLeft,itemTop,itemWidth,itemHeight;
   //用来判断是左侧列表拖拽还是画布区拖拽
   let dragCom = null;
-  const { NowCom , changeRightPanel} = props
+  const { NowCom , changeRightPanel, atrributeMap, comId} = props
 
   const onDrop = (e) => {
     //用来确定拖拽的节点的位置
@@ -66,12 +66,10 @@ export default function RenderCom(props) {
   const onSelect=(item) => {
     return () => {
       if(item.code === 'Input'){
-        changeRightPanel(['attributeValue','className'])
         return;
       }
       item.selected = !item.selected;
       setComList([...comList]);
-      changeRightPanel(['attributeValue','className','onClick'])
     }
   }
 
@@ -90,13 +88,20 @@ export default function RenderCom(props) {
     setComList([...comList]);
   }
 
+  //根据组件的id来更改右侧属性面板
+  const changeRightPanelById = (id) => {
+    return (list) => {
+      changeRightPanel(list,id)
+    }
+  }
+
   return (
     <div onClick={clearAllShowMenu} onDrop={onDrop} onDragOver={onDragOver} onDragEnter={onDragEnter} className='renderCom'>
       {comList.map(item => {
         const Com = item.component;
         return <div id={item.dragId} key={item.dragId} onDragStart={onDragStart} draggable style={item.style}>
-          {<Com onContextMenu={onContextMenu(item)} attributeValue={''} onClick={onSelect(item)} className={item.selected? 'selected':''} />}
-          <RightClickMenu showMenu={item.showMenu} left={item.style.width} />
+          {<Com onContextMenu={onContextMenu(item)} attributeValue={atrributeMap[item.dragId]?.attributeValue} onClick={onSelect(item)} className={item.selected? 'selected':''} />}
+          <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.width} />
         </div>
       })}
     </div>
