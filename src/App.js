@@ -12,7 +12,7 @@ function App() {
   const [rightPanel,setRightPanel] = useState({})
   //用来存储当前组件的id
   const [comId,setComId] = useState()
-  //用来存储所有组件的属性列表值
+  //用来存储组件的属性值列表
   const [atrributeMap,setAttributeMap] = useState({})
 
   //左侧组件列表拖拽时更新nowCom

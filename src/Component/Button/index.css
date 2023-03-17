@@ -1,4 +1,4 @@
 button{
-  width: 50px;
-  height: 25px;
+  min-width: 50px;
+  min-height: 25px;
 }

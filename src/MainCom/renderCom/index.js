@@ -24,16 +24,16 @@ export default function RenderCom(props) {
         position: 'absolute',
         left: (endLeft - startLeft) + itemLeft + 'px',
         top: (endTop - startTop) + itemTop + 'px',
-        width: itemWidth,
-        height: itemHeight
+        minWidth: itemWidth,
+        minHeight: itemHeight
       }
     }else{
       style = {
         position: 'absolute',
         left: e.clientX + 'px',
         top: e.clientY + 'px',
-        width: itemWidth,
-        height: itemHeight
+        minWidth: itemWidth,
+        minHeight: itemHeight
       }
     }
     setComList([...comList,{component: dragCom || NowCom.component, style,dragId: NowCom.name + e.clientX,code: NowCom.name}])
@@ -64,7 +64,8 @@ export default function RenderCom(props) {
   }
 
   const onSelect=(item) => {
-    return () => {
+    return (e) => {
+      e.stopPropagation();
       if(item.code === 'Input'){
         return;
       }
@@ -81,8 +82,9 @@ export default function RenderCom(props) {
     }
   }
 
-  const clearAllShowMenu = () => {
+  const clearAllShowMenu = (e) => {
     comList.forEach(item => {
+      item.selected = false;
       item.showMenu = false
     })
     setComList([...comList]);
@@ -101,7 +103,7 @@ export default function RenderCom(props) {
         const Com = item.component;
         return <div id={item.dragId} key={item.dragId} onDragStart={onDragStart} draggable style={item.style}>
           {<Com onContextMenu={onContextMenu(item)} attributeValue={atrributeMap[item.dragId]?.attributeValue} onClick={onSelect(item)} className={item.selected? 'selected':''} />}
-          <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.width} />
+          <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
         </div>
       })}
     </div>

@@ -20,7 +20,6 @@ export default function RightCom(props) {
         (rightPanel[comId] || []).map((item,index) => {
           return <div key={index} className='attributeItem'>
             <label>{item}</label>
-            {atrributeMapRight?.[comId]?.[item]}
             <input key={index} onChange={onChange(item)} value={atrributeMapRight?.[comId]?.[item] || ''}></input>
           </div>
         })
