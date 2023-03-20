@@ -6,11 +6,13 @@ export default function RenderCom(props) {
 
   //用来存储画布区的所有组件，以及组件的属性
   const [comList, setComList] = useState([])
+  //展示动作弹窗
   const [showAction, setShowAction] = useState(false)
+  //动作JS代码
   const [actionJs,setActionJs] = useState('')
   const [actionId,setActionId] = useState()
   const { NowCom , changeRightPanel, atrributeMap, setAttributeMap, comId} = props
-
+  let nowComId = ''
   let startLeft,startTop,endLeft,endTop,itemLeft,itemTop,itemWidth,itemHeight;
   //用来判断是左侧列表拖拽还是画布区拖拽
   let dragCom = null;
@@ -39,17 +41,20 @@ export default function RenderCom(props) {
         minHeight: itemHeight
       }
     }
-    setComList([...comList,{component: dragCom || NowCom.component, style,dragId: NowCom.name + e.clientX,code: NowCom.name}])
+    const com = comList.find(item => item.dragId === nowComId);
+    if(com){
+      com.style = style;
+      setComList([...comList])
+    }else{
+      setComList([...comList,{component: dragCom || NowCom.component, style,dragId: NowCom.name + e.clientX,code: NowCom.name}])
+    }
   }
 
   //通过删除后再添加拖拽的节点，实现节点的画布区拖拽
   const onDragStart = (e) => {
-    const index = comList.findIndex(item => item.dragId === e.target.id);
-    if(index > -1){
-      const component = comList.splice(index,1)[0].component;
-      dragCom = component;
-    }
+    nowComId = e.target.id
     setComList(comList);
+
     startLeft = e.clientX;
     startTop = e.clientY;
     itemLeft = e.target.offsetLeft;
