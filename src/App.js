@@ -27,7 +27,10 @@ function App() {
   }
 
   const setRightAttributeMap = (value,id) => {
-    atrributeMap[id] = value;
+    if(!atrributeMap[id]){
+      atrributeMap[id] = {}
+    }
+    atrributeMap[id].attributeValue = value.attributeValue;
     setAttributeMap({...atrributeMap})
   }
 

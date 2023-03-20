@@ -1,5 +1,6 @@
 import {React, useEffect, useState} from 'react'
 import RightClickMenu from './rightClickMenu';
+import EditAction from './editAction'
 import './index.css'
 
 export default function RenderCom(props) {
@@ -10,12 +11,18 @@ export default function RenderCom(props) {
   const [showAction, setShowAction] = useState(false)
   //动作JS代码
   const [actionJs,setActionJs] = useState('')
+  //确定当前动作的节点
   const [actionId,setActionId] = useState()
   const { NowCom , changeRightPanel, atrributeMap, setAttributeMap, comId} = props
   let nowComId = ''
   let startLeft,startTop,endLeft,endTop,itemLeft,itemTop,itemWidth,itemHeight;
   //用来判断是左侧列表拖拽还是画布区拖拽
   let dragCom = null;
+
+  //初始化动作内容
+  useEffect(() => {
+    setActionJs(atrributeMap[actionId]?.actionJs)
+  },[showAction])
 
   const onDrop = (e) => {
     //用来确定拖拽的节点的位置
@@ -50,7 +57,7 @@ export default function RenderCom(props) {
     }
   }
 
-  //通过删除后再添加拖拽的节点，实现节点的画布区拖拽
+
   const onDragStart = (e) => {
     nowComId = e.target.id
     setComList(comList);
@@ -73,7 +80,6 @@ export default function RenderCom(props) {
 
   const onSelect=(item) => {
     return (e) => {
-      // e.stopPropagation();
       if(item.code === 'Input'){
         return;
       }
@@ -81,7 +87,8 @@ export default function RenderCom(props) {
       setComList([...comList]);
     }
   }
-
+  
+  //右键菜单栏
   const onContextMenu = (item) => {
     return (e) => {
       e.preventDefault();
@@ -104,20 +111,25 @@ export default function RenderCom(props) {
       if(type === 'attribute'){
         changeRightPanel(list,id)
       }else if(type === 'action'){
-        setShowAction(true)
         setActionId(id)
         setActionJs('')
+        setShowAction(true)
       }
     }
   }
 
-  const submitAction = () => {
-    setShowAction(false);
-    if(!atrributeMap[actionId]){
-      atrributeMap[actionId] = {}
+  //给组件绑定事件
+  const submitAction = (flag) => {
+    return () => {
+      if(flag){
+        if(!atrributeMap[actionId]){
+          atrributeMap[actionId] = {}
+        }
+        atrributeMap[actionId].actionJs = actionJs;
+        setAttributeMap({...atrributeMap})
+      }
+      setShowAction(false);
     }
-    atrributeMap[actionId].actionJs = actionJs;
-    setAttributeMap({...atrributeMap})
   }
 
   const changeActionJs = (e) => {
@@ -133,10 +145,7 @@ export default function RenderCom(props) {
           <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
         </div>
       })}
-      <div style={{display: showAction ? 'block' : 'none'}} className='editAction'>
-        <input onChange={changeActionJs} value={actionJs}  type={'textarea'} style={{width: '300px',height:'100px'}}></input>
-        <button onClick={submitAction}>确定</button>
-      </div>
+      <EditAction showAction={showAction} changeActionJs={changeActionJs} actionJs={actionJs} submitAction={submitAction} />
     </div>
   )
 }
