@@ -16,6 +16,8 @@ export default function RightCom(props) {
 
   return (
     <div className='rightCom'>
+      {comId}
+      <hr></hr>
       {
         (rightPanel[comId] || []).map((item,index) => {
           return <div key={index} className='attributeItem'>
