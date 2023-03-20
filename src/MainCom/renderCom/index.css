@@ -4,3 +4,8 @@
 .selected{
   border: 1.3px solid blue;
 }
+
+.editAction{
+  position: fixed;
+  left: 30%;
+}

@@ -35,7 +35,7 @@ function App() {
   return (
     <div className="App">
       <LeftCom changeTopCom={changeTopCom}></LeftCom>
-      <RenderCom comId={comId} atrributeMap={atrributeMap} changeRightPanel={changeRightPanel}  NowCom={nowCom}></RenderCom>
+      <RenderCom setAttributeMap={setAttributeMap} comId={comId} atrributeMap={atrributeMap} changeRightPanel={changeRightPanel}  NowCom={nowCom}></RenderCom>
       <RightCom comId={comId} atrributeMapRight={atrributeMap} setRightAttributeMap={setRightAttributeMap} rightPanel={rightPanel}></RightCom>
     </div>
   );

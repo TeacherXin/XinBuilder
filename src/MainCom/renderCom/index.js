@@ -6,11 +6,14 @@ export default function RenderCom(props) {
 
   //用来存储画布区的所有组件，以及组件的属性
   const [comList, setComList] = useState([])
+  const [showAction, setShowAction] = useState(false)
+  const [actionJs,setActionJs] = useState('')
+  const [actionId,setActionId] = useState()
+  const { NowCom , changeRightPanel, atrributeMap, setAttributeMap, comId} = props
 
   let startLeft,startTop,endLeft,endTop,itemLeft,itemTop,itemWidth,itemHeight;
   //用来判断是左侧列表拖拽还是画布区拖拽
   let dragCom = null;
-  const { NowCom , changeRightPanel, atrributeMap, comId} = props
 
   const onDrop = (e) => {
     //用来确定拖拽的节点的位置
@@ -65,7 +68,7 @@ export default function RenderCom(props) {
 
   const onSelect=(item) => {
     return (e) => {
-      e.stopPropagation();
+      // e.stopPropagation();
       if(item.code === 'Input'){
         return;
       }
@@ -92,9 +95,28 @@ export default function RenderCom(props) {
 
   //根据组件的id来更改右侧属性面板
   const changeRightPanelById = (id) => {
-    return (list) => {
-      changeRightPanel(list,id)
+    return (list,type) => {
+      if(type === 'attribute'){
+        changeRightPanel(list,id)
+      }else if(type === 'action'){
+        setShowAction(true)
+        setActionId(id)
+        setActionJs('')
+      }
     }
+  }
+
+  const submitAction = () => {
+    setShowAction(false);
+    if(!atrributeMap[actionId]){
+      atrributeMap[actionId] = {}
+    }
+    atrributeMap[actionId].actionJs = actionJs;
+    setAttributeMap({...atrributeMap})
+  }
+
+  const changeActionJs = (e) => {
+    setActionJs(e.target.value)
   }
 
   return (
@@ -102,10 +124,14 @@ export default function RenderCom(props) {
       {comList.map(item => {
         const Com = item.component;
         return <div id={item.dragId} key={item.dragId} onDragStart={onDragStart} draggable style={item.style}>
-          {<Com onContextMenu={onContextMenu(item)} attributeValue={atrributeMap[item.dragId]?.attributeValue} onClick={onSelect(item)} className={item.selected? 'selected':''} />}
+          {<Com actionJs={atrributeMap[item.dragId]?.actionJs} onContextMenu={onContextMenu(item)} attributeValue={atrributeMap[item.dragId]?.attributeValue} onClick={onSelect(item)} className={item.selected? 'selected':''} />}
           <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
         </div>
       })}
+      <div style={{display: showAction ? 'block' : 'none'}} className='editAction'>
+        <input onChange={changeActionJs} value={actionJs}  type={'textarea'} style={{width: '300px',height:'100px'}}></input>
+        <button onClick={submitAction}>确定</button>
+      </div>
     </div>
   )
 }
