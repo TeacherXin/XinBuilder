@@ -27,6 +27,8 @@ export default function RightClickMenu(props) {
       //动作弹窗
       }else if(type === 'action'){
         changeRightPanelById(['attributeValue'],'action');
+      }else if(type === 'style'){
+        changeRightPanelById(['attributeValue'],'style');
       }
     }
   }
@@ -35,7 +37,7 @@ export default function RightClickMenu(props) {
     <div>
       <div style={{position: 'relative',left: left + 'px',display: showMenu? 'block':'none'}} className='menu'>
         <p onClick={showRightPanel('attribute')} className='menuItem'>设置属性</p>
-        <p className='menuItem'>设置样式</p>
+        <p onClick={showRightPanel('style')} className='menuItem'>设置样式</p>
         <p onClick={showRightPanel('action')} className='menuItem'>设置动作</p>
       </div>
 

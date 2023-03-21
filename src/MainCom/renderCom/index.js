@@ -1,6 +1,7 @@
 import {React, useEffect, useState} from 'react'
 import RightClickMenu from './rightClickMenu';
 import EditAction from './editAction'
+import EditStyle from './editStyle';
 import './index.css'
 
 export default function RenderCom(props) {
@@ -13,16 +14,23 @@ export default function RenderCom(props) {
   const [actionJs,setActionJs] = useState('')
   //确定当前动作的节点
   const [actionId,setActionId] = useState()
+  //展示样式弹窗
+  const [showStyle, setShowStyle] = useState(false)
+  //样式css代码
+  const [styleCss,setStyleCss] = useState('')
+  //确定当前样式的节点
+  const [styleId, setStyleId] = useState('')
   const { NowCom , changeRightPanel, atrributeMap, setAttributeMap, comId} = props
   let nowComId = ''
   let startLeft,startTop,endLeft,endTop,itemLeft,itemTop,itemWidth,itemHeight;
   //用来判断是左侧列表拖拽还是画布区拖拽
   let dragCom = null;
 
-  //初始化动作内容
+  //初始化动作和样式内容
   useEffect(() => {
     setActionJs(atrributeMap[actionId]?.actionJs)
-  },[showAction])
+    setStyleCss(atrributeMap[styleId]?.styleCss)
+  },[showAction,showStyle])
 
   const onDrop = (e) => {
     //用来确定拖拽的节点的位置
@@ -114,6 +122,10 @@ export default function RenderCom(props) {
         setActionId(id)
         setActionJs('')
         setShowAction(true)
+      }else if(type === 'style'){
+        setStyleId(id)
+        setStyleCss('')
+        setShowStyle(true)
       }
     }
   }
@@ -132,8 +144,26 @@ export default function RenderCom(props) {
     }
   }
 
+  //给组件绑定样式
+  const submitStyle = (flag) => {
+    return () => {
+      if(flag){
+        if(!atrributeMap[styleId]){
+          atrributeMap[styleId] = {}
+        }
+        atrributeMap[styleId].styleCss = styleCss;
+        setAttributeMap({...atrributeMap})
+      }
+      setShowStyle(false);
+    }
+  }
+
   const changeActionJs = (e) => {
     setActionJs(e.target.value)
+  }
+
+  const changeStyleCss = (e) => {
+    setStyleCss(e.target.value)
   }
 
   return (
@@ -141,11 +171,12 @@ export default function RenderCom(props) {
       {comList.map(item => {
         const Com = item.component;
         return <div id={item.dragId} key={item.dragId} onDragStart={onDragStart} draggable style={item.style}>
-          {<Com actionJs={atrributeMap[item.dragId]?.actionJs} onContextMenu={onContextMenu(item)} attributeValue={atrributeMap[item.dragId]?.attributeValue} onClick={onSelect(item)} className={item.selected? 'selected':''} />}
+          {<Com styleCss={atrributeMap[item.dragId]?.styleCss} actionJs={atrributeMap[item.dragId]?.actionJs} onContextMenu={onContextMenu(item)} attributeValue={atrributeMap[item.dragId]?.attributeValue} onClick={onSelect(item)} className={item.selected? 'selected':''} />}
           <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
         </div>
       })}
       <EditAction showAction={showAction} changeActionJs={changeActionJs} actionJs={actionJs} submitAction={submitAction} />
+      <EditStyle showStyle={showStyle} changeStyleCss={changeStyleCss} styleCss={styleCss} submitStyle={submitStyle} />
     </div>
   )
 }

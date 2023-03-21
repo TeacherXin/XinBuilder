@@ -1,0 +1,15 @@
+.styleFooter{
+  width: 120px;
+  position: absolute;
+  display: flex;
+  left: 815px;
+  top: 409px;
+  justify-content: space-between;
+}
+.editStyle .textarea{
+  position: absolute;
+  left: 330px;
+  width: 600px;
+  height: 400px;
+  resize: none;
+}
