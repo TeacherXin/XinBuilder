@@ -13,9 +13,9 @@ export default function Button(props) {
 
   const btnClick = () => {
     onClick();
-    let script = document.createElement('script')
+    let script = document.createElement('script');
     script.innerHTML = actionJs
-    document.getElementById('componentButton').append(script)
+    document.body.append(script)
   }
 
   return (
