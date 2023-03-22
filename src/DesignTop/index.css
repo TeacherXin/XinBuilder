@@ -1,0 +1,14 @@
+.designTop{
+  position: absolute;
+  left: 20%;
+  height: 40px;
+  background-color: rgb(225, 240, 216);
+  width: 60%;
+}
+
+.designTop button{
+  position: absolute;
+  right: 20px;
+  top: 7px;
+  width: 100px;
+}

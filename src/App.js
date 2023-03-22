@@ -2,6 +2,7 @@ import './App.css';
 import LeftCom from './MainCom/leftCom';
 import RightCom from './MainCom/rightCom';
 import RenderCom from './MainCom/renderCom';
+import DesignTop from './DesignTop';
 import { useState } from 'react';
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
 
   return (
     <div className="App">
+      <DesignTop></DesignTop>
       <LeftCom changeTopCom={changeTopCom}></LeftCom>
       <RenderCom setAttributeMap={setAttributeMap} comId={comId} atrributeMap={atrributeMap} changeRightPanel={changeRightPanel}  NowCom={nowCom}></RenderCom>
       <RightCom comId={comId} atrributeMapRight={atrributeMap} setRightAttributeMap={setRightAttributeMap} rightPanel={rightPanel}></RightCom>
