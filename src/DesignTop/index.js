@@ -2,12 +2,13 @@ import React from 'react'
 import './index.css'
 import { useNavigate } from "react-router-dom"; 
 
-export default function DesignTop() {
+export default function DesignTop(props) {
 
   const navigate  = useNavigate();
+  const {atrributeMap} = props
 
   const toMetaRender = () => {
-    navigate('/metaRender')
+    navigate('/metaRender',{state: atrributeMap})
   }
 
   return (

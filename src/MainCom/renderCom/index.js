@@ -20,6 +20,7 @@ export default function RenderCom(props) {
   const [styleCss,setStyleCss] = useState('')
   //确定当前样式的节点
   const [styleId, setStyleId] = useState('')
+
   const { NowCom , changeRightPanel, atrributeMap, setAttributeMap, comId} = props
   let nowComId = ''
   let startLeft,startTop,endLeft,endTop,itemLeft,itemTop,itemWidth,itemHeight;
@@ -59,10 +60,15 @@ export default function RenderCom(props) {
     const com = comList.find(item => item.dragId === nowComId);
     if(com){
       com.style = style;
-      setComList([...comList])
+      setComList([...comList]);
+      atrributeMap[com.dragId].position = {left: style.left,top: style.top}
     }else{
-      setComList([...comList,{component: dragCom || NowCom.component, style,dragId: NowCom.name + e.clientX,code: NowCom.name}])
+      setComList([...comList,{component: dragCom || NowCom.component, style,dragId: NowCom.name + e.clientX,code: NowCom.name}]);
+      atrributeMap[NowCom.name + e.clientX] = {}
+      atrributeMap[NowCom.name + e.clientX].position = {left: style.left,top: style.top}
+      atrributeMap[NowCom.name + e.clientX].comType = NowCom.name
     }
+    setAttributeMap(atrributeMap)
   }
 
 
