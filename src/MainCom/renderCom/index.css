@@ -1,5 +1,8 @@
 .renderCom{
   flex:1;
+  background-color: #e0e5ec;
+  margin-top: 40px;
+  height: 100%;
 }
 .selected{
   border: 1.3px solid blue;

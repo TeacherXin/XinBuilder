@@ -1,9 +1,8 @@
 .designTop{
   position: absolute;
-  left: 20%;
   height: 40px;
   background-color: rgb(225, 240, 216);
-  width: 60%;
+  width: 100%;
 }
 
 .designTop button{

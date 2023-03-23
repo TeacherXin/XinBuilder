@@ -13,7 +13,7 @@ export default function DesignTop(props) {
 
   return (
     <div className='designTop'>
-      <button onClick={toMetaRender}>预览</button>
+      <button onClick={toMetaRender}>展示</button>
     </div>
   )
 }

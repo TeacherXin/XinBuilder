@@ -1,9 +1,10 @@
 .rightCom{
   height: 100%;
-  background-color:beige;
   width: 20%;
   position: absolute;
+  background-color: rgb(254, 254, 254);
   right: 0;
+  margin-top: 40px;
 }
 
 .attributeItem{

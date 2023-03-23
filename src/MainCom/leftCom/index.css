@@ -1,15 +1,18 @@
 .leftCom{
+  margin-top: 40px;
   height: 100%;
-  background-color:aliceblue;
   width: 20%;
 }
 
 .componentList{
   margin-top: 20px;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .componentItem{
-  width: 200px;
+  width: 80px;
   height: 30px;
   margin-top: 10px;
   margin-left: 15px;
