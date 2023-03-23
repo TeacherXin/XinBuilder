@@ -1,7 +1,7 @@
 import {React, useEffect, useState} from 'react'
 import RightClickMenu from './rightClickMenu';
-import EditAction from './editAction'
-import EditStyle from './editStyle';
+import EditAction from '../../Modal/editAction'
+import EditStyle from '../../Modal/editStyle';
 import './index.css'
 
 export default function RenderCom(props) {
@@ -11,7 +11,7 @@ export default function RenderCom(props) {
   //展示动作弹窗
   const [showAction, setShowAction] = useState(false)
   //动作JS代码
-  const [actionJs,setActionJs] = useState('')
+  const [actionJs,setActionJs] = useState({})
   //确定当前动作的节点
   const [actionId,setActionId] = useState()
   //展示样式弹窗
@@ -126,7 +126,7 @@ export default function RenderCom(props) {
         changeRightPanel(list,id)
       }else if(type === 'action'){
         setActionId(id)
-        setActionJs('')
+        setActionJs({})
         setShowAction(true)
       }else if(type === 'style'){
         setStyleId(id)
@@ -137,13 +137,16 @@ export default function RenderCom(props) {
   }
 
   //给组件绑定事件
-  const submitAction = (flag) => {
+  const submitAction = (flag,actionName) => {
     return () => {
       if(flag){
         if(!atrributeMap[actionId]){
           atrributeMap[actionId] = {}
         }
-        atrributeMap[actionId].actionJs = actionJs;
+        if(!atrributeMap[actionId].actionJs){
+          atrributeMap[actionId].actionJs = {}
+        }
+        atrributeMap[actionId].actionJs[actionName] = actionJs[actionName];
         setAttributeMap({...atrributeMap})
       }
       setShowAction(false);
@@ -164,8 +167,12 @@ export default function RenderCom(props) {
     }
   }
 
-  const changeActionJs = (e) => {
-    setActionJs(e.target.value)
+  const changeActionJs = (actionName) => {
+    return (e) => {
+      const actionJs = {};
+      actionJs[actionName] = e.target.value
+      setActionJs(actionJs)
+    }
   }
 
   const changeStyleCss = (e) => {

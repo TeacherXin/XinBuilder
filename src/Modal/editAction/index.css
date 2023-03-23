@@ -1,0 +1,34 @@
+.actinFooter{
+  width: 120px;
+  position: absolute;
+  display: flex;
+  left: 447px;
+  top: 409px;
+  justify-content: space-between;
+}
+.editAction .textarea{
+  position: absolute;
+  left: -40px;
+  width: 600px;
+  height: 400px;
+  resize: none;
+}
+
+.editAction .tab{
+  display: inline-block;
+  width: 100px;
+  height: 30px;
+  border: 1px solid rgb(209, 209, 233);
+  margin-right: 100px;
+  margin-bottom: 1px;
+  text-align: center;
+  line-height: 26px;
+}
+
+.editAction .tab:hover{
+  background-color: rgb(194, 191, 241);
+}
+
+.selected {
+  background-color: rgb(147, 141, 237);
+}
