@@ -21,6 +21,8 @@ export default function RenderCom(props) {
   //确定当前样式的节点
   const [styleId, setStyleId] = useState('')
 
+  const [actionName, setActionName] = useState('click')
+
   const { NowCom , changeRightPanel, atrributeMap, setAttributeMap, comId} = props
   let nowComId = ''
   let startLeft,startTop,endLeft,endTop,itemLeft,itemTop,itemWidth,itemHeight;
@@ -121,13 +123,14 @@ export default function RenderCom(props) {
 
   //根据组件的id来更改右侧属性面板
   const changeRightPanelById = (id) => {
-    return (list,type) => {
+    return (list,type,actionName) => {
       if(type === 'attribute'){
         changeRightPanel(list,id)
       }else if(type === 'action'){
         setActionId(id)
         setActionJs({})
         setShowAction(true)
+        setActionName(actionName)
       }else if(type === 'style'){
         setStyleId(id)
         setStyleCss('')
@@ -137,7 +140,7 @@ export default function RenderCom(props) {
   }
 
   //给组件绑定事件
-  const submitAction = (flag,actionName) => {
+  const submitAction = (flag) => {
     return () => {
       if(flag){
         if(!atrributeMap[actionId]){
@@ -146,7 +149,7 @@ export default function RenderCom(props) {
         if(!atrributeMap[actionId].actionJs){
           atrributeMap[actionId].actionJs = {}
         }
-        atrributeMap[actionId].actionJs[actionName] = actionJs[actionName];
+        atrributeMap[actionId].actionJs[actionName] = actionJs?.[actionName];
         setAttributeMap({...atrributeMap})
       }
       setShowAction(false);
@@ -167,12 +170,10 @@ export default function RenderCom(props) {
     }
   }
 
-  const changeActionJs = (actionName) => {
-    return (e) => {
-      const actionJs = {};
-      actionJs[actionName] = e.target.value
-      setActionJs(actionJs)
-    }
+  const changeActionJs = (e) => {
+    const actionJs = {};
+    actionJs[actionName] = e.target.value
+    setActionJs(actionJs)
   }
 
   const changeStyleCss = (e) => {
@@ -188,7 +189,7 @@ export default function RenderCom(props) {
           <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
         </div>
       })}
-      <EditAction showAction={showAction} changeActionJs={changeActionJs} actionJs={actionJs} submitAction={submitAction} />
+      <EditAction actionName={actionName} showAction={showAction} changeActionJs={changeActionJs} actionJs={actionJs} submitAction={submitAction} />
       <EditStyle showStyle={showStyle} changeStyleCss={changeStyleCss} styleCss={styleCss} submitStyle={submitStyle} />
     </div>
   )

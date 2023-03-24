@@ -8,7 +8,7 @@ export default function Input(props) {
 
   const onClick = () => {
     let script = document.createElement('script');
-    script.innerHTML = actionJs.click
+    script.innerHTML = actionJs?.click
     document.body.append(script)
   }
   const onChange = (e) =>{
