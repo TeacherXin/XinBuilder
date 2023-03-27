@@ -185,7 +185,14 @@ export default function RenderCom(props) {
       {comList.map(item => {
         const Com = item.component;
         return <div id={item.dragId} key={item.dragId} onDragStart={onDragStart} draggable style={item.style}>
-          {<Com styleCss={atrributeMap[item.dragId]?.styleCss} actionJs={atrributeMap[item.dragId]?.actionJs} onContextMenu={onContextMenu(item)} attributeValue={atrributeMap[item.dragId]?.attributeValue} onClick={onSelect(item)} className={item.selected? 'selected':''} />}
+          {<Com 
+            styleCss={atrributeMap[item.dragId]?.styleCss}
+            actionJs={atrributeMap[item.dragId]?.actionJs}
+            onContextMenu={onContextMenu(item)}
+            attributeValue={atrributeMap[item.dragId]?.attributeValue}
+            onClick={onSelect(item)}
+            className={item.selected? 'selected':''}
+            />}
           <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
         </div>
       })}

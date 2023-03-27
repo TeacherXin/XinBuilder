@@ -27,11 +27,11 @@ function App() {
     setRightPanel({...rightPanel})
   }
 
-  const setRightAttributeMap = (value,id) => {
+  const setRightAttributeMap = (value,id,name) => {
     if(!atrributeMap[id]){
       atrributeMap[id] = {}
     }
-    atrributeMap[id].attributeValue = value.attributeValue;
+    atrributeMap[id][name] = value[name];
     setAttributeMap({...atrributeMap})
   }
 

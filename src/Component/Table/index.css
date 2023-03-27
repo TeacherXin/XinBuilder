@@ -1,0 +1,26 @@
+.componentTable{
+  border-collapse: collapse;
+}
+
+.componentTable tr{
+  border-bottom: 0.1px solid #00000040;
+  border-top: 0.1px solid #00000040;
+  height: 30px;
+  font-size: 14px;
+}
+.componentTable th{
+  background-color: #f7f9fd;
+  width: 100px;
+  text-align: left;
+}
+.componentTable td{
+  width: 100px;
+}
+
+.componentTable td:hover{
+  border: 1px solid blue;
+}
+
+.componentTable th:hover{
+  border: 1px solid blue;
+}

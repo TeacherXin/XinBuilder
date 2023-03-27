@@ -10,7 +10,7 @@ export default function RightCom(props) {
   const onChange = (name) => {
     return (e) => {
       attributeMap[name] = e.target.value;
-      setRightAttributeMap({...attributeMap},comId);
+      setRightAttributeMap({...attributeMap},comId,name);
     }
   }
 
