@@ -8,13 +8,19 @@ export default function Table(props) {
   const [tableData,setTableData] = useState([[]])
 
   const [showModal,setShowModal] = useState(true)
-  const {onContextMenu,actionJs,styleCss} = props
+  const {onContextMenu,actionJs,styleCss,changeTableData,tableRes,renderFlag} = props
 
   useEffect(() => {
     let css = document.createElement('style');
     css.innerHTML = styleCss;
     document.body.append(css)
   },[styleCss])
+
+  useEffect(() => {
+    if(changeTableData){
+      changeTableData(tableData)
+    }
+  },[tableData])
 
   const changeRow = (e) => {
     if(e.target.value === ''){
@@ -53,6 +59,9 @@ export default function Table(props) {
 
   const changeTableItem = (item) => {
     return () => {
+      if(renderFlag){
+        return;
+      }
       item.showInput = true
       setTableData([...tableData])
     }
@@ -74,16 +83,16 @@ export default function Table(props) {
 
   return (
     <div onContextMenu={onContextMenu}>
-      <table className='componentTable' style={{display: showModal ? 'none' : 'block'}}>
+      <table className={renderFlag? 'renderComponentTable' : 'componentTable'} style={{display: showModal && !renderFlag ? 'none' : 'block'}}>
         {
           <tr>
-            {tableData[0].map(item => {
+            {tableRes?.[0].map(item => {
               return <th onDoubleClick={changeTableItem(item)}>{item.showInput ? <input value={item.caption} onChange={changeItemValue(item)} onBlur={blurItemValue(item)} /> : item.caption}</th>
             })}
           </tr>
         }
         {
-          tableData.slice(1).map(item => {
+          (tableRes || []).slice(1).map(item => {
             return <tr>
               {
                 item.map(item => {
@@ -94,7 +103,7 @@ export default function Table(props) {
           })
         }
       </table>
-      <div style={{display: showModal ? 'block' : 'none'}}>
+      <div style={{display: showModal && !renderFlag ? 'block' : 'none'}}>
         <input onChange={changeRow} placeholder='请输入表格行数' />
         <input onChange={changeCol} placeholder='请输入表格列数' />
         <button onClick={submitData}>确定</button>

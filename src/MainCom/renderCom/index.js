@@ -180,6 +180,17 @@ export default function RenderCom(props) {
     setStyleCss(e.target.value)
   }
 
+  //用来保存表格的内容
+  const changeTableData = (dragId) => {
+    return (tableData) => {
+      if(!atrributeMap[dragId]){
+        atrributeMap[dragId] = {}
+      }
+      atrributeMap[dragId].tableData = tableData
+      setAttributeMap({...atrributeMap})
+    }
+  }
+
   return (
     <div onClick={clearAllShowMenu} onDrop={onDrop} onDragOver={onDragOver} onDragEnter={onDragEnter} className='renderCom'>
       {comList.map(item => {
@@ -192,6 +203,8 @@ export default function RenderCom(props) {
             attributeValue={atrributeMap[item.dragId]?.attributeValue}
             onClick={onSelect(item)}
             className={item.selected? 'selected':''}
+            changeTableData={changeTableData(item.dragId)}
+            tableRes={atrributeMap[item.dragId]?.tableData}
             />}
           <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
         </div>
