@@ -23,6 +23,14 @@ export default function RenderCom(props) {
 
   const [actionName, setActionName] = useState('click')
 
+  //画布区选中多个节点的框需要的属性
+  const [mouseDownLeft,setMouseDownLeft] = useState()
+  const [mouseDownTop,setMouseDownTop] = useState()
+  const [mouseUpLeft,setMouseUpLeft] = useState()
+  const [mouseUpTop,setMouseUpTop] = useState()
+  const [mousedownFlag,setMousedownFlag] = useState(false)
+  const [showMouse,setShowMouse] = useState(false)
+
   const { NowCom , changeRightPanel, atrributeMap, setAttributeMap, comId} = props
   let nowComId = ''
   let startLeft,startTop,endLeft,endTop,itemLeft,itemTop,itemWidth,itemHeight;
@@ -48,7 +56,8 @@ export default function RenderCom(props) {
         left: (endLeft - startLeft) + itemLeft + 'px',
         top: (endTop - startTop) + itemTop + 'px',
         minWidth: itemWidth,
-        minHeight: itemHeight
+        minHeight: itemHeight,
+        zIndex:10
       }
     }else{
       style = {
@@ -56,7 +65,8 @@ export default function RenderCom(props) {
         left: e.clientX + 'px',
         top: e.clientY + 'px',
         minWidth: itemWidth,
-        minHeight: itemHeight
+        minHeight: itemHeight,
+        zIndex:10
       }
     }
     const com = comList.find(item => item.dragId === nowComId);
@@ -191,6 +201,26 @@ export default function RenderCom(props) {
     }
   }
 
+  //通过鼠标开始和结束的位置算显示选中的蓝色div
+  const mouseDown = (e) => {
+    setMouseDownLeft(e.clientX)
+    setMouseDownTop(e.clientY)
+    setMousedownFlag(true)
+    setShowMouse(false)
+  }
+
+  const mouseMove = (e) => {
+    if(mousedownFlag){
+      setMouseUpLeft(e.clientX)
+      setMouseUpTop(e.clientY)
+      setShowMouse(true)
+    }
+  }
+
+  const mouseUp = (e) => {
+    setMousedownFlag(false)
+  } 
+
   return (
     <div onClick={clearAllShowMenu} onDrop={onDrop} onDragOver={onDragOver} onDragEnter={onDragEnter} className='renderCom'>
       {comList.map(item => {
@@ -209,8 +239,10 @@ export default function RenderCom(props) {
           <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
         </div>
       })}
+      <div style={{border: showMouse?'1px solid blue':'',width: Math.abs(mouseUpLeft-mouseDownLeft)+'px',height:Math.abs(mouseUpTop-mouseDownTop)+'px',position:'absolute',left:mouseDownLeft<mouseUpLeft?mouseDownLeft:mouseUpLeft+'px',top:mouseDownTop<mouseUpTop?mouseDownTop:mouseUpTop+'px'}}></div>
       <EditAction actionName={actionName} showAction={showAction} changeActionJs={changeActionJs} actionJs={actionJs} submitAction={submitAction} />
       <EditStyle showStyle={showStyle} changeStyleCss={changeStyleCss} styleCss={styleCss} submitStyle={submitStyle} />
+      <div onMouseUp={mouseUp} onMouseMove={mouseMove} onMouseDown={mouseDown} style={{width:'100%',height:'100%',position:'absolute'}}></div>
     </div>
   )
 }

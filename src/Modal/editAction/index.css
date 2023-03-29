@@ -6,6 +6,11 @@
   top: 409px;
   justify-content: space-between;
 }
+
+.editAction{
+  position: absolute;
+  z-index: 100;
+}
 .editAction .textarea{
   position: absolute;
   left: -40px;
