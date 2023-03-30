@@ -2,3 +2,7 @@ button{
   min-width: 50px;
   min-height: 25px;
 }
+
+.selectedComponent{
+  border: 1.5px solid blue;
+}

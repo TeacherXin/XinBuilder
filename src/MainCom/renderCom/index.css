@@ -4,11 +4,12 @@
   margin-top: 40px;
   height: 100%;
 }
-.selected{
-  border: 1.3px solid blue;
-}
 
 .editAction{
   position: fixed;
   left: 30%;
+}
+
+.selectedComponent{
+  border: 1.3px solid blue;
 }

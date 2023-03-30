@@ -8,6 +8,9 @@ export default function RenderCom(props) {
 
   //用来存储画布区的所有组件，以及组件的属性
   const [comList, setComList] = useState([])
+
+  const [selectedComList,setSelectedComList] = useState([])
+
   //展示动作弹窗
   const [showAction, setShowAction] = useState(false)
   //动作JS代码
@@ -52,7 +55,7 @@ export default function RenderCom(props) {
     let style;
     if(startLeft && startTop){
       style = {
-        position: 'absolute',
+        position: 'fixed',
         left: (endLeft - startLeft) + itemLeft + 'px',
         top: (endTop - startTop) + itemTop + 'px',
         minWidth: itemWidth,
@@ -61,7 +64,7 @@ export default function RenderCom(props) {
       }
     }else{
       style = {
-        position: 'absolute',
+        position: 'fixed',
         left: e.clientX + 'px',
         top: e.clientY + 'px',
         minWidth: itemWidth,
@@ -219,30 +222,66 @@ export default function RenderCom(props) {
 
   const mouseUp = (e) => {
     setMousedownFlag(false)
-  } 
+    setShowMouse(false)
+    getAllSelectedNode()
+  }
+
+  const getAllSelectedNode = () => {
+    for(let i=0;i<comList.length;i++){
+      let left = parseInt(comList[i].style.left);
+      let top = parseInt(comList[i].style.top);
+      if(left > mouseDownLeft && left < mouseUpLeft && top > mouseDownTop && top < mouseUpTop){
+        let com = comList.splice(i,1)[0];
+        com.selected = true;
+        i--
+        selectedComList.push(com)
+      }
+    }
+    setComList([...comList]);
+    setSelectedComList([...selectedComList])
+  }
 
   return (
     <div onClick={clearAllShowMenu} onDrop={onDrop} onDragOver={onDragOver} onDragEnter={onDragEnter} className='renderCom'>
       {comList.map(item => {
         const Com = item.component;
         return <div id={item.dragId} key={item.dragId} onDragStart={onDragStart} draggable style={item.style}>
-          {<Com 
+          {<Com
             styleCss={atrributeMap[item.dragId]?.styleCss}
             actionJs={atrributeMap[item.dragId]?.actionJs}
             onContextMenu={onContextMenu(item)}
             attributeValue={atrributeMap[item.dragId]?.attributeValue}
             onClick={onSelect(item)}
-            className={item.selected? 'selected':''}
+            className={item.selected? 'selectedComponent':''}
             changeTableData={changeTableData(item.dragId)}
             tableRes={atrributeMap[item.dragId]?.tableData}
             />}
           <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
         </div>
       })}
-      <div style={{border: showMouse?'1px solid blue':'',width: Math.abs(mouseUpLeft-mouseDownLeft)+'px',height:Math.abs(mouseUpTop-mouseDownTop)+'px',position:'absolute',left:mouseDownLeft<mouseUpLeft?mouseDownLeft:mouseUpLeft+'px',top:mouseDownTop<mouseUpTop?mouseDownTop:mouseUpTop+'px'}}></div>
+      <div style={{border: showMouse?'1px solid blue':'',width: Math.abs(mouseUpLeft-mouseDownLeft)+'px',height:Math.abs(mouseUpTop-mouseDownTop)+'px',position:'absolute',left:mouseDownLeft<mouseUpLeft?mouseDownLeft:mouseUpLeft+'px',top:mouseDownTop<mouseUpTop?mouseDownTop:mouseUpTop+'px'}}>
+        <div draggable>
+          {selectedComList.map(item => {
+              const Com = item.component;
+              return <div id={item.dragId} key={item.dragId} style={item.style}>
+                {<Com
+                  styleCss={atrributeMap[item.dragId]?.styleCss}
+                  actionJs={atrributeMap[item.dragId]?.actionJs}
+                  onContextMenu={onContextMenu(item)}
+                  attributeValue={atrributeMap[item.dragId]?.attributeValue}
+                  onClick={onSelect(item)}
+                  className={item.selected? 'selectedComponent':''}
+                  changeTableData={changeTableData(item.dragId)}
+                  tableRes={atrributeMap[item.dragId]?.tableData}
+                  />}
+                <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
+              </div>
+            })}
+        </div>
+      </div>
       <EditAction actionName={actionName} showAction={showAction} changeActionJs={changeActionJs} actionJs={actionJs} submitAction={submitAction} />
       <EditStyle showStyle={showStyle} changeStyleCss={changeStyleCss} styleCss={styleCss} submitStyle={submitStyle} />
-      <div onMouseUp={mouseUp} onMouseMove={mouseMove} onMouseDown={mouseDown} style={{width:'100%',height:'100%',position:'absolute'}}></div>
+      <div onMouseUp={mouseUp} onMouseMove={mouseMove} onMouseDown={mouseDown} style={{width:'60%',height:'100%',position:'absolute'}}></div>
     </div>
   )
 }
