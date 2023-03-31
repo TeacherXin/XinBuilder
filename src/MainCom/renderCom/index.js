@@ -26,6 +26,15 @@ export default function RenderCom(props) {
 
   const [actionName, setActionName] = useState('click')
 
+  //全选节点的父节点样式
+  const [groupStyle,setGruopStyle] = useState({})
+  //是否全选
+  const [groupFlag,setGroupFlag] = useState(false)
+  //全选节点的父节点的宽度
+  const [groupWidth,setGroupWidth] = useState()
+  //全选节点的父节点的高度
+  const [groupHeight,setGroupHeight] = useState()
+
   //画布区选中多个节点的框需要的属性
   const [mouseDownLeft,setMouseDownLeft] = useState()
   const [mouseDownTop,setMouseDownTop] = useState()
@@ -72,6 +81,21 @@ export default function RenderCom(props) {
         zIndex:10
       }
     }
+
+    //拖拽的为多个节点
+    if(groupFlag){
+      setGruopStyle(style);
+      // setGroupFlag(false);
+      selectedComList.forEach(item => {
+        let style = JSON.parse(JSON.stringify(item.style))
+        style.left = parseInt(style.left) +  (endLeft - startLeft);
+        style.top = parseInt(style.top) +  (endTop - startTop);
+        item.style = style;
+      })
+      setSelectedComList([...selectedComList])
+      return;
+    }
+
     const com = comList.find(item => item.dragId === nowComId);
     if(com){
       com.style = style;
@@ -91,6 +115,16 @@ export default function RenderCom(props) {
     nowComId = e.target.id
     setComList(comList);
 
+    startLeft = e.clientX;
+    startTop = e.clientY;
+    itemLeft = e.target.offsetLeft;
+    itemTop = e.target.offsetTop;
+    itemWidth = e.target.offsetWidth;
+    itemHeight = e.target.offsetHeight;
+  }
+
+  //多个节点的拖拽方法
+  const dragGoupStart = (e) => {
     startLeft = e.clientX;
     startTop = e.clientY;
     itemLeft = e.target.offsetLeft;
@@ -224,6 +258,9 @@ export default function RenderCom(props) {
     setMousedownFlag(false)
     setShowMouse(false)
     getAllSelectedNode()
+    setGroupFlag(true);
+    setGroupWidth(mouseUpLeft-mouseDownLeft);
+    setGroupHeight(mouseUpTop-mouseDownTop)
   }
 
   const getAllSelectedNode = () => {
@@ -260,7 +297,7 @@ export default function RenderCom(props) {
         </div>
       })}
       <div style={{border: showMouse?'1px solid blue':'',width: Math.abs(mouseUpLeft-mouseDownLeft)+'px',height:Math.abs(mouseUpTop-mouseDownTop)+'px',position:'absolute',left:mouseDownLeft<mouseUpLeft?mouseDownLeft:mouseUpLeft+'px',top:mouseDownTop<mouseUpTop?mouseDownTop:mouseUpTop+'px'}}>
-        <div draggable>
+        <div style={{...groupStyle,width:Math.abs(groupWidth)+'px',height:Math.abs(groupHeight)+'px',position:'fixed',zIndex:'100'}} onDragStart={dragGoupStart} draggable>
           {selectedComList.map(item => {
               const Com = item.component;
               return <div id={item.dragId} key={item.dragId} style={item.style}>
