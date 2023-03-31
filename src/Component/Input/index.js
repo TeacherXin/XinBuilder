@@ -33,7 +33,7 @@ export default function Input(props) {
       <input 
         className='componentInput'
         onContextMenu={onContextMenu}
-        onClick={onClick} value={value}
+        onClick={onClick} value={value || ''}
         onChange={onChange}
       />
     </div>
