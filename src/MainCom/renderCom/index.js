@@ -292,7 +292,8 @@ export default function RenderCom(props) {
     setSelectedComList([...selectedComList])
   }
 
-  const setSameLeft = () => {
+  const setSameLeft = (e) => {
+    e.stopPropagation();
     let left = selectedComList[0].style.left;
     selectedComList.forEach(item => {
       item.style = {...item.style,left}
@@ -300,7 +301,8 @@ export default function RenderCom(props) {
     setSelectedComList([...selectedComList])
   }
 
-  const setSameTop = () => {
+  const setSameTop = (e) => {
+    e.stopPropagation();
     let top = selectedComList[0].style.top;
     selectedComList.forEach(item => {
       item.style = {...item.style,top}
@@ -308,11 +310,42 @@ export default function RenderCom(props) {
     setSelectedComList([...selectedComList])
   }
 
+  const deleteCom = (e) => {
+    e.stopPropagation();
+    setSelectedComList([])
+    setGroupFlag(false)
+  }
+
+  const copyCom = (e) => {
+    e.stopPropagation();
+    let copySelectedList = [];
+    for(let i=0;i<selectedComList.length;i++){
+      let newCom = {
+        code: selectedComList[i].code,
+        component: selectedComList[i].component,
+        dragId: selectedComList[i].dragId + 'copy',
+        selected: true,
+        style: {
+          position: 'fixed',
+          left: parseInt(selectedComList[i].style.left) + 100 + 'px',
+          top: parseInt(selectedComList[i].style.top) + 100 + 'px',
+          zIndex: selectedComList[i].style.zIndex,
+          minHeight: selectedComList[i].style.minHeight,
+          minWidth: selectedComList[i].style.minWidth
+        }
+      }
+      copySelectedList.push(newCom)
+    }
+    setSelectedComList([...selectedComList,...copySelectedList])
+  }
+
   return (
     <div onClick={clearAllShowMenu} onDrop={onDrop} onDragOver={onDragOver} onDragEnter={onDragEnter} className='renderCom'>
       <div style={{display: groupFlag? 'block' : 'none'}} className='topMenu'>
         <p className='topMenuItem' onClick={setSameLeft}>左对齐</p>
         <p className='topMenuItem' onClick={setSameTop}>上对齐</p>
+        <p className='topMenuItem' onClick={deleteCom}>删除</p>
+        <p className='topMenuItem' onClick={copyCom}>复制</p>
       </div>
       {comList.map(item => {
         const Com = item.component;
