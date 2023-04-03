@@ -7,14 +7,14 @@ export default function MetaRender() {
 
   return (
     <div>
-      {Object.keys(state).map(item => {
+      {Object.keys(state).map((item,index) => {
         const Com = myComponent[state[item].comType];
         const style = {
           position: 'absolute',
           left: state[item].position.left,
           top: state[item].position.top,
         }
-        return <div id={item} style={style}>
+        return <div key={index} id={item} style={style}>
           <Com renderFlag={true} onClick={()=>{}} tableRes={state?.[item]?.tableData} attributeValue={state[item]?.attributeValue} styleCss={state[item]?.styleCss} actionJs={state[item]?.actionJs}/>
         </div>
       })}

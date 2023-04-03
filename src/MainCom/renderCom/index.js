@@ -98,8 +98,14 @@ export default function RenderCom(props) {
         const index = comList.findIndex(item => item.dragId === node.dragId);
         if(index === -1){
           list.push(node);
+          const attributeItem = atrributeMap[node.dragId];
+          attributeItem.position = {
+            left: node.style.left + 'px',
+            top: node.style.top + 'px'
+          }
         }
       }
+      setAttributeMap({...atrributeMap})
       setComList(list);
       setSelectedComList([])
       setGroupFlag(false)
@@ -296,35 +302,50 @@ export default function RenderCom(props) {
     e.stopPropagation();
     let left = selectedComList[0].style.left;
     selectedComList.forEach(item => {
-      item.style = {...item.style,left}
+      item.style = {...item.style,left};
+      atrributeMap[item.dragId].position = {
+        left: item.style.left,
+        top: item.style.top
+      }
     })
     setSelectedComList([...selectedComList])
+    setAttributeMap({...atrributeMap})
   }
 
   const setSameTop = (e) => {
     e.stopPropagation();
     let top = selectedComList[0].style.top;
     selectedComList.forEach(item => {
-      item.style = {...item.style,top}
+      item.style = {...item.style,top};
+      atrributeMap[item.dragId].position = {
+        left: item.style.left,
+        top: item.style.top
+      }
     })
     setSelectedComList([...selectedComList])
+    setAttributeMap({...atrributeMap})
   }
 
   const deleteCom = (e) => {
+    selectedComList.forEach(item => {
+      delete atrributeMap[item.dragId];
+    })
     e.stopPropagation();
-    setSelectedComList([])
-    setGroupFlag(false)
+    setSelectedComList([]);
+    setGroupFlag(false);
+    setAttributeMap({...atrributeMap})
   }
 
   const copyCom = (e) => {
     e.stopPropagation();
     let copySelectedList = [];
     for(let i=0;i<selectedComList.length;i++){
+      selectedComList[i].selected = false
       let newCom = {
         code: selectedComList[i].code,
         component: selectedComList[i].component,
-        dragId: selectedComList[i].dragId + 'copy',
-        selected: true,
+        dragId: selectedComList[i].dragId + new Date().getTime(),
+        selected: false,
         style: {
           position: 'fixed',
           left: parseInt(selectedComList[i].style.left) + 100 + 'px',
@@ -334,9 +355,19 @@ export default function RenderCom(props) {
           minWidth: selectedComList[i].style.minWidth
         }
       }
+      atrributeMap[newCom.dragId] = {
+        comType: selectedComList[i].code,
+        position: {
+          left: newCom.style.left,
+          top: newCom.style.top
+        }
+      }
       copySelectedList.push(newCom)
     }
-    setSelectedComList([...selectedComList,...copySelectedList])
+    setAttributeMap({...atrributeMap});
+    setComList([...comList,...selectedComList,...copySelectedList]);
+    setSelectedComList([]);
+    setGroupFlag(false)
   }
 
   return (
