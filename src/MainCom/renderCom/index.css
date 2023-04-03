@@ -13,3 +13,25 @@
 .selectedComponent{
   border: 1.3px solid blue;
 }
+
+.renderCom .topMenu{
+  width: 200px;
+  display: flex;
+  position: absolute;
+  z-index: 1000;
+}
+
+.renderCom .topMenu .topMenuItem{
+  font-size: 14px;
+  width: 60px;
+  height: 30px;
+  border: 1px solid burlywood;
+  margin-left: 10px;
+  text-align: center;
+  line-height: 30px;
+}
+
+.renderCom .topMenu .topMenuItem:hover{
+  border: 1px solid blue;
+  cursor: pointer;
+}

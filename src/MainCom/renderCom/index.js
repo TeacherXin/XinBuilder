@@ -271,7 +271,7 @@ export default function RenderCom(props) {
     setShowMouse(false)
     getAllSelectedNode()
     setGroupWidth(mouseUpLeft-mouseDownLeft);
-    setGroupHeight(mouseUpTop-mouseDownTop)
+    setGroupHeight(mouseUpTop-mouseDownTop);
   }
 
   const getAllSelectedNode = () => {
@@ -292,8 +292,28 @@ export default function RenderCom(props) {
     setSelectedComList([...selectedComList])
   }
 
+  const setSameLeft = () => {
+    let left = selectedComList[0].style.left;
+    selectedComList.forEach(item => {
+      item.style = {...item.style,left}
+    })
+    setSelectedComList([...selectedComList])
+  }
+
+  const setSameTop = () => {
+    let top = selectedComList[0].style.top;
+    selectedComList.forEach(item => {
+      item.style = {...item.style,top}
+    })
+    setSelectedComList([...selectedComList])
+  }
+
   return (
     <div onClick={clearAllShowMenu} onDrop={onDrop} onDragOver={onDragOver} onDragEnter={onDragEnter} className='renderCom'>
+      <div style={{display: groupFlag? 'block' : 'none'}} className='topMenu'>
+        <p className='topMenuItem' onClick={setSameLeft}>左对齐</p>
+        <p className='topMenuItem' onClick={setSameTop}>上对齐</p>
+      </div>
       {comList.map(item => {
         const Com = item.component;
         return <div id={item.dragId} key={item.dragId} onDragStart={onDragStart} draggable style={item.style}>
