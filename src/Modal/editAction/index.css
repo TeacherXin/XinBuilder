@@ -10,6 +10,7 @@
 .editAction{
   position: absolute;
   z-index: 100;
+  top: 100px;
 }
 .editAction .textarea{
   position: absolute;

@@ -1,7 +1,6 @@
 .renderCom{
   flex:0.75;
   background-color: #e0e5ec;
-  margin-top: 40px;
   height: 100%;
 }
 
@@ -19,6 +18,7 @@
   display: flex;
   position: absolute;
   z-index: 1000;
+  top: 50px;
 }
 
 .renderCom .topMenu .topMenuItem{

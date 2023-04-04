@@ -3,6 +3,7 @@
   height: 40px;
   background-color: rgb(225, 240, 216);
   width: 100%;
+  z-index: 10;
 }
 
 .designTop button{

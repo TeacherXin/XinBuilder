@@ -1,11 +1,10 @@
 .leftCom{
-  margin-top: 40px;
   height: 100%;
   width: 20%;
 }
 
 .componentList{
-  margin-top: 20px;
+  margin-top: 60px;
   display: flex;
   width: 100%;
   flex-wrap: wrap;

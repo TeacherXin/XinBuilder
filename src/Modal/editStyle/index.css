@@ -9,6 +9,7 @@
 .editStyle{
   position: absolute;
   z-index: 100;
+  top: 100px;
 }
 .editStyle .textarea{
   position: absolute;
