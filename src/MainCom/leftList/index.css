@@ -1,0 +1,15 @@
+.leftList .toDownicon{
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  text-align: center;
+  line-height: 14px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.leftList .leftAttributeItem{
+  border-bottom: 1px solid black;
+}

@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import './index.css'
 import * as myComponent from '../../Component'
+import LeftList from '../leftList'
 
 export default function LeftCom(props) {
 
-  const {changeTopCom} = props
+  const {changeTopCom,atrributeMap} = props
+  const [selected,setSelected] = useState(1)
 
   const onDragStart = (Com,cName) =>{
     return () => {
@@ -19,7 +21,12 @@ export default function LeftCom(props) {
 
   return (
     <div className='leftCom'>
-      <div className='componentList'>
+      <div className='Tab'>
+        <p onClick={() => {setSelected(1)}} style={{background: selected === 1? '#fff':''}} className='TabItem'>组件</p>
+        <p onClick={() => {setSelected(2)}} style={{background: selected === 2? '#fff':''}} className='TabItem'>数据</p>
+      </div>
+      {
+        selected === 1 ?       <div className='componentList'>
         {/*遍历组件库，然后依次在左侧列表展示*/}
         {Object.keys(myComponent).map(cName => {
           const Com = myComponent[cName];
@@ -33,7 +40,8 @@ export default function LeftCom(props) {
             <div style={{display: 'inline-block'}} draggable>{leftCom}</div>
         </div>
         })}
-      </div>
+      </div> : <LeftList atrributeMap={atrributeMap} />
+      }
     </div>
   )
 }

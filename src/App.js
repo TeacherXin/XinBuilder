@@ -39,7 +39,7 @@ function App() {
   return (
     <div className="App">
       <DesignTop atrributeMap={atrributeMap}></DesignTop>
-      <LeftCom changeTopCom={changeTopCom}></LeftCom>
+      <LeftCom atrributeMap={atrributeMap} changeTopCom={changeTopCom}></LeftCom>
       <RenderCom setAttributeMap={setAttributeMap} comId={comId} atrributeMap={atrributeMap} changeRightPanel={changeRightPanel}  NowCom={nowCom}></RenderCom>
       <RightCom comId={comId} atrributeMapRight={atrributeMap} setRightAttributeMap={setRightAttributeMap} rightPanel={rightPanel}></RightCom>
     </div>

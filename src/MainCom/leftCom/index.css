@@ -3,8 +3,23 @@
   width: 20%;
 }
 
+.leftCom .Tab{
+  display: flex;
+  position: relative;
+  top: 24px;
+}
+
+.leftCom .Tab .TabItem{
+  flex: 1;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+
 .componentList{
-  margin-top: 60px;
+  margin-top: 40px;
   display: flex;
   width: 100%;
   flex-wrap: wrap;
