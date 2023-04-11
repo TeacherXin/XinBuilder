@@ -13,8 +13,6 @@ function App() {
   const [rightPanel,setRightPanel] = useState({})
   //用来存储当前组件的id
   const [comId,setComId] = useState()
-  //用来存储组件的属性值列表
-  const [atrributeMap,setAttributeMap] = useState({})
 
   //左侧组件列表拖拽时更新nowCom
   const changeTopCom =(Com) => {
@@ -27,21 +25,13 @@ function App() {
     setRightPanel({...rightPanel})
   }
 
-  const setRightAttributeMap = (value,id,name) => {
-    if(!atrributeMap[id]){
-      atrributeMap[id] = {}
-    }
-    atrributeMap[id][name] = value[name];
-    setAttributeMap({...atrributeMap})
-  }
-
 
   return (
     <div className="App">
-      <DesignTop atrributeMap={atrributeMap}></DesignTop>
-      <LeftCom atrributeMap={atrributeMap} changeTopCom={changeTopCom}></LeftCom>
-      <RenderCom setAttributeMap={setAttributeMap} comId={comId} atrributeMap={atrributeMap} changeRightPanel={changeRightPanel}  NowCom={nowCom}></RenderCom>
-      <RightCom comId={comId} atrributeMapRight={atrributeMap} setRightAttributeMap={setRightAttributeMap} rightPanel={rightPanel}></RightCom>
+      <DesignTop></DesignTop>
+      <LeftCom changeTopCom={changeTopCom}></LeftCom>
+      <RenderCom comId={comId} changeRightPanel={changeRightPanel}  NowCom={nowCom}></RenderCom>
+      <RightCom comId={comId} rightPanel={rightPanel}></RightCom>
     </div>
   );
 }

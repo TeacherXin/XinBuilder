@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import './index.css'
 import * as myComponent from '../../Component'
 import LeftList from '../leftList'
+import Store from '../../Store'
 
 export default function LeftCom(props) {
 
-  const {changeTopCom,atrributeMap} = props
+  const {changeTopCom} = props
   const [selected,setSelected] = useState(1)
 
   const onDragStart = (Com,cName) =>{
@@ -40,7 +41,7 @@ export default function LeftCom(props) {
             <div style={{display: 'inline-block'}} draggable>{leftCom}</div>
         </div>
         })}
-      </div> : <LeftList atrributeMap={atrributeMap} />
+      </div> : <LeftList />
       }
     </div>
   )

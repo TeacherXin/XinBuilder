@@ -1,22 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './index.css'
+import Store from '../../Store'
+import _ from 'lodash'
 
 export default function LeftList(props) {
 
-  const {atrributeMap} = props
-  const [refresh,setRefresh] = useState(false)
+  const attributeMap = _.cloneDeep(Store.getState().attributeMap)
+  const [update,setUpdate] = useState({})
+
+  useEffect(() => {
+    Store.subscribe(() => {
+      setUpdate({})
+    })
+  },[])
 
   const showDownList = (attribute) => {
     return () => {
       attribute.showList = !attribute.showList;
-      setRefresh(!refresh)
+      Store.dispatch({type: 'change',attributeMap});
+      setUpdate({})
     }
   }
 
   const getComAttributeList = (name,attribute) => {
-    console.log(refresh);
     if(typeof attribute === 'string'){
-      return <div style={{marginTop: '10px'}}>
+      return <div key={attribute} style={{marginTop: '10px'}}>
         <span style={{marginLeft: '30px'}}>{name}:</span>
         <span>{attribute}</span>
       </div>
@@ -36,11 +44,11 @@ export default function LeftList(props) {
 
   return (
     <div className='leftList'>
-      {Object.keys(atrributeMap).map(item => {
-        return <div className='leftAttributeItem'>
+      {Object.keys(attributeMap).map((item,index) => {
+        return <div key={index} className='leftAttributeItem'>
           <p>{item}</p>
-          {Object.keys(atrributeMap[item]).map(_item => {
-            return getComAttributeList(_item,atrributeMap[item][_item])
+          {Object.keys(attributeMap[item]).map((_item,_index) => {
+            return <div key={_index}>{getComAttributeList(_item,attributeMap[item][_item])}</div>
           })}
         </div>
       })}

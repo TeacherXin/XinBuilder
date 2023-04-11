@@ -3,6 +3,8 @@ import RightClickMenu from './rightClickMenu';
 import EditAction from '../../Modal/editAction'
 import EditStyle from '../../Modal/editStyle';
 import './index.css'
+import Store from '../../Store';
+import _ from 'lodash'
 
 export default function RenderCom(props) {
 
@@ -42,18 +44,24 @@ export default function RenderCom(props) {
   const [mouseUpTop,setMouseUpTop] = useState()
   const [mousedownFlag,setMousedownFlag] = useState(false)
   const [showMouse,setShowMouse] = useState(false)
+  
+  const [update,setUpdate] = useState({})
 
-  const { NowCom , changeRightPanel, atrributeMap, setAttributeMap} = props
+  
+  const attributeMap = _.cloneDeep(Store.getState().attributeMap);
+  const { NowCom , changeRightPanel } = props
   let nowComId = ''
   let startLeft,startTop,endLeft,endTop,itemLeft,itemTop,itemWidth,itemHeight;
   //用来判断是左侧列表拖拽还是画布区拖拽
   let dragCom = null;
 
-  //初始化动作和样式内容
+
   useEffect(() => {
-    setActionJs(atrributeMap[actionId]?.actionJs)
-    setStyleCss(atrributeMap[styleId]?.styleCss)
-  },[showAction,showStyle])
+    Store.subscribe(() => {
+      setUpdate({})
+    })
+  },[])
+
 
   const onDrop = (e) => {
     //用来确定拖拽的节点的位置
@@ -98,14 +106,14 @@ export default function RenderCom(props) {
         const index = comList.findIndex(item => item.dragId === node.dragId);
         if(index === -1){
           list.push(node);
-          const attributeItem = atrributeMap[node.dragId];
+          const attributeItem = attributeMap[node.dragId];
           attributeItem.position = {
             left: node.style.left + 'px',
             top: node.style.top + 'px'
           }
         }
       }
-      setAttributeMap({...atrributeMap})
+      Store.dispatch({type: 'change',attributeMap})
       setComList(list);
       setSelectedComList([])
       setGroupFlag(false)
@@ -115,14 +123,14 @@ export default function RenderCom(props) {
     if(com){
       com.style = style;
       setComList([...comList]);
-      atrributeMap[com.dragId].position = {left: style.left,top: style.top}
+      attributeMap[com.dragId].position = {left: style.left,top: style.top}
     }else{
       setComList([...comList,{component: dragCom || NowCom.component, style,dragId: NowCom.name + e.clientX,code: NowCom.name}]);
-      atrributeMap[NowCom.name + e.clientX] = {}
-      atrributeMap[NowCom.name + e.clientX].position = {left: style.left,top: style.top}
-      atrributeMap[NowCom.name + e.clientX].comType = NowCom.name
+      attributeMap[NowCom.name + e.clientX] = {}
+      attributeMap[NowCom.name + e.clientX].position = {left: style.left,top: style.top}
+      attributeMap[NowCom.name + e.clientX].comType = NowCom.name
     }
-    setAttributeMap(atrributeMap)
+    Store.dispatch({type: 'change',attributeMap})
   }
 
 
@@ -208,14 +216,14 @@ export default function RenderCom(props) {
   const submitAction = (flag) => {
     return () => {
       if(flag){
-        if(!atrributeMap[actionId]){
-          atrributeMap[actionId] = {}
+        if(!attributeMap[actionId]){
+          attributeMap[actionId] = {}
         }
-        if(!atrributeMap[actionId].actionJs){
-          atrributeMap[actionId].actionJs = {}
+        if(!attributeMap[actionId].actionJs){
+          attributeMap[actionId].actionJs = {}
         }
-        atrributeMap[actionId].actionJs[actionName] = actionJs?.[actionName];
-        setAttributeMap({...atrributeMap})
+        attributeMap[actionId].actionJs[actionName] = actionJs?.[actionName];
+        Store.dispatch({type: 'change',attributeMap})
       }
       setShowAction(false);
     }
@@ -225,11 +233,11 @@ export default function RenderCom(props) {
   const submitStyle = (flag) => {
     return () => {
       if(flag){
-        if(!atrributeMap[styleId]){
-          atrributeMap[styleId] = {}
+        if(!attributeMap[styleId]){
+          attributeMap[styleId] = {}
         }
-        atrributeMap[styleId].styleCss = styleCss;
-        setAttributeMap({...atrributeMap})
+        attributeMap[styleId].styleCss = styleCss;
+        Store.dispatch({type: 'change',attributeMap})
       }
       setShowStyle(false);
     }
@@ -248,11 +256,11 @@ export default function RenderCom(props) {
   //用来保存表格的内容
   const changeTableData = (dragId) => {
     return (tableData) => {
-      if(!atrributeMap[dragId]){
-        atrributeMap[dragId] = {}
+      if(!attributeMap[dragId]){
+        attributeMap[dragId] = {}
       }
-      atrributeMap[dragId].tableData = tableData
-      setAttributeMap({...atrributeMap})
+      attributeMap[dragId].tableData = tableData
+      Store.dispatch({type: 'change',attributeMap})
     }
   }
 
@@ -303,13 +311,13 @@ export default function RenderCom(props) {
     let left = selectedComList[0].style.left;
     selectedComList.forEach(item => {
       item.style = {...item.style,left};
-      atrributeMap[item.dragId].position = {
+      attributeMap[item.dragId].position = {
         left: item.style.left,
         top: item.style.top
       }
     })
     setSelectedComList([...selectedComList])
-    setAttributeMap({...atrributeMap})
+    Store.dispatch({type: 'change',attributeMap})
   }
 
   const setSameTop = (e) => {
@@ -317,23 +325,23 @@ export default function RenderCom(props) {
     let top = selectedComList[0].style.top;
     selectedComList.forEach(item => {
       item.style = {...item.style,top};
-      atrributeMap[item.dragId].position = {
+      attributeMap[item.dragId].position = {
         left: item.style.left,
         top: item.style.top
       }
     })
     setSelectedComList([...selectedComList])
-    setAttributeMap({...atrributeMap})
+    Store.dispatch({type: 'change',attributeMap})
   }
 
   const deleteCom = (e) => {
     selectedComList.forEach(item => {
-      delete atrributeMap[item.dragId];
+      delete attributeMap[item.dragId];
     })
     e.stopPropagation();
     setSelectedComList([]);
     setGroupFlag(false);
-    setAttributeMap({...atrributeMap})
+    Store.dispatch({type: 'change',attributeMap})
   }
 
   const copyCom = (e) => {
@@ -355,7 +363,7 @@ export default function RenderCom(props) {
           minWidth: selectedComList[i].style.minWidth
         }
       }
-      atrributeMap[newCom.dragId] = {
+      attributeMap[newCom.dragId] = {
         comType: selectedComList[i].code,
         position: {
           left: newCom.style.left,
@@ -364,7 +372,7 @@ export default function RenderCom(props) {
       }
       copySelectedList.push(newCom)
     }
-    setAttributeMap({...atrributeMap});
+    Store.dispatch({type: 'change',attributeMap})
     setComList([...comList,...selectedComList,...copySelectedList]);
     setSelectedComList([]);
     setGroupFlag(false)
@@ -382,14 +390,14 @@ export default function RenderCom(props) {
         const Com = item.component;
         return <div id={item.dragId} key={item.dragId} onDragStart={onDragStart} draggable style={item.style}>
           {<Com
-            styleCss={atrributeMap[item.dragId]?.styleCss}
-            actionJs={atrributeMap[item.dragId]?.actionJs}
+            styleCss={attributeMap[item.dragId]?.styleCss}
+            actionJs={attributeMap[item.dragId]?.actionJs}
             onContextMenu={onContextMenu(item)}
-            attributeValue={atrributeMap[item.dragId]?.attributeValue}
+            attributeValue={attributeMap[item.dragId]?.attributeValue}
             onClick={onSelect(item)}
             className={item.selected? 'selectedComponent':''}
             changeTableData={changeTableData(item.dragId)}
-            tableRes={atrributeMap[item.dragId]?.tableData}
+            tableRes={attributeMap[item.dragId]?.tableData}
             />}
           <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
         </div>
@@ -403,14 +411,14 @@ export default function RenderCom(props) {
             const Com = item.component;
             return <div id={item.dragId} key={item.dragId} style={item.style}>
               {<Com
-                styleCss={atrributeMap[item.dragId]?.styleCss}
-                actionJs={atrributeMap[item.dragId]?.actionJs}
+                styleCss={attributeMap[item.dragId]?.styleCss}
+                actionJs={attributeMap[item.dragId]?.actionJs}
                 onContextMenu={onContextMenu(item)}
-                attributeValue={atrributeMap[item.dragId]?.attributeValue}
+                attributeValue={attributeMap[item.dragId]?.attributeValue}
                 onClick={onSelect(item)}
                 className={item.selected? 'selectedComponent':''}
                 changeTableData={changeTableData(item.dragId)}
-                tableRes={atrributeMap[item.dragId]?.tableData}
+                tableRes={attributeMap[item.dragId]?.tableData}
                 />}
               <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
             </div>
