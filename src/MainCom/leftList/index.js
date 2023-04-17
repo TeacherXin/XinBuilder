@@ -2,17 +2,16 @@ import React, { useEffect, useState } from 'react'
 import './index.css'
 import Store from '../../Store'
 import _ from 'lodash'
+import subscribeHook from '../../DefineHook/subscribe'
 
 export default function LeftList(props) {
 
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
   const [update,setUpdate] = useState({})
 
-  useEffect(() => {
-    Store.subscribe(() => {
-      setUpdate({})
-    })
-  },[])
+  subscribeHook(() => {
+    setUpdate({})
+  })
 
   const showDownList = (attribute) => {
     return () => {

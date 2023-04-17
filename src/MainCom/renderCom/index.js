@@ -2,6 +2,7 @@ import {React, useEffect, useState} from 'react'
 import RightClickMenu from './rightClickMenu';
 import EditAction from '../../Modal/editAction'
 import EditStyle from '../../Modal/editStyle';
+import subscribeHook from '../../DefineHook/subscribe';
 import './index.css'
 import Store from '../../Store';
 import _ from 'lodash'
@@ -55,12 +56,9 @@ export default function RenderCom(props) {
   //用来判断是左侧列表拖拽还是画布区拖拽
   let dragCom = null;
 
-
-  useEffect(() => {
-    Store.subscribe(() => {
-      setUpdate({})
-    })
-  },[])
+  subscribeHook(() => {
+    setUpdate({})
+  })
 
 
   const onDrop = (e) => {
