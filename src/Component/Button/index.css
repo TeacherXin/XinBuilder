@@ -1,8 +1,17 @@
-button{
-  min-width: 50px;
-  min-height: 25px;
+#componentButton button{
+  width: 74px;
+  height: 28px;
+  font-size: 14px;
+  background-color: #fff;
+  border: 1px solid #bbb;
+  border-radius: 4px;
 }
 
-.selectedComponent{
-  border: 1.5px solid blue;
+#componentButton .button:hover{
+  background-color: rgb(242, 240, 240);
+  border: 1px solid #505766;
+}
+
+#componentButton .disableButton:hover{
+  cursor: no-drop;
 }

@@ -396,6 +396,8 @@ export default function RenderCom(props) {
             className={item.selected? 'selectedComponent':''}
             changeTableData={changeTableData(item.dragId)}
             tableRes={attributeMap[item.dragId]?.tableData}
+            size={attributeMap[item.dragId]?.size}
+            disable={attributeMap[item.dragId]?.disable}
             />}
           <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
         </div>
@@ -417,6 +419,8 @@ export default function RenderCom(props) {
                 className={item.selected? 'selectedComponent':''}
                 changeTableData={changeTableData(item.dragId)}
                 tableRes={attributeMap[item.dragId]?.tableData}
+                size={attributeMap[item.dragId]?.size}
+                disable={attributeMap[item.dragId]?.disable}
                 />}
               <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
             </div>

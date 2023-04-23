@@ -13,7 +13,7 @@ export default function RightClickMenu(props) {
       if(type === 'attribute'){
         switch (code) {
           case 'Button': {
-            changeRightPanelById(['attributeValue'],'attribute');
+            changeRightPanelById(['attributeValue','size','disable'],'attribute');
             break;
           }
           case 'Input': {

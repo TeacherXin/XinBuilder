@@ -33,6 +33,7 @@ export default function RightCom(props) {
           (rightPanel[comId] || []).map((item,index) => {
             return <div key={index} className='attributeItem'>
               <label>{item}</label>
+              <br></br>
               <input key={index} onChange={onChange(item)} value={attributeMapRight?.[comId]?.[item] || ''}></input>
             </div>
           })
