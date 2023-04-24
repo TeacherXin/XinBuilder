@@ -17,7 +17,7 @@ export default function RightClickMenu(props) {
             break;
           }
           case 'Input': {
-            changeRightPanelById(['attributeValue'],'attribute');
+            changeRightPanelById(['type','prefix','suffix','placeholder','size'],'attribute');
             break;
           }
           case 'Label': {

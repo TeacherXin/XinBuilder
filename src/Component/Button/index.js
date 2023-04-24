@@ -29,10 +29,12 @@ export default function Button(props) {
   },[styleCss])
 
   const btnClick = () => {
-    onClick();
-    let script = document.createElement('script');
-    script.innerHTML = '(function(){' +  actionJs?.click + '})()'
-    document.body.append(script)
+    if(!disable){
+      onClick();
+      let script = document.createElement('script');
+      script.innerHTML = '(function(){' +  actionJs?.click + '})()'
+      document.body.append(script)
+    }
   }
 
   return (

@@ -15,7 +15,20 @@ export default function MetaRender() {
           top: state[item].position.top,
         }
         return <div key={index} id={item} style={style}>
-          <Com renderFlag={true} onClick={()=>{}} tableRes={state?.[item]?.tableData} attributeValue={state[item]?.attributeValue} styleCss={state[item]?.styleCss} actionJs={state[item]?.actionJs}/>
+          <Com
+            renderFlag={true}
+            onClick={()=>{}}
+            tableRes={state?.[item]?.tableData}
+            attributeValue={state[item]?.attributeValue}
+            styleCss={state[item]?.styleCss}
+            actionJs={state[item]?.actionJs}
+            size={state[item]?.size}
+            disable={state[item]?.disable}
+            type={state[item]?.type}
+            prefix={state[item]?.prefix}
+            suffix={state[item]?.suffix}
+            placeholder={state[item]?.placeholder}
+            />
         </div>
       })}
     </div>

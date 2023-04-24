@@ -1,3 +1,11 @@
-.componentInput{
+.componentInput input{
   width: 70px;
+}
+
+.componentInput .prefix{
+  font-size: 14px;
+}
+
+.componentInput .suffix{
+  font-size: 14px;
 }

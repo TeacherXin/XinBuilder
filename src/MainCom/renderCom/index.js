@@ -60,6 +60,11 @@ export default function RenderCom(props) {
     setUpdate({})
   })
 
+  useEffect(() => {
+    setActionJs(attributeMap[actionId]?.actionJs)
+    setStyleCss(attributeMap[styleId]?.styleCss)
+  },[showAction,showStyle])
+
 
   const onDrop = (e) => {
     //用来确定拖拽的节点的位置
@@ -398,6 +403,10 @@ export default function RenderCom(props) {
             tableRes={attributeMap[item.dragId]?.tableData}
             size={attributeMap[item.dragId]?.size}
             disable={attributeMap[item.dragId]?.disable}
+            type={attributeMap[item.dragId]?.type}
+            prefix={attributeMap[item.dragId]?.prefix}
+            suffix={attributeMap[item.dragId]?.suffix}
+            placeholder={attributeMap[item.dragId]?.placeholder}
             />}
           <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
         </div>
@@ -421,6 +430,10 @@ export default function RenderCom(props) {
                 tableRes={attributeMap[item.dragId]?.tableData}
                 size={attributeMap[item.dragId]?.size}
                 disable={attributeMap[item.dragId]?.disable}
+                type={attributeMap[item.dragId]?.type}
+                prefix={attributeMap[item.dragId]?.prefix}
+                suffix={attributeMap[item.dragId]?.suffix}
+                placeholder={attributeMap[item.dragId]?.placeholder}
                 />}
               <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
             </div>
