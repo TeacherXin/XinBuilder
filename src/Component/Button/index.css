@@ -7,7 +7,7 @@
   border-radius: 4px;
 }
 
-#componentButton .button:hover{
+#componentButton button:hover{
   background-color: rgb(242, 240, 240);
   border: 1px solid #505766;
 }
