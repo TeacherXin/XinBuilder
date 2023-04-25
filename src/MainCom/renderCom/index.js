@@ -3,6 +3,7 @@ import RightClickMenu from './rightClickMenu';
 import EditAction from '../../Modal/editAction'
 import EditStyle from '../../Modal/editStyle';
 import subscribeHook from '../../DefineHook/subscribe';
+import * as myComponent from '../../Component'
 import './index.css'
 import Store from '../../Store';
 import _ from 'lodash'
@@ -59,6 +60,27 @@ export default function RenderCom(props) {
   subscribeHook(() => {
     setUpdate({})
   })
+
+  //在预览状态返回的时候，保持信息
+  useEffect(() => {
+    for(let propName in attributeMap){
+      let com = attributeMap[propName]
+      if(comList.findIndex(item => item.dragId === propName) === -1){
+        comList.push({
+          style: {
+            position: 'fixed',
+            left: com.position.left,
+            top: com.position.top,
+            zIndex: 100
+          },
+          dragId: propName,
+          code: com.comType,
+          component: myComponent[com.comType]
+        })
+      }
+    }
+    setComList([...comList])
+  },[])
 
   useEffect(() => {
     setActionJs(attributeMap[actionId]?.actionJs)
