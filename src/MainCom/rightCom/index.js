@@ -4,6 +4,17 @@ import Store from '../../Store';
 import _ from 'lodash'
 import subscribeHook from '../../DefineHook/subscribe';
 
+const attributeValueMap = {
+  attributeValue: '属性值',
+  size: '大小',
+  disable: '是否禁用',
+  type: '类型',
+  prefix: '前缀',
+  suffix: '后缀',
+  placeholder: '默认提示'
+}
+
+
 export default function RightCom(props) {
 
   const {rightPanel,comId} = props;
@@ -32,7 +43,7 @@ export default function RightCom(props) {
         {
           (rightPanel[comId] || []).map((item,index) => {
             return <div key={index} className='attributeItem'>
-              <label>{item}</label>
+              <label>{attributeValueMap[item]}</label>
               <br></br>
               <input key={index} onChange={onChange(item)} value={attributeMapRight?.[comId]?.[item] || ''}></input>
             </div>
