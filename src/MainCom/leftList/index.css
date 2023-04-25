@@ -1,3 +1,8 @@
+.leftList{
+  height: 85%;
+  width: 100%;
+  overflow: auto;
+}
 .leftList .toDownicon{
   width: 16px;
   height: 16px;
