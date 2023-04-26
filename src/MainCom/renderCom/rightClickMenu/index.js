@@ -32,6 +32,9 @@ export default function RightClickMenu(props) {
             changeRightPanelById(['attributeValue','url','openType'],'attribute');
             break;
           }
+          case 'List': {
+            changeRightPanelById(['listItemNum','title'],'attribute');
+          }
         }
       //动作弹窗
       }else if(type === 'action'){

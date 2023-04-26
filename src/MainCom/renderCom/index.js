@@ -431,6 +431,8 @@ export default function RenderCom(props) {
             placeholder={attributeMap[item.dragId]?.placeholder}
             url={attributeMap[item.dragId]?.url}
             openType={attributeMap[item.dragId]?.openType}
+            listItemNum={attributeMap[item.dragId]?.listItemNum}
+            title={attributeMap[item.dragId]?.title}
             />}
           <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
         </div>
@@ -460,6 +462,9 @@ export default function RenderCom(props) {
                 placeholder={attributeMap[item.dragId]?.placeholder}
                 url={attributeMap[item.dragId]?.url}
                 openType={attributeMap[item.dragId]?.openType}
+                listItemNum={attributeMap[item.dragId]?.listItemNum}
+                title={attributeMap[item.dragId]?.title}
+  
                 />}
               <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
             </div>

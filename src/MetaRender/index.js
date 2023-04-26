@@ -30,6 +30,8 @@ export default function MetaRender() {
             placeholder={state[item]?.placeholder}
             url={state[item]?.url}
             openType={state[item]?.openType}
+            listItemNum={state[item]?.listItemNum}
+            title={state[item]?.title}
             />
         </div>
       })}

@@ -13,7 +13,9 @@ const attributeValueMap = {
   suffix: '后缀',
   placeholder: '默认提示',
   url: 'URL地址',
-  openType: '新页签打开'
+  openType: '新页签打开',
+  listItemNum: '子元素',
+  title: '标题'
 }
 
 
