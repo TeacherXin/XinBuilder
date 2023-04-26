@@ -11,7 +11,9 @@ const attributeValueMap = {
   type: '类型',
   prefix: '前缀',
   suffix: '后缀',
-  placeholder: '默认提示'
+  placeholder: '默认提示',
+  url: 'URL地址',
+  openType: '新页签打开'
 }
 
 

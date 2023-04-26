@@ -28,6 +28,10 @@ export default function RightClickMenu(props) {
             changeRightPanelById(['attributeValue'],'attribute');
             break;
           }
+          case 'Link': {
+            changeRightPanelById(['attributeValue','url','openType'],'attribute');
+            break;
+          }
         }
       //动作弹窗
       }else if(type === 'action'){

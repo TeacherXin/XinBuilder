@@ -28,6 +28,8 @@ export default function MetaRender() {
             prefix={state[item]?.prefix}
             suffix={state[item]?.suffix}
             placeholder={state[item]?.placeholder}
+            url={state[item]?.url}
+            openType={state[item]?.openType}
             />
         </div>
       })}
