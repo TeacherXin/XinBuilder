@@ -48,7 +48,13 @@ export default function RightCom(props) {
           <option value='date'>日期框</option>
         </select>
       }
-      case 'disable','openType': {
+      case 'openType': {
+        return <select onChange={onChange(item)}>
+          <option value={false}>是</option>
+          <option value={true} selected>否</option>
+        </select>
+      }
+      case 'disable': {
         return <select onChange={onChange(item)}>
           <option value={false}>是</option>
           <option value={true} selected>否</option>
