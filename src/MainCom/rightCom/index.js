@@ -29,6 +29,10 @@ export default function RightCom(props) {
     setUpdate({})
   })
 
+  const getAttributeValueCom = (item,index) => {
+    return <input key={index} onChange={onChange(item)} value={attributeMapRight?.[comId]?.[item] || ''}></input>
+  }
+
   const onChange = (name) => {
     return (e) => {
       if(!attributeMapRight[comId]){
@@ -48,8 +52,9 @@ export default function RightCom(props) {
           (rightPanel[comId] || []).map((item,index) => {
             return <div key={index} className='attributeItem'>
               <label>{attributeValueMap[item]}</label>
-              <br></br>
-              <input key={index} onChange={onChange(item)} value={attributeMapRight?.[comId]?.[item] || ''}></input>
+              <div className='attributeItemValue'>
+                {getAttributeValueCom(item,index)}
+              </div>
             </div>
           })
         }

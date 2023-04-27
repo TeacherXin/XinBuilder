@@ -13,7 +13,6 @@ root.render(
       <Routes>
         <Route path={'/home'} element={<App />}></Route>
         <Route path={'/metaRender'} element={<MetaRender />}></Route>
-        <Route path={'/test'} element={<Test />}></Route>
       </Routes>
     </Router>
   </React.StrictMode>

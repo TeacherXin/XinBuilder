@@ -6,7 +6,14 @@
   right: 0;
 }
 
+.attributeItem .attributeItemValue input{
+  height: 20px;
+  width: 110px;
+}
+
 .attributeItem{
   width: 200px;
   height: 60px;
+  display: flex;
+  justify-content: space-between;
 }
