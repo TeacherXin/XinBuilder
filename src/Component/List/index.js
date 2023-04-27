@@ -20,7 +20,7 @@ export default function List(props) {
     <div>
       <ul onClick={ulClick} onContextMenu={onContextMenu}>
         {<p style={{position: 'relative',bottom:'13px',right:'40px'}}>{title || '列表'}</p>}
-        {new Array(parseInt(listItemNum || 0)).fill(0).map((item,index) => {
+        {new Array(parseInt(listItemNum || 0) > 0 ? parseInt(listItemNum || 0) : 0).fill(0).map((item,index) => {
           return <li key={index}>子元素</li>
         })}
       </ul>
