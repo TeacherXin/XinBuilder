@@ -1,7 +1,9 @@
 .designTop{
   position: absolute;
   height: 40px;
-  background-color: rgb(225, 240, 216);
+  color: rgb(211, 202, 202);
+  background-image: url('https://img.js.design/assets/Resources/background/login-bg-5.jpg');
+  background-position: -361px;
   width: 100%;
   z-index: 10;
 }

@@ -3,3 +3,19 @@
   width: 100%;
   height: 100%;
 }
+
+::-webkit-scrollbar {
+  /* 对应纵向滚动条的宽度 */
+  width: 5px;
+  /* 对应横向滚动条的宽度 */
+  height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(219, 214, 214);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
