@@ -2,7 +2,7 @@
   height: 100%;
   width: 20%;
   position: absolute;
-  background-color: rgb(254, 254, 254);
+  background: linear-gradient(rgb(222, 148, 137),rgb(245, 242, 150) ,#9ae4aa);
   right: 0;
   overflow: auto;
 }

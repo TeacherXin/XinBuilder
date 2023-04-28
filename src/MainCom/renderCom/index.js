@@ -53,7 +53,7 @@ export default function RenderCom(props) {
   const attributeMap = _.cloneDeep(Store.getState().attributeMap);
   const { NowCom , changeRightPanel } = props
   let nowComId = ''
-  let startLeft,startTop,endLeft,endTop,itemLeft,itemTop,itemWidth,itemHeight;
+  let startLeft,startTop,endLeft,endTop,itemLeft,itemTop,itemWidth,itemHeight,clientWidth,clientHeight;
   //用来判断是左侧列表拖拽还是画布区拖拽
   let dragCom = null;
 

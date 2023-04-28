@@ -23,8 +23,8 @@ export default function LeftCom(props) {
   return (
     <div className='leftCom'>
       <div className='Tab'>
-        <p onClick={() => {setSelected(1)}} style={{background: selected === 1? '#fff':''}} className='TabItem'>组件</p>
-        <p onClick={() => {setSelected(2)}} style={{background: selected === 2? '#fff':''}} className='TabItem'>数据</p>
+        <p onClick={() => {setSelected(1)}} style={{background: selected === 2? 'rgb(240 203 203)':''}} className='TabItem'>组件</p>
+        <p onClick={() => {setSelected(2)}} style={{background: selected === 1? 'rgb(240 203 203)':''}} className='TabItem'>数据</p>
       </div>
       {
         selected === 1 ?       <div className='componentList'>
