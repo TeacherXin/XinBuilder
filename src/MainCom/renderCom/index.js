@@ -416,30 +416,11 @@ export default function RenderCom(props) {
         const Com = item.component;
         return <div id={item.dragId} key={item.dragId} onDragStart={onDragStart} draggable style={item.style}>
           {<Com
-            styleCss={attributeMap[item.dragId]?.styleCss}
-            actionJs={attributeMap[item.dragId]?.actionJs}
+            {...attributeMap[item.dragId]}
             onContextMenu={onContextMenu(item)}
-            attributeValue={attributeMap[item.dragId]?.attributeValue}
             onClick={onSelect(item)}
             className={item.selected? 'selectedComponent':''}
             changeTableData={changeTableData(item.dragId)}
-            tableRes={attributeMap[item.dragId]?.tableData}
-            size={attributeMap[item.dragId]?.size}
-            disabled={attributeMap[item.dragId]?.disabled}
-            addonBefore={attributeMap[item.dragId]?.addonBefore}
-            addonAfter={attributeMap[item.dragId]?.addonAfter}
-            placeholder={attributeMap[item.dragId]?.placeholder}
-            url={attributeMap[item.dragId]?.url}
-            openType={attributeMap[item.dragId]?.openType}
-            listItemNum={attributeMap[item.dragId]?.listItemNum}
-            title={attributeMap[item.dragId]?.title}
-            buttonType={attributeMap[item.dragId]?.buttonType}
-            danger={attributeMap[item.dragId]?.danger}
-            ghost={attributeMap[item.dragId]?.ghost}
-            prefix={attributeMap[item.dragId]?.prefix}
-            suffix={attributeMap[item.dragId]?.suffix}
-            allowClear={attributeMap[item.dragId]?.allowClear}
-            showCount={attributeMap[item.dragId]?.showCount}
             />}
           <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
         </div>
@@ -453,30 +434,11 @@ export default function RenderCom(props) {
             const Com = item.component;
             return <div id={item.dragId} key={item.dragId} style={item.style}>
               {<Com
-                styleCss={attributeMap[item.dragId]?.styleCss}
-                actionJs={attributeMap[item.dragId]?.actionJs}
+                {...attributeMap[item.dragId]}
                 onContextMenu={onContextMenu(item)}
-                attributeValue={attributeMap[item.dragId]?.attributeValue}
                 onClick={onSelect(item)}
                 className={item.selected? 'selectedComponent':''}
                 changeTableData={changeTableData(item.dragId)}
-                tableRes={attributeMap[item.dragId]?.tableData}
-                size={attributeMap[item.dragId]?.size}
-                disabled={attributeMap[item.dragId]?.disabled}
-                addonBefore={attributeMap[item.dragId]?.addonBefore}
-                addonAfter={attributeMap[item.dragId]?.addonAfter}
-                placeholder={attributeMap[item.dragId]?.placeholder}
-                url={attributeMap[item.dragId]?.url}
-                openType={attributeMap[item.dragId]?.openType}
-                listItemNum={attributeMap[item.dragId]?.listItemNum}
-                title={attributeMap[item.dragId]?.title}
-                buttonType={attributeMap[item.dragId]?.buttonType}
-                danger={attributeMap[item.dragId]?.danger}
-                ghost={attributeMap[item.dragId]?.ghost}
-                prefix={attributeMap[item.dragId]?.prefix}
-                suffix={attributeMap[item.dragId]?.suffix}
-                allowClear={attributeMap[item.dragId]?.allowClear}
-                showCount={attributeMap[item.dragId]?.showCount}
                 />}
               <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
             </div>
