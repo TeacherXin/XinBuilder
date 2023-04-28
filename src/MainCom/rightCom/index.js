@@ -3,19 +3,27 @@ import './index.css'
 import Store from '../../Store';
 import _ from 'lodash'
 import subscribeHook from '../../DefineHook/subscribe';
+import { Select, Input } from 'antd';
 
 const attributeValueMap = {
   attributeValue: '属性值',
   size: '大小',
-  disable: '是否禁用',
-  type: '类型',
-  prefix: '前缀',
-  suffix: '后缀',
+  disabled: '是否禁用',
+  addonBefore: '前置标签',
+  addonAfter: '后置标签',
   placeholder: '默认提示',
   url: 'URL地址',
   openType: '新页签打开',
   listItemNum: '子元素',
-  title: '标题'
+  title: '标题',
+  buttonType: '按钮类型',
+  size: '组件大小',
+  danger: '危险按钮',
+  ghost: '幽灵按钮',
+  prefix: '前缀',
+  suffix: '后缀',
+  allowClear: '允许清除',
+  showCount: '展示字数'
 }
 
 
@@ -31,50 +39,117 @@ export default function RightCom(props) {
 
   const getAttributeValueCom = (item,index) => {
     switch (item) {
-      case 'size': {
-        return <select onChange={onChange(item)}>
-          <option value='lg'>大</option>
-          <option value='md' selected>中</option>
-          <option value='sm'>小</option>
-        </select>
-      }
-      case 'type': {
-        return <select onChange={onChange(item)}>
-          <option value='text' selected>输入框</option>
-          <option value='radio'>单选按钮</option>
-          <option value='checkbox'>多选按钮</option>
-          <option value='search'>搜索框</option>
-          <option value='number'>数值框</option>
-          <option value='date'>日期框</option>
-        </select>
-      }
       case 'openType': {
         return <select onChange={onChange(item)}>
           <option value={false}>是</option>
           <option value={true} selected>否</option>
         </select>
       }
-      case 'disable': {
-        return <select onChange={onChange(item)}>
-          <option value={false}>是</option>
-          <option value={true} selected>否</option>
-        </select>
+      case 'disabled': {
+        return <Select 
+          style={{ width: 120,height: 25 }}
+          defaultValue={false}
+          onChange={onChange(item)}
+          options={
+          [
+            { label: '是', value: true },
+            { label: '否', value: false }
+          ]
+        } />
+      }
+      case 'danger': {
+        return <Select 
+          style={{ width: 120,height: 25 }}
+          defaultValue={false}
+          onChange={onChange(item)}
+          options={
+          [
+            { label: '是', value: true },
+            { label: '否', value: false }
+          ]
+        } />
+      }
+      case 'ghost': {
+        return <Select 
+          style={{ width: 120,height: 25 }}
+          defaultValue={false}
+          onChange={onChange(item)}
+          options={
+          [
+            { label: '是', value: true },
+            { label: '否', value: false }
+          ]
+        } />
+      }
+      case 'allowClear': {
+        return <Select 
+          style={{ width: 120,height: 25 }}
+          defaultValue={false}
+          onChange={onChange(item)}
+          options={
+          [
+            { label: '是', value: true },
+            { label: '否', value: false }
+          ]
+        } />
+      }
+      case 'showCount': {
+        return <Select 
+          style={{ width: 120,height: 25 }}
+          defaultValue={false}
+          onChange={onChange(item)}
+          options={
+          [
+            { label: '是', value: true },
+            { label: '否', value: false }
+          ]
+        } />
+      }
+      case 'buttonType': {
+        return <Select 
+          style={{ width: 120,height: 20 }}
+          defaultValue='primary'
+          onChange={onChange(item)}
+          options={
+          [
+            { label: '默认按钮', value: 'primary' },
+            { label: '虚线按钮', value: 'dashed' },
+            { label: '文本按钮', value: 'text' },
+            { label: '链接按钮', value: 'link' }
+          ]
+        } />
+      }
+      case 'size': {
+        return <Select 
+          style={{ width: 120,height: 25 }}
+          defaultValue='default'
+          onChange={onChange(item)}
+          options={
+          [
+            { label: '大', value: 'large' },
+            { label: '小', value: 'small' },
+            { label: '中', value: 'default' },
+          ]
+        } />
       }
       case 'listItemNum': {
-        return <input type={'number'} key={index} onChange={onChange(item)} value={attributeMapRight?.[comId]?.[item] || ''}></input>
+        return <Input style={{ width: 120,height: 25 }} type={'number'} key={index} onChange={onChange(item)} value={attributeMapRight?.[comId]?.[item] || ''}></Input>
       }
       default: {
-        return <input key={index} onChange={onChange(item)} value={attributeMapRight?.[comId]?.[item] || ''}></input>
+        return <Input style={{ width: 120, height: 25 }} key={index} onChange={onChange(item)} value={attributeMapRight?.[comId]?.[item] || ''}></Input>
       }
     }
   }
 
   const onChange = (name) => {
-    return (e) => {
+    return (value) => {
       if(!attributeMapRight[comId]){
         attributeMapRight[comId] = {}
       }
-      attributeMapRight[comId][name] = e.target.value;
+      if(typeof value === 'object'){
+        value = value.target.value
+      }
+      attributeMapRight[comId][name] = value;
       Store.dispatch({type:'change',attributeMap: attributeMapRight})
     }
   }

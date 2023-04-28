@@ -194,11 +194,9 @@ export default function RenderCom(props) {
 
   const onSelect=(item) => {
     return (e) => {
-      if(item.code === 'Input'){
+      if(item.code === 'XinInput'){
         return;
       }
-      // item.selected = !item.selected;
-      // setComList([...comList]);
     }
   }
   
@@ -427,15 +425,21 @@ export default function RenderCom(props) {
             changeTableData={changeTableData(item.dragId)}
             tableRes={attributeMap[item.dragId]?.tableData}
             size={attributeMap[item.dragId]?.size}
-            disable={attributeMap[item.dragId]?.disable}
-            type={attributeMap[item.dragId]?.type}
-            prefix={attributeMap[item.dragId]?.prefix}
-            suffix={attributeMap[item.dragId]?.suffix}
+            disabled={attributeMap[item.dragId]?.disabled}
+            addonBefore={attributeMap[item.dragId]?.addonBefore}
+            addonAfter={attributeMap[item.dragId]?.addonAfter}
             placeholder={attributeMap[item.dragId]?.placeholder}
             url={attributeMap[item.dragId]?.url}
             openType={attributeMap[item.dragId]?.openType}
             listItemNum={attributeMap[item.dragId]?.listItemNum}
             title={attributeMap[item.dragId]?.title}
+            buttonType={attributeMap[item.dragId]?.buttonType}
+            danger={attributeMap[item.dragId]?.danger}
+            ghost={attributeMap[item.dragId]?.ghost}
+            prefix={attributeMap[item.dragId]?.prefix}
+            suffix={attributeMap[item.dragId]?.suffix}
+            allowClear={attributeMap[item.dragId]?.allowClear}
+            showCount={attributeMap[item.dragId]?.showCount}
             />}
           <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
         </div>
@@ -458,16 +462,21 @@ export default function RenderCom(props) {
                 changeTableData={changeTableData(item.dragId)}
                 tableRes={attributeMap[item.dragId]?.tableData}
                 size={attributeMap[item.dragId]?.size}
-                disable={attributeMap[item.dragId]?.disable}
-                type={attributeMap[item.dragId]?.type}
-                prefix={attributeMap[item.dragId]?.prefix}
-                suffix={attributeMap[item.dragId]?.suffix}
+                disabled={attributeMap[item.dragId]?.disabled}
+                addonBefore={attributeMap[item.dragId]?.addonBefore}
+                addonAfter={attributeMap[item.dragId]?.addonAfter}
                 placeholder={attributeMap[item.dragId]?.placeholder}
                 url={attributeMap[item.dragId]?.url}
                 openType={attributeMap[item.dragId]?.openType}
                 listItemNum={attributeMap[item.dragId]?.listItemNum}
                 title={attributeMap[item.dragId]?.title}
-  
+                buttonType={attributeMap[item.dragId]?.buttonType}
+                danger={attributeMap[item.dragId]?.danger}
+                ghost={attributeMap[item.dragId]?.ghost}
+                prefix={attributeMap[item.dragId]?.prefix}
+                suffix={attributeMap[item.dragId]?.suffix}
+                allowClear={attributeMap[item.dragId]?.allowClear}
+                showCount={attributeMap[item.dragId]?.showCount}
                 />}
               <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
             </div>

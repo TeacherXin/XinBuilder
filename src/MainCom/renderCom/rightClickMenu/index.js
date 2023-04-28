@@ -12,12 +12,12 @@ export default function RightClickMenu(props) {
       //属性面板
       if(type === 'attribute'){
         switch (code) {
-          case 'Button': {
-            changeRightPanelById(['attributeValue','size','disable'],'attribute');
+          case 'XinButton': {
+            changeRightPanelById(['attributeValue','buttonType','size','disabled','danger','ghost'],'attribute');
             break;
           }
-          case 'Input': {
-            changeRightPanelById(['attributeValue','type','prefix','suffix','placeholder','size'],'attribute');
+          case 'XinInput': {
+            changeRightPanelById(['attributeValue','addonBefore','addonAfter','placeholder','size','prefix','suffix','allowClear'],'attribute');
             break;
           }
           case 'Label': {

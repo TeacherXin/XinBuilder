@@ -31,14 +31,8 @@ export default function LeftCom(props) {
         {/*遍历组件库，然后依次在左侧列表展示*/}
         {Object.keys(myComponent).map(cName => {
           const Com = myComponent[cName];
-          let leftCom;
-          if(cName === 'Table'){
-            leftCom = '表格'
-          }else{
-            leftCom=<Com />
-          }
           return  <div onDragEnd={onDragEnd} onDragStart={onDragStart(Com,cName)} key={cName} className='componentItem'>
-            <div style={{display: 'inline-block'}} draggable>{leftCom}</div>
+            <div style={{display: 'inline-block'}} draggable>{cName}</div>
         </div>
         })}
       </div> : <LeftList />

@@ -23,15 +23,21 @@ export default function MetaRender() {
             styleCss={state[item]?.styleCss}
             actionJs={state[item]?.actionJs}
             size={state[item]?.size}
-            disable={state[item]?.disable}
-            type={state[item]?.type}
-            prefix={state[item]?.prefix}
-            suffix={state[item]?.suffix}
+            disabled={state[item]?.disabled}
+            addonBefore={state[item]?.addonBefore}
+            addonAfter={state[item]?.addonAfter}
             placeholder={state[item]?.placeholder}
             url={state[item]?.url}
             openType={state[item]?.openType}
             listItemNum={state[item]?.listItemNum}
             title={state[item]?.title}
+            buttonType={state[item]?.buttonType}
+            danger={state[item]?.danger}
+            ghost={state[item]?.ghost}
+            prefix={state[item]?.prefix}
+            suffix={state[item]?.suffix}
+            allowClear={state[item]?.allowClear}
+            showCount={state[item]?.showCount}
             />
         </div>
       })}

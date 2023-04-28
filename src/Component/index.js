@@ -1,17 +1,9 @@
-import Button from './Button'
-import Input from './Input'
-import Label from './Label'
-import Table from './Table'
-import Select from './Select'
-import Link from './Link'
-import List from './List'
+import XinButton from './XinButton'
+import XinInput from './XinInput/index'
+import XinLable from './XinLable'
 
 export {
-  Button,
-  Input,
-  Link,
-  List,
-  Label,
-  Select,
-  Table
+  XinButton,
+  XinInput,
+  XinLable,
 }

@@ -4,20 +4,7 @@
   position: absolute;
   background-color: rgb(254, 254, 254);
   right: 0;
-}
-
-.attributeItem .attributeItemValue input{
-  height: 20px;
-  width: 110px;
-  border-radius: 4px;
-  border: 1px solid rgb(201, 196, 196);
-}
-
-.attributeItem .attributeItemValue select{
-  height: 27px;
-  width: 118px;
-  border: 1px solid rgb(201, 196, 196);
-  border-radius: 4px;
+  overflow: auto;
 }
 
 .attributeItem{
