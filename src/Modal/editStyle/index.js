@@ -11,6 +11,7 @@ export default function EditStyle(props) {
       onOk={submitStyle(true)}
       onCancel={submitStyle(false)}
       bodyStyle={{width:"800px",height:"400px"}}
+      closable={false}
     >
       <textarea className='textarea' onChange={changeStyleCss} value={styleCss || ''}></textarea>
     </Modal>
