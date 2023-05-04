@@ -1,5 +1,5 @@
 .menu{
-  width: 60px;
+  width: 80px;
   height: 100px;
   box-shadow: 0 0 5px 0 rgb(67 74 84 / 30%);
   background-color: rgb(255, 255, 255);
@@ -7,9 +7,6 @@
   z-index: 10;
 }
 .menuItem{
-  width: 60px;
-  height: 20px;
-  text-align: center;
   font-size: 12px;
   cursor: pointer;
 }
@@ -26,14 +23,11 @@
   border: 1px solid #cbcdd0;
   z-index: 10;
   position: absolute;
-  left: 60px;
-  top: 80px;
+  left: 80px;
+  top: 100px;
 }
 
 .nextMenuItem{
-  width: 80px;
-  height: 20px;
-  text-align: center;
   font-size: 12px;
   cursor: pointer;
 }

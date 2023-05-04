@@ -4,13 +4,14 @@ import './index.css'
 
 export default function XinButton(props) {
 
-  // const {attributeValue,onClick,className,onContextMenu,actionJs,styleCss,size,disabled} = props
   const {attributeValue,onClick,onContextMenu,actionJs,styleCss,buttonType,size,disabled,danger,ghost} = props
 
+  const [style,setStyle] = useState({})
+
   useEffect(() => {
-    let css = document.createElement('style');
-    css.innerHTML = styleCss;
-    document.body.append(css)
+    let styleStr = styleCss?.replaceAll('\n','') || '{}';
+    let style = JSON.parse(styleStr)
+    setStyle(style)
   },[styleCss])
 
   const btnClick = () => {
@@ -32,6 +33,7 @@ export default function XinButton(props) {
         disabled={disabled}
         danger={danger}
         ghost={ghost}
+        style={style}
       >
         {attributeValue || '默认按钮'}
       </Button>

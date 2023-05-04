@@ -83,9 +83,6 @@ export default function RenderCom(props) {
   },[])
 
   useEffect(() => {
-    if(attributeMap[styleId] && !attributeMap[styleId].styleCss){
-      attributeMap[styleId].styleCss = `#${styleId} ${attributeMap[styleId].comType.toLocaleLowerCase()}{\n${styleCss || ''}\n}`;
-    }
     setActionJs(attributeMap[actionId]?.actionJs)
     setStyleCss(attributeMap[styleId]?.styleCss)
   },[showAction,showStyle])

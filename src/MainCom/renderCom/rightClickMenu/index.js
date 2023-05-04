@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './index.css'
+import { Button } from 'antd';
 
 export default function RightClickMenu(props) {
 
@@ -11,6 +12,7 @@ export default function RightClickMenu(props) {
     return () => {
       //属性面板
       if(type === 'attribute'){
+        setShowModa(false)
         switch (code) {
           case 'XinButton': {
             changeRightPanelById(['attributeValue','buttonType','size','disabled','danger','ghost'],'attribute');
@@ -20,20 +22,9 @@ export default function RightClickMenu(props) {
             changeRightPanelById(['attributeValue','addonBefore','addonAfter','placeholder','size','prefix','suffix','allowClear'],'attribute');
             break;
           }
-          case 'Label': {
+          case 'XinLable': {
             changeRightPanelById(['attributeValue'],'attribute');
             break;
-          }
-          case 'Table': {
-            changeRightPanelById(['attributeValue'],'attribute');
-            break;
-          }
-          case 'Link': {
-            changeRightPanelById(['attributeValue','url','openType'],'attribute');
-            break;
-          }
-          case 'List': {
-            changeRightPanelById(['listItemNum','title'],'attribute');
           }
         }
       //动作弹窗
@@ -42,6 +33,7 @@ export default function RightClickMenu(props) {
         setShowModa(false)
       }else if(type === 'style'){
         changeRightPanelById(['attributeValue'],'style');
+        setShowModa(false)
       }
     }
   }
@@ -53,12 +45,12 @@ export default function RightClickMenu(props) {
   return (
     <div>
       <div style={{position: 'relative',left: left + 'px',display: showMenu? 'block':'none'}} className='menu'>
-        <p onClick={showRightPanel('attribute')} className='menuItem'>设置属性</p>
-        <p onClick={showRightPanel('style')} className='menuItem'>设置样式</p>
-        <p onMouseEnter={openActionModal} className='menuItem'>设置动作</p>
+        <Button style={{borderRadius:'0'}} type='text' onClick={showRightPanel('attribute')} className='menuItem'>设置属性</Button>
+        <Button style={{borderRadius:'0'}} type='text' onClick={showRightPanel('style')} className='menuItem'>设置样式</Button>
+        <Button style={{borderRadius:'0'}} type='text' onMouseEnter={openActionModal} className='menuItem'>设置动作</Button>
         <div style={{display: showModal? 'block' : 'none'}} className='nextMenu'>
-          <p onClick={showRightPanel('action','click')} className='nextMenuItem'>click事件</p>
-          <p onClick={showRightPanel('action','change')} className='nextMenuItem'>change事件</p>
+          <Button style={{borderRadius:'0'}} type='text' onClick={showRightPanel('action','click')} className='nextMenuItem'>click事件</Button>
+          <Button style={{borderRadius:'0'}} type='text' onClick={showRightPanel('action','change')} className='nextMenuItem'>change事件</Button>
         </div>
       </div>
 

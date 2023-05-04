@@ -4,8 +4,14 @@ import { Input } from 'antd'
 export default function XinInput(props) {
 
   const [value,setValue] = useState('');
-  // const {attributeValue,onContextMenu,styleCss,actionJs,type,addonBefore,addonAfter,placeholder,size} = props
+  const [style,setSyle] = useState({})
   const {attributeValue,onContextMenu,styleCss,actionJs,addonBefore,addonAfter,placeholder,size,prefix,suffix,allowClear,showCount} = props
+
+  useEffect(() => {
+    let styleStr = styleCss?.replaceAll('\n','') || '{}';
+    let style = JSON.parse(styleStr)
+    setSyle(style)
+  },[styleCss])
 
   const onClick = () => {
     let script = document.createElement('script');
@@ -39,11 +45,11 @@ export default function XinInput(props) {
         addonAfter={addonAfter}
         allowClear={allowClear}
         showCount={showCount}
-        style={{width: 80}}
         onContextMenu={onContextMenu}
         onClick={onClick} value={value || ''}
         onChange={onChange}
         placeholder={placeholder}
+        style={style}
       />
     </div>
   )

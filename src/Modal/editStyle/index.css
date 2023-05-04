@@ -6,15 +6,9 @@
   top: 409px;
   justify-content: space-between;
 }
-.editStyle{
-  position: absolute;
-  z-index: 100;
-  top: 100px;
-}
 .editStyle .textarea{
-  position: absolute;
-  left: 90px;
-  width: 600px;
+  width: 450px;
   height: 400px;
   resize: none;
+  border: none;
 }
