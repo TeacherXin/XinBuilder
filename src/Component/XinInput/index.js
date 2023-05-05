@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import './index.css'
 import { Input } from 'antd'
+import Store from '../../Store';
+import _ from 'lodash'
 export default function XinInput(props) {
 
   const [value,setValue] = useState('');
   const [style,setSyle] = useState({})
-  const {attributeValue,onContextMenu,styleCss,actionJs,addonBefore,addonAfter,placeholder,size,prefix,suffix,allowClear,showCount} = props
+  const {attributeValue,onContextMenu,styleCss,actionJs,addonBefore,addonAfter,placeholder,size,prefix,suffix,allowClear,showCount,comId} = props
+  const attributeMap = _.cloneDeep(Store.getState().attributeMap)
 
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','') || '{}';
@@ -20,6 +23,8 @@ export default function XinInput(props) {
   }
   const onChange = (e) =>{
     setValue(e.target.value);
+    attributeMap[comId].attributeValue = e.target.value;
+    Store.dispatch({type: 'change',attributeMap});
     let script = document.createElement('script');
     script.innerHTML = actionJs?.change
     document.body.append(script)
