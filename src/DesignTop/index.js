@@ -5,6 +5,7 @@ import Store from '../Store';
 import subscribeHook from '../DefineHook/subscribe';
 import { Image,Button } from 'antd';
 import _ from 'lodash'
+import axios from 'axios'
 
 export default function DesignTop(props) {
 
@@ -21,6 +22,19 @@ export default function DesignTop(props) {
     navigate('/metaRender',{state: attributeMap});
   }
 
+  const savePageInfo = () => {
+    axios.post('http://localhost:3003/pageJson/addPage',{
+      pageId:'pageInfo_01',
+      pageJson: attributeMap
+    })
+    .then(res => {
+      console.log(res.data);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
   return (
     <div className='designTop'>
       <Image
@@ -30,7 +44,8 @@ export default function DesignTop(props) {
         src={'https://tpc.googlesyndication.com/simgad/13961833089927279457/14763004658117789537?w=200&h=200'}
       />
       <span style={{position:'relative',left:'320px',fontSize:'24px',top:'4px',fontStyle: 'italic'}}>XinBuilder</span>
-      <Button style={{width: 80,height:30}} type='primary' ghost onClick={toMetaRender}>展示</Button>
+      <Button style={{width: 80,height:30}} type='primary' ghost onClick={savePageInfo}>保存</Button>
+      {/* <Button style={{width: 80,height:30}} type='primary' ghost onClick={toMetaRender}>预览</Button> */}
     </div>
   )
 }
