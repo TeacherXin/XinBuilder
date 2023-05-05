@@ -1,11 +1,25 @@
 import { configureStore } from '@reduxjs/toolkit'
 import _ from 'lodash'
+import '../Util/index.js'
 
 const initialState  = { attributeMap: {} }
 
 function attributeMapReducer(state = initialState, action) {
   if (action.type === 'change') {
-    // 如果是，复制 `state`
+
+    if(action.comId){
+      let attributeMap = _.cloneDeep(state.attributeMap);
+      attributeMap[action.comId] = action.attributeMap;
+      window.xinCtx = _.cloneDeep(attributeMap);
+      window.proxyAttributeMap();
+      return  {
+        ...state,
+        attributeMap: attributeMap
+      };
+    }
+
+    window.xinCtx = _.cloneDeep(action.attributeMap);
+    window.proxyAttributeMap();
     return  {
       ...state,
       attributeMap: _.cloneDeep(action.attributeMap)
@@ -16,14 +30,3 @@ function attributeMapReducer(state = initialState, action) {
 }
 
 export default configureStore({ reducer: attributeMapReducer });
-
-// console.log(store.getState())
-
-// store.dispatch({ type: 'counter/increment' })
-
-// console.log(store.getState())
-
-// const selectCounterValue = state => state.value
-
-// const currentValue = selectCounterValue(store.getState())
-// console.log(currentValue)

@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import * as myComponent from '../Component'
+import subscribeHook from '../DefineHook/subscribe'
 
 export default function MetaRender() {
   const state = useLocation().state;
+  const [update,setUpdate] = useState()
+
+  subscribeHook(() => {
+    setUpdate({})
+  })
 
   return (
     <div>

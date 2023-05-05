@@ -152,6 +152,7 @@ export default function RenderCom(props) {
     }else{
       setComList([...comList,{component: dragCom || NowCom.component, style,dragId: NowCom.name + e.clientX,code: NowCom.name}]);
       attributeMap[NowCom.name + e.clientX] = {}
+      attributeMap[NowCom.name + e.clientX].comId = NowCom.name + e.clientX
       attributeMap[NowCom.name + e.clientX].position = {left: style.left,top: style.top}
       attributeMap[NowCom.name + e.clientX].comType = NowCom.name
     }

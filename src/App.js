@@ -3,7 +3,7 @@ import LeftCom from './MainCom/leftCom';
 import RightCom from './MainCom/rightCom';
 import RenderCom from './MainCom/renderCom';
 import DesignTop from './DesignTop';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
 
