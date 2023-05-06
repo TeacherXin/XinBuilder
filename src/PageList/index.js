@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import './index.css'
 import axios from 'axios';
 import {DeleteOutlined} from '@ant-design/icons';
+import Store from '../Store';
 const { Search } = Input
 
 export default function PageList() {
@@ -60,6 +61,7 @@ export default function PageList() {
       });
       getPageList()
       setIsModalOpen(false)
+      Store.dispatch({type:'change',attributeMap:{}})
     })
     .catch(err => {
       messageApi.open({
