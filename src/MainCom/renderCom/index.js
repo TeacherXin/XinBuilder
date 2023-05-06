@@ -7,6 +7,9 @@ import * as myComponent from '../../Component'
 import './index.css'
 import Store from '../../Store';
 import _ from 'lodash'
+import { useLocation } from 'react-router-dom'
+import axios from 'axios';
+import {  message } from 'antd';
 
 export default function RenderCom(props) {
 
@@ -49,8 +52,11 @@ export default function RenderCom(props) {
   
   const [update,setUpdate] = useState({})
 
+  const state = useLocation().state;
+  const [messageApi, contextHolder] = message.useMessage();
+
   
-  const attributeMap = _.cloneDeep(Store.getState().attributeMap);
+  let attributeMap = _.cloneDeep(Store.getState().attributeMap);
   const { NowCom , changeRightPanel } = props
   let nowComId = ''
   let startLeft,startTop,endLeft,endTop,itemLeft,itemTop,itemWidth,itemHeight,clientWidth,clientHeight;
@@ -63,23 +69,43 @@ export default function RenderCom(props) {
 
   //在预览状态返回的时候，保持信息
   useEffect(() => {
-    for(let propName in attributeMap){
-      let com = attributeMap[propName]
-      if(comList.findIndex(item => item.dragId === propName) === -1){
-        comList.push({
-          style: {
-            position: 'fixed',
-            left: com.position.left,
-            top: com.position.top,
-            zIndex: 100
-          },
-          dragId: propName,
-          code: com.comType,
-          component: myComponent[com.comType]
-        })
-      }
+    if(state?.pageId){
+      axios.post('http://localhost:3003/pageJson/findPageByID',{
+        pageId: state.pageId
+      })
+      .then(res => {
+        attributeMap = res.data.data.pageJson;
+        for(let propName in attributeMap){
+          let com = attributeMap[propName]
+          if(comList.findIndex(item => item.dragId === propName) === -1){
+            comList.push({
+              style: {
+                position: 'fixed',
+                left: com.position.left,
+                top: com.position.top,
+                zIndex: 100
+              },
+              dragId: propName,
+              code: com.comType,
+              component: myComponent[com.comType]
+            })
+          }
+        }
+        Store.dispatch({type:'change',attributeMap})
+        setComList([...comList])
+      })
+      .catch(err => {
+        messageApi.open({
+          type: 'error',
+          content: '获取页面详情失败',
+        });
+      })
+    }else{
+      messageApi.open({
+        type: 'error',
+        content: '获取页面详情失败',
+      });
     }
-    setComList([...comList])
   },[])
 
   useEffect(() => {

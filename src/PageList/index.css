@@ -1,0 +1,9 @@
+.PageHeader{
+  height: 60px;
+  width: 400px;
+  margin: 20px auto
+}
+.PageBody{
+  width: 1000px;
+  margin: 0 auto;
+}
