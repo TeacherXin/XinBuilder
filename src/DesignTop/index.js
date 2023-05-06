@@ -26,7 +26,7 @@ export default function DesignTop(props) {
   }
 
   const savePageInfo = () => {
-    axios.post('http://localhost:3003/pageJson/updatePage',{
+    axios.post(`http://${window.location.hostname}:3003/pageJson/updatePage`,{
       pageId:state.pageId,
       pageJson: attributeMap
     })

@@ -24,7 +24,7 @@ export default function PageList() {
   }
 
   const getPageList = () => {
-    axios.get('http://localhost:3003/pageJson/findAllPage')
+    axios.get(`http://${window.location.hostname}:3003/pageJson/findAllPage`)
     .then(res => {
       setPageList(res.data.data)
     })
@@ -48,7 +48,7 @@ export default function PageList() {
   }
   
   const handleOk = () => {
-    axios.post('http://localhost:3003/pageJson/addPage',{
+    axios.post(`http://${window.location.hostname}:3003/pageJson/addPage`,{
       pageName: pageName,
       pageId:'pageInfo_' + new Date().getTime(),
       pageJson: {}
@@ -79,7 +79,7 @@ export default function PageList() {
 
   const deletePage = (pageId) => {
     return () => {
-      axios.post('http://localhost:3003/pageJson/deletePage',{
+      axios.post(`http://${window.location.hostname}:3003/pageJson/deletePage`,{
         pageId
       })
       .then(res => {
