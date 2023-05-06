@@ -58,6 +58,7 @@ export default function DesignTop(props) {
       />
       <span style={{position:'relative',left:'320px',fontSize:'24px',top:'4px',fontStyle: 'italic'}}>XinBuilder</span>
       <Button style={{width: 80,height:30}} type='primary' ghost onClick={savePageInfo}>保存</Button>
+      <Button style={{width: 80,height:30}} type='primary' ghost onClick={() => {navigate('/')}}>返回</Button>
       {/* <Button style={{width: 80,height:30}} type='primary' ghost onClick={toMetaRender}>预览</Button> */}
     </div>
   )

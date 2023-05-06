@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import './index.css'
 import axios from 'axios';
 import {DeleteOutlined} from '@ant-design/icons';
-import Store from '../Store';
 const { Search } = Input
 
 export default function PageList() {
@@ -100,7 +99,7 @@ export default function PageList() {
   }
 
   return (
-    <div>
+    <div className='PageList'>
       {contextHolder}
       <div className='PageHeader'>
         <Search
@@ -115,7 +114,7 @@ export default function PageList() {
             pageList.map(item => {
               return <Col key={item._id} span={6}>
                 <Card title={<div><span>{item.pageName || '匿名'}</span><DeleteOutlined onClick={deletePage(item.pageId)} style={{float:'right',cursor:'pointer'}} /></div>} bordered={false}>
-                  <Button type='text' onClick={toBuilderPage(item.pageId)}>Card content</Button>
+                  <Button type='text' onClick={toBuilderPage(item.pageId)}>编辑页面</Button>
                 </Card>
               </Col>
             })

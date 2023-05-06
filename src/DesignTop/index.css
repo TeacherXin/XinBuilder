@@ -9,8 +9,7 @@
 }
 
 .designTop button{
-  position: absolute;
-  right: 20px;
-  top: 7px;
-  width: 100px;
+  float: right;
+  margin-top: 5px;
+  margin-right: 10px;
 }

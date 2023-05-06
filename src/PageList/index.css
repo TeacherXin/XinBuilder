@@ -1,9 +1,17 @@
 .PageHeader{
   height: 60px;
   width: 400px;
-  margin: 20px auto
+  margin: 0 auto;
+  position: relative;
+  top: 20px;
 }
 .PageBody{
+  position: relative;
+  top: 50px;
   width: 1000px;
   margin: 0 auto;
+}
+.PageList{
+  background-color: #e0e5ec;
+  height: 100%;
 }
