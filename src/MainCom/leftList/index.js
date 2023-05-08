@@ -22,10 +22,10 @@ export default function LeftList(props) {
   }
 
   const getComAttributeList = (name,attribute) => {
-    if(typeof attribute === 'string'){
+    if(typeof attribute === 'string' || typeof attribute === 'boolean'){
       return <div key={attribute} style={{marginTop: '10px'}}>
         <span style={{marginLeft: '30px'}}>{name}:</span>
-        <span>{attribute}</span>
+        <span> {attribute.toString()}</span>
       </div>
     }else if(typeof attribute === 'object'){
       return <div style={{marginTop:'10px'}}>
