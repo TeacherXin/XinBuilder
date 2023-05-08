@@ -19,7 +19,7 @@ export default function MetaRender() {
         pageId: state.pageId
       })
       .then(res => {
-        attributeMap = res.data.data.pageJson;
+        Store.dispatch({type:'change',attributeMap:res.data.data.pageJson})
       })
       .catch(err => {
         messageApi.open({
