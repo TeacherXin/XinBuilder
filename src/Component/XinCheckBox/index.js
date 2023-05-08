@@ -20,11 +20,11 @@ export default function XinCheckBox(props) {
     document.body.append(script)
   }
   const onChange = (e) =>{
+    attributeMap[comId].checked = !attributeMap?.[comId]?.checked;
+    Store.dispatch({type: 'change',attributeMap});
     let script = document.createElement('script');
     script.innerHTML = actionJs?.change
     document.body.append(script)
-    attributeMap[comId].checked = !attributeMap?.[comId]?.checked;
-    Store.dispatch({type: 'change',attributeMap});
   }
 
   return (
