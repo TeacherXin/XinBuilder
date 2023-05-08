@@ -65,7 +65,12 @@ export default function RenderCom(props) {
 
   subscribeHook(() => {
     setUpdate({})
+    // setComList([...comList])
   })
+
+  useEffect(() => {
+    mapToList(attributeMap)
+  },[update])
 
   //在预览状态返回的时候，保持信息
   useEffect(() => {
@@ -75,24 +80,8 @@ export default function RenderCom(props) {
       })
       .then(res => {
         attributeMap = res.data.data.pageJson;
-        for(let propName in attributeMap){
-          let com = attributeMap[propName]
-          if(comList.findIndex(item => item.dragId === propName) === -1){
-            comList.push({
-              style: {
-                position: 'fixed',
-                left: com.position.left,
-                top: com.position.top,
-                zIndex: 100
-              },
-              dragId: propName,
-              code: com.comType,
-              component: myComponent[com.comType]
-            })
-          }
-        }
+        mapToList(attributeMap);
         Store.dispatch({type:'change',attributeMap})
-        setComList([...comList])
       })
       .catch(err => {
         messageApi.open({
@@ -112,6 +101,26 @@ export default function RenderCom(props) {
     setActionJs(attributeMap[actionId]?.actionJs)
     setStyleCss(attributeMap[styleId]?.styleCss)
   },[showAction,showStyle])
+
+  const mapToList = (attributeMap) => {
+    for(let propName in attributeMap){
+      let com = attributeMap[propName]
+      if(comList.findIndex(item => item.dragId === propName) === -1){
+        comList.push({
+          style: {
+            position: 'fixed',
+            left: com.position.left,
+            top: com.position.top,
+            zIndex: 100
+          },
+          dragId: propName,
+          code: com.comType,
+          component: myComponent[com.comType]
+        })
+      }
+    }
+    setComList([...comList])
+  }
 
 
   const onDrop = (e) => {

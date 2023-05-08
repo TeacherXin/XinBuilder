@@ -1,9 +1,12 @@
 import React, { useState,useEffect } from 'react'
 import { Checkbox } from 'antd'
+import Store from '../../Store';
+import _ from 'lodash'
 
 export default function XinCheckBox(props) {
-  const {attributeValue,onContextMenu,actionJs,styleCss,disabled} = props
+  const {attributeValue,onContextMenu,actionJs,styleCss,disabled,checked,comId} = props
   const [style,setStyle] = useState({})
+    const attributeMap = _.cloneDeep(Store.getState().attributeMap)
 
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','') || '{}';
@@ -20,11 +23,14 @@ export default function XinCheckBox(props) {
     let script = document.createElement('script');
     script.innerHTML = actionJs?.change
     document.body.append(script)
+    attributeMap[comId].checked = !attributeMap?.[comId]?.checked;
+    Store.dispatch({type: 'change',attributeMap});
   }
 
   return (
     <div onContextMenu={onContextMenu}>
       <Checkbox
+        checked={checked}
         disabled={disabled}
         style={style}
         onClick={onClick}

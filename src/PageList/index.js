@@ -39,6 +39,7 @@ export default function PageList() {
 
   const toBuilderPage = (pageId) => {
     return () => {
+      Store.dispatch({type:'change',attributeMap:{}})
       navigate('/home',{state: {pageId}});
     }
   }

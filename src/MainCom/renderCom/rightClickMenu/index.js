@@ -27,7 +27,7 @@ export default function RightClickMenu(props) {
             break;
           }
           case 'XinCheckBox': {
-            changeRightPanelById(['attributeValue','disabled'],'attribute');
+            changeRightPanelById(['attributeValue','disabled','checked'],'attribute');
           }
         }
       //动作弹窗

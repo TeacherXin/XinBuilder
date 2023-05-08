@@ -23,7 +23,8 @@ const attributeValueMap = {
   prefix: '前缀',
   suffix: '后缀',
   allowClear: '允许清除',
-  showCount: '展示字数'
+  showCount: '展示字数',
+  checked: '是否选中'
 }
 
 
@@ -46,6 +47,18 @@ export default function RightCom(props) {
         </select>
       }
       case 'disabled': {
+        return <Select 
+          style={{ width: 120,height: 25 }}
+          defaultValue={false}
+          onChange={onChange(item)}
+          options={
+          [
+            { label: '是', value: true },
+            { label: '否', value: false }
+          ]
+        } />
+      }
+      case 'checked': {
         return <Select 
           style={{ width: 120,height: 25 }}
           defaultValue={false}
