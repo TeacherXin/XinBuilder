@@ -6,28 +6,9 @@
   height: 100%;
 }
 
-
-@keyframes raindrop {
-  0% {top:5%;}
-  10% {top:10%;}
-  20% {top:20%;}
-  30% {top:30%;}
-  40% {top:40%;}
-  50% {top:50%;}
-  60% {top:60%;}
-  70% {top:70%;}
-  80% {top:80%;}
-  90% {top:90%;}
-  100% {top:95%;}
-}
-
 .editAction{
   position: fixed;
   left: 30%;
-}
-
-.selectedComponent{
-  border: 1.3px solid blue;
 }
 
 .renderCom .topMenu{

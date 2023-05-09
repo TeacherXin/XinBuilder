@@ -38,6 +38,21 @@ export default function RightCom(props) {
     setUpdate({})
   })
 
+  const findNodeByComId = (id) => {
+    for(let propName in attributeMapRight){
+      if(propName === id){
+        return attributeMapRight[propName];
+      }
+      if(attributeMapRight[propName].childList){
+        for(let _propName in attributeMapRight[propName].childList){
+          if(_propName === id){
+            return attributeMapRight[propName].childList[_propName]
+          }
+        }
+      }
+    }
+  }
+
   const getAttributeValueCom = (item,index) => {
     switch (item) {
       case 'openType': {
@@ -146,10 +161,10 @@ export default function RightCom(props) {
         } />
       }
       case 'listItemNum': {
-        return <Input style={{ width: 120,height: 25 }} type={'number'} key={index} onChange={onChange(item)} value={attributeMapRight?.[comId]?.[item] || ''}></Input>
+        return <Input style={{ width: 120,height: 25 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
       }
       default: {
-        return <Input style={{ width: 120, height: 25 }} key={index} onChange={onChange(item)} value={attributeMapRight?.[comId]?.[item] || ''}></Input>
+        return <Input style={{ width: 120, height: 25 }} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
       }
     }
   }
@@ -157,7 +172,17 @@ export default function RightCom(props) {
   const onChange = (name) => {
     return (value) => {
       if(!attributeMapRight[comId]){
-        attributeMapRight[comId] = {}
+        for(let propName in attributeMapRight){
+          if(attributeMapRight[propName].childList){
+            if(attributeMapRight[propName].childList[comId])
+            if(typeof value === 'object'){
+              value = value.target.value
+            }
+            attributeMapRight[propName].childList[comId][name] = value;
+            Store.dispatch({type:'change',attributeMap: attributeMapRight})
+            return;
+          }
+        }
       }
       if(typeof value === 'object'){
         value = value.target.value

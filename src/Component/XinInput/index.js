@@ -10,6 +10,21 @@ export default function XinInput(props) {
   const {attributeValue,onContextMenu,styleCss,actionJs,addonBefore,addonAfter,placeholder,size,prefix,suffix,allowClear,showCount,comId} = props
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
 
+  const findNodeByComId = (id) => {
+    for(let propName in attributeMap){
+      if(propName === id){
+        return attributeMap[propName];
+      }
+      if(attributeMap[propName].childList){
+        for(let _propName in attributeMap[propName].childList){
+          if(_propName === id){
+            return attributeMap[propName].childList[_propName]
+          }
+        }
+      }
+    }
+  }
+
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','') || '{}';
     let style = JSON.parse(styleStr)
@@ -23,7 +38,7 @@ export default function XinInput(props) {
   }
   const onChange = (e) =>{
     setValue(e.target.value);
-    attributeMap[comId].attributeValue = e.target.value;
+    findNodeByComId(comId).attributeValue = e.target.value;
     Store.dispatch({type: 'change',attributeMap});
     let script = document.createElement('script');
     script.innerHTML = actionJs?.change

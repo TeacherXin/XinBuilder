@@ -6,7 +6,7 @@ import _ from 'lodash'
 export default function XinCheckBox(props) {
   const {attributeValue,onContextMenu,actionJs,styleCss,disabled,checked,comId} = props
   const [style,setStyle] = useState({})
-    const attributeMap = _.cloneDeep(Store.getState().attributeMap)
+  const attributeMap = _.cloneDeep(Store.getState().attributeMap)
 
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','') || '{}';

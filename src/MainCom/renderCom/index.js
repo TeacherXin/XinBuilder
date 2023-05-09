@@ -13,11 +13,6 @@ import {  message } from 'antd';
 
 export default function RenderCom(props) {
 
-  //用来存储画布区的所有组件，以及组件的属性
-  const [comList, setComList] = useState([])
-
-  const [selectedComList,setSelectedComList] = useState([])
-
   //展示动作弹窗
   const [showAction, setShowAction] = useState(false)
   //动作JS代码
@@ -32,11 +27,7 @@ export default function RenderCom(props) {
   const [styleId, setStyleId] = useState('')
 
   const [actionName, setActionName] = useState('click')
-
-  //全选节点的父节点样式
-  const [groupStyle,setGruopStyle] = useState({})
-  //是否全选
-  const [groupFlag,setGroupFlag] = useState(false)
+  
   //全选节点的父节点的宽度
   const [groupWidth,setGroupWidth] = useState()
   //全选节点的父节点的高度
@@ -60,17 +51,10 @@ export default function RenderCom(props) {
   const { NowCom , changeRightPanel } = props
   let nowComId = ''
   let startLeft,startTop,endLeft,endTop,itemLeft,itemTop,itemWidth,itemHeight,clientWidth,clientHeight;
-  //用来判断是左侧列表拖拽还是画布区拖拽
-  let dragCom = null;
 
   subscribeHook(() => {
     setUpdate({})
-    // setComList([...comList])
   })
-
-  useEffect(() => {
-    mapToList(attributeMap)
-  },[update])
 
   //在预览状态返回的时候，保持信息
   useEffect(() => {
@@ -80,7 +64,6 @@ export default function RenderCom(props) {
       })
       .then(res => {
         attributeMap = res.data.data.pageJson;
-        mapToList(attributeMap);
         Store.dispatch({type:'change',attributeMap})
       })
       .catch(err => {
@@ -98,29 +81,9 @@ export default function RenderCom(props) {
   },[])
 
   useEffect(() => {
-    setActionJs(attributeMap[actionId]?.actionJs)
-    setStyleCss(attributeMap[styleId]?.styleCss)
+    setActionJs(findNodeByComId(actionId)?.actionJs)
+    setStyleCss(findNodeByComId(styleId)?.styleCss)
   },[showAction,showStyle])
-
-  const mapToList = (attributeMap) => {
-    for(let propName in attributeMap){
-      let com = attributeMap[propName]
-      if(comList.findIndex(item => item.dragId === propName) === -1){
-        comList.push({
-          style: {
-            position: 'fixed',
-            left: com.position.left,
-            top: com.position.top,
-            zIndex: 100
-          },
-          dragId: propName,
-          code: com.comType,
-          component: myComponent[com.comType]
-        })
-      }
-    }
-    setComList([...comList])
-  }
 
 
   const onDrop = (e) => {
@@ -149,56 +112,43 @@ export default function RenderCom(props) {
         zIndex:100
       }
     }
-
-    //拖拽的为多个节点
-    if(groupFlag){
-      setGruopStyle(style);
-      selectedComList.forEach(item => {
-        let style = JSON.parse(JSON.stringify(item.style))
-        style.left = parseInt(style.left) +  (endLeft - startLeft);
-        style.top = parseInt(style.top) +  (endTop - startTop);
-        item.style = style;
-        item.selected = false;
-      })
-      let list = [...comList];
-      for(let i=0;i<selectedComList.length;i++){
-        let node = selectedComList[i];
-        const index = comList.findIndex(item => item.dragId === node.dragId);
-        if(index === -1){
-          list.push(node);
-          const attributeItem = attributeMap[node.dragId];
-          attributeItem.position = {
-            left: node.style.left + 'px',
-            top: node.style.top + 'px'
-          }
-        }
-      }
-      Store.dispatch({type: 'change',attributeMap})
-      setComList(list);
-      setSelectedComList([])
-      setGroupFlag(false)
-      return;
-    }
-    const com = comList.find(item => item.dragId === nowComId);
-    if(com){
-      com.style = style;
-      setComList([...comList]);
-      attributeMap[com.dragId].position = {left: style.left,top: style.top}
+    let node = findNodeByComId(nowComId)
+    if(node){
+      node.style = style
     }else{
-      setComList([...comList,{component: dragCom || NowCom.component, style,dragId: NowCom.name + e.clientX,code: NowCom.name}]);
-      attributeMap[NowCom.name + e.clientX] = {}
-      attributeMap[NowCom.name + e.clientX].comId = NowCom.name + e.clientX
-      attributeMap[NowCom.name + e.clientX].position = {left: style.left,top: style.top}
-      attributeMap[NowCom.name + e.clientX].comType = NowCom.name
+      let newCom = {style,comId: NowCom.name + e.clientX,comType: NowCom.name}
+      let flag = dragToContainer(e.clientX,e.clientY,newCom);
+      if(flag){
+        return;
+      }
+      attributeMap[newCom.comId] = newCom
     }
     Store.dispatch({type: 'change',attributeMap})
+  }
+
+  const dragToContainer = (clientX,clientY,newCom) => {
+    let parentNode;
+    for(let propName in attributeMap){
+      if(attributeMap[propName].comType === 'XinForm' && parseInt(attributeMap[propName].style.left) < clientX && parseInt(attributeMap[propName].style.top) < clientY){
+        parentNode = attributeMap[propName]
+      }
+    }
+    if(parentNode){
+      delete newCom.style
+      if(parentNode.childList){
+        parentNode.childList[newCom.comId] = newCom
+      }else{
+        parentNode.childList = {}
+        parentNode.childList[newCom.comId] = newCom
+      }
+      Store.dispatch({type: 'change',attributeMap})
+      return true;
+    }
   }
 
 
   const onDragStart = (e) => {
     nowComId = e.target.id
-    setComList(comList);
-
     startLeft = e.clientX;
     startTop = e.clientY;
     itemLeft = e.target.offsetLeft;
@@ -224,33 +174,28 @@ export default function RenderCom(props) {
   const onDragOver = (e) => {
     e.preventDefault()
   }
-
-  const onSelect=(item) => {
-    return (e) => {
-      if(item.code === 'XinInput'){
-        return;
-      }
-    }
-  }
   
   //右键菜单栏
   const onContextMenu = (item) => {
     return (e) => {
       e.preventDefault();
+      e.stopPropagation();
       item.showMenu =!item.showMenu;
-      setComList([...comList]);
+      Store.dispatch({type:"change",attributeMap})
     }
   }
 
   const clearAllShowMenu = (e) => {
-    comList.forEach(item => {
-      item.showMenu = false
+    Object.keys(attributeMap || {}).forEach(item => {
+      attributeMap[item].showMenu = false
+      if(attributeMap[item].childList){
+        (Object.keys(attributeMap[item].childList || {})).forEach(_item => {
+          attributeMap[item].childList[_item].showMenu = false
+        })
+      }
     })
-    selectedComList.forEach(item => {
-      item.showMenu = false;
-    })
-    setComList([...comList]);
-    setSelectedComList([...selectedComList]);
+
+    Store.dispatch({type:"change",attributeMap})
   }
 
   //根据组件的id来更改右侧属性面板
@@ -275,13 +220,11 @@ export default function RenderCom(props) {
   const submitAction = (flag) => {
     return () => {
       if(flag){
-        if(!attributeMap[actionId]){
-          attributeMap[actionId] = {}
+        let node = findNodeByComId(actionId)
+        if(!node.actionJs){
+          node.actionJs = {}
         }
-        if(!attributeMap[actionId].actionJs){
-          attributeMap[actionId].actionJs = {}
-        }
-        attributeMap[actionId].actionJs[actionName] = actionJs?.[actionName];
+        node.actionJs[actionName] = actionJs?.[actionName];
         Store.dispatch({type: 'change',attributeMap})
       }
       setShowAction(false);
@@ -292,10 +235,8 @@ export default function RenderCom(props) {
   const submitStyle = (flag) => {
     return () => {
       if(flag){
-        if(!attributeMap[styleId]){
-          attributeMap[styleId] = {}
-        }
-        attributeMap[styleId].styleCss = styleCss;
+        let node = findNodeByComId(styleId)
+        node.styleCss = styleCss;
         Store.dispatch({type: 'change',attributeMap})
       }
       setShowStyle(false);
@@ -310,17 +251,6 @@ export default function RenderCom(props) {
 
   const changeStyleCss = (e) => {
     setStyleCss(e.target.value)
-  }
-
-  //用来保存表格的内容
-  const changeTableData = (dragId) => {
-    return (tableData) => {
-      if(!attributeMap[dragId]){
-        attributeMap[dragId] = {}
-      }
-      attributeMap[dragId].tableData = tableData
-      Store.dispatch({type: 'change',attributeMap})
-    }
   }
 
   //通过鼠标开始和结束的位置算显示选中的蓝色div
@@ -342,141 +272,53 @@ export default function RenderCom(props) {
   const mouseUp = (e) => {
     setMousedownFlag(false)
     setShowMouse(false)
-    getAllSelectedNode()
     setGroupWidth(mouseUpLeft-mouseDownLeft);
     setGroupHeight(mouseUpTop-mouseDownTop);
   }
 
-  const getAllSelectedNode = () => {
-    for(let i=0;i<comList.length;i++){
-      let left = parseInt(comList[i].style.left);
-      let top = parseInt(comList[i].style.top);
-      if((left > mouseDownLeft && left < mouseUpLeft && top > mouseDownTop && top < mouseUpTop) || left > mouseUpLeft && left < mouseDownLeft && top > mouseUpTop && top < mouseDownTop){
-        let com = comList.splice(i,1)[0];
-        com.selected = true;
-        i--
-        selectedComList.push(com)
+  const findNodeByComId = (id) => {
+    for(let propName in attributeMap){
+      if(propName === id){
+        return attributeMap[propName];
       }
-    }
-    if(selectedComList.length){
-      setGroupFlag(true);
-    }
-    setComList([...comList]);
-    setSelectedComList([...selectedComList])
-  }
-
-  const setSameLeft = (e) => {
-    e.stopPropagation();
-    let left = selectedComList[0].style.left;
-    selectedComList.forEach(item => {
-      item.style = {...item.style,left};
-      attributeMap[item.dragId].position = {
-        left: item.style.left,
-        top: item.style.top
-      }
-    })
-    setSelectedComList([...selectedComList])
-    Store.dispatch({type: 'change',attributeMap})
-  }
-
-  const setSameTop = (e) => {
-    e.stopPropagation();
-    let top = selectedComList[0].style.top;
-    selectedComList.forEach(item => {
-      item.style = {...item.style,top};
-      attributeMap[item.dragId].position = {
-        left: item.style.left,
-        top: item.style.top
-      }
-    })
-    setSelectedComList([...selectedComList])
-    Store.dispatch({type: 'change',attributeMap})
-  }
-
-  const deleteCom = (e) => {
-    selectedComList.forEach(item => {
-      delete attributeMap[item.dragId];
-    })
-    e.stopPropagation();
-    setSelectedComList([]);
-    setGroupFlag(false);
-    Store.dispatch({type: 'change',attributeMap})
-  }
-
-  const copyCom = (e) => {
-    e.stopPropagation();
-    let copySelectedList = [];
-    for(let i=0;i<selectedComList.length;i++){
-      selectedComList[i].selected = false
-      let newCom = {
-        code: selectedComList[i].code,
-        component: selectedComList[i].component,
-        dragId: selectedComList[i].dragId + new Date().getTime(),
-        selected: false,
-        style: {
-          position: 'fixed',
-          left: parseInt(selectedComList[i].style.left) + 100 + 'px',
-          top: parseInt(selectedComList[i].style.top) + 100 + 'px',
-          zIndex: selectedComList[i].style.zIndex,
-          minHeight: selectedComList[i].style.minHeight,
-          minWidth: selectedComList[i].style.minWidth
+      if(attributeMap[propName].childList){
+        for(let _propName in attributeMap[propName].childList){
+          if(_propName === id){
+            return attributeMap[propName].childList[_propName]
+          }
         }
       }
-      attributeMap[newCom.dragId] = {
-        comType: selectedComList[i].code,
-        position: {
-          left: newCom.style.left,
-          top: newCom.style.top
-        }
-      }
-      copySelectedList.push(newCom)
     }
-    Store.dispatch({type: 'change',attributeMap})
-    setComList([...comList,...selectedComList,...copySelectedList]);
-    setSelectedComList([]);
-    setGroupFlag(false)
+  }
+
+  const getComponent = (item,isChild) => {
+    const Com = myComponent[item.comType];
+    return <div id={item.comId} key={item.comId} onDragStart={onDragStart} draggable={!isChild} style={item.style}>
+      {<Com
+        {...findNodeByComId(item.comId)}
+        onContextMenu={onContextMenu(item)}
+        >
+          {
+            Object.keys(item.childList || {}).map(_item => {
+              return getComponent(item.childList[_item],true)
+            })
+          }
+        </Com>
+      }
+      <RightClickMenu code={item.comType} changeRightPanelById={(changeRightPanelById(item.comId))} showMenu={item.showMenu} left={item?.style?.minWidth} />
+    </div>
   }
 
   return (
     <div onClick={clearAllShowMenu} onDrop={onDrop} onDragOver={onDragOver} onDragEnter={onDragEnter} className='renderCom'>
-      <div style={{display: groupFlag? 'block' : 'none'}} className='topMenu'>
-        <p className='topMenuItem' onClick={setSameLeft}>左对齐</p>
-        <p className='topMenuItem' onClick={setSameTop}>上对齐</p>
-        <p className='topMenuItem' onClick={deleteCom}>删除</p>
-        <p className='topMenuItem' onClick={copyCom}>复制</p>
-      </div>
-      {comList.map(item => {
-        const Com = item.component;
-        return <div id={item.dragId} key={item.dragId} onDragStart={onDragStart} draggable style={item.style}>
-          {<Com
-            {...attributeMap[item.dragId]}
-            onContextMenu={onContextMenu(item)}
-            onClick={onSelect(item)}
-            className={item.selected? 'selectedComponent':''}
-            changeTableData={changeTableData(item.dragId)}
-            />}
-          <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
-        </div>
+      {contextHolder}
+      {(Object.keys(attributeMap)).map(item => {
+        return getComponent(attributeMap[item])
       })}
       <div style={{ display:(showMouse?'block':'none'),border:'1px solid blue',width: Math.abs(mouseUpLeft-mouseDownLeft)+'px',height:Math.abs(mouseUpTop-mouseDownTop)+'px',position:'absolute',left:mouseDownLeft<mouseUpLeft?mouseDownLeft:mouseUpLeft+'px',top:mouseDownTop<mouseUpTop?mouseDownTop:mouseUpTop+'px'}}></div>
       <EditAction actionName={actionName} showAction={showAction} changeActionJs={changeActionJs} actionJs={actionJs} submitAction={submitAction} />
       <EditStyle showStyle={showStyle} changeStyleCss={changeStyleCss} styleCss={styleCss} submitStyle={submitStyle} />
       <div onMouseUp={mouseUp} onMouseMove={mouseMove} onMouseDown={mouseDown} style={{width:'60%',height:'100%',position:'absolute',zIndex:'10'}}></div>
-      <div style={{display:(groupFlag?'block':'none'),...groupStyle,width:Math.abs(groupWidth)+'px',height:Math.abs(groupHeight)+'px',position:'fixed',zIndex:101}} onDragStart={dragGoupStart} draggable={groupFlag}>
-        {selectedComList.map(item => {
-            const Com = item.component;
-            return <div id={item.dragId} key={item.dragId} style={item.style}>
-              {<Com
-                {...attributeMap[item.dragId]}
-                onContextMenu={onContextMenu(item)}
-                onClick={onSelect(item)}
-                className={item.selected? 'selectedComponent':''}
-                changeTableData={changeTableData(item.dragId)}
-                />}
-              <RightClickMenu code={item.code} changeRightPanelById={(changeRightPanelById(item.dragId))} showMenu={item.showMenu} left={item.style.minWidth} />
-            </div>
-          })}
-      </div>
     </div>
   )
 }

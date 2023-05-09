@@ -26,6 +26,7 @@ const setAttributeProxy = (ctx) => {
       }else{
         target[property] = value;
         Store.dispatch({type: 'change',attributeMap: target,comId:target.comId});
+        return true
       }
     }
   })
@@ -36,9 +37,11 @@ window.xinComEvent.copyNode = (node) => {
 }
 
 window.xinComEvent.addNode = (node,top,left) => {
-  node.position = {
-    left: parseInt(node.position.left) + left + 'px',
-    top: parseInt(node.position.top) + top + 'px',
+  node.style = {
+    left: parseInt(node.style.left) + left + 'px',
+    top: parseInt(node.style.top) + top + 'px',
+    position: 'fixed',
+    zIndex:100
   }
   node.comId += (new Date().getTime() + '').slice(6)
   window.xinCtx[node.comId] = node;

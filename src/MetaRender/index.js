@@ -44,12 +44,7 @@ export default function MetaRender() {
       {contextHolder}
       {Object.keys(attributeMap).map((item,index) => {
         const Com = myComponent[attributeMap[item].comType];
-        const style = {
-          position: 'absolute',
-          left: attributeMap[item].position.left,
-          top: attributeMap[item].position.top,
-        }
-        return <div key={index} id={item} style={style}>
+        return <div key={index} id={item} style={attributeMap[item].style}>
           <Com
             renderFlag={true}
             onClick={()=>{}}
