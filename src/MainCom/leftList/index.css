@@ -2,6 +2,7 @@
   height: 85%;
   width: 100%;
   overflow: auto;
+  margin-top: 20px;
 }
 .leftList .toDownicon{
   width: 16px;

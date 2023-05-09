@@ -39,7 +39,7 @@ export default function XinForm(props) {
         }}
         style={style}
       >
-          {props.children.map(item => {
+          {(props?.children || []).map(item => {
             return <Form.Item
                 >
                 {item}

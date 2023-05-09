@@ -3,6 +3,7 @@ import './index.css'
 import Store from '../../Store'
 import _ from 'lodash'
 import subscribeHook from '../../DefineHook/subscribe'
+import { Tree } from 'antd';
 
 export default function LeftList(props) {
 
@@ -13,44 +14,26 @@ export default function LeftList(props) {
     setUpdate({})
   })
 
-  const showDownList = (attribute) => {
-    return () => {
-      attribute.showList = !attribute.showList;
-      Store.dispatch({type: 'change',attributeMap});
-      setUpdate({})
+  const getTreeData = (attributeMap) => {
+    let treeData = []
+    for(let propName in attributeMap){
+      treeData.push({
+        title: <div style={{height:'40px'}}>{propName}</div>,
+        key: attributeMap[propName].comId,
+        children: getTreeData(attributeMap[propName].childList)
+      })
     }
-  }
-
-  const getComAttributeList = (name,attribute) => {
-    if(typeof attribute === 'string' || typeof attribute === 'boolean'){
-      return <div key={attribute} style={{marginTop: '10px'}}>
-        <span style={{marginLeft: '30px'}}>{name}:</span>
-        <span> {attribute.toString()}</span>
-      </div>
-    }else if(typeof attribute === 'object'){
-      return <div style={{marginTop:'10px'}}>
-        <span onClick={showDownList(attribute)} className='toDownicon'>{!attribute.showList?'+':'-'}</span><span>{name}:</span>
-        {attribute.showList && <div style={{marginLeft: '40px'}}>
-          {
-            Object.keys(attribute).map(item => {
-              return getComAttributeList(item,attribute[item])
-            })
-          }
-        </div>}
-      </div>
-    }
+    return treeData
   }
 
   return (
     <div className='leftList'>
-      {Object.keys(attributeMap).map((item,index) => {
-        return <div key={index} className='leftAttributeItem'>
-          <p>{item}</p>
-          {Object.keys(attributeMap[item]).map((_item,_index) => {
-            return <div key={_index}>{getComAttributeList(_item,attributeMap[item][_item])}</div>
-          })}
-        </div>
-      })}
+      <Tree
+        showLine={true}
+        treeData={getTreeData(attributeMap)}
+        style={{background:'linear-gradient(rgb(234 213 210),rgb(236 235 202) ,#dbf0c7)'}}
+      />
+
     </div>
   )
 }

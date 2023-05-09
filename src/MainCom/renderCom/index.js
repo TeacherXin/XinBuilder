@@ -157,16 +157,6 @@ export default function RenderCom(props) {
     itemHeight = e.target.offsetHeight;
   }
 
-  //多个节点的拖拽方法
-  const dragGoupStart = (e) => {
-    startLeft = e.clientX;
-    startTop = e.clientY;
-    itemLeft = e.target.offsetLeft;
-    itemTop = e.target.offsetTop;
-    itemWidth = e.target.offsetWidth;
-    itemHeight = e.target.offsetHeight;
-  }
-
   const onDragEnter = (e) => {
     e.preventDefault()
   }
