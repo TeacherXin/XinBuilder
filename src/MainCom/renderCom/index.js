@@ -63,7 +63,7 @@ export default function RenderCom(props) {
         pageId: state.pageId
       })
       .then(res => {
-        attributeMap = res.data.data.pageJson;
+        attributeMap = res.data.data?.pageJson || {};
         Store.dispatch({type:'change',attributeMap})
       })
       .catch(err => {
