@@ -19,7 +19,7 @@ export default function RightClickMenu(props) {
             break;
           }
           case 'XinInput': {
-            changeRightPanelById(['attributeValue','addonBefore','addonAfter','placeholder','size','prefix','suffix','allowClear'],'attribute');
+            changeRightPanelById(['attributeValue','addonBefore','addonAfter','placeholder','size','prefix','suffix','allowClear','label','required','requiredMessage'],'attribute');
             break;
           }
           case 'XinLable': {
@@ -28,9 +28,11 @@ export default function RightClickMenu(props) {
           }
           case 'XinCheckBox': {
             changeRightPanelById(['attributeValue','disabled','checked'],'attribute');
+            break;
           }
           case 'XinForm': {
-            changeRightPanelById(['attributeValue'],'attribute');
+            changeRightPanelById(['disabled','size','layout','colon','labelAlign'],'attribute');
+            break;
           }
         }
       //动作弹窗

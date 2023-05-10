@@ -24,7 +24,13 @@ const attributeValueMap = {
   suffix: '后缀',
   allowClear: '允许清除',
   showCount: '展示字数',
-  checked: '是否选中'
+  checked: '是否选中',
+  label: '标签',
+  layout: '布局',
+  required: '必填',
+  requiredMessage: '必填提示',
+  colon: '标题冒号',
+  labelAlign: '标题对齐方式'
 }
 
 
@@ -55,21 +61,29 @@ export default function RightCom(props) {
 
   const getAttributeValueCom = (item,index) => {
     switch (item) {
-      case 'openType': {
-        return <select onChange={onChange(item)}>
-          <option value={false}>是</option>
-          <option value={true} selected>否</option>
-        </select>
-      }
       case 'disabled': {
         return <Select 
           style={{ width: 120,height: 25 }}
           defaultValue={false}
           onChange={onChange(item)}
+          value={findNodeByComId(comId)?.[item] || false}
           options={
           [
             { label: '是', value: true },
             { label: '否', value: false }
+          ]
+        } />
+      }
+      case 'labelAlign': {
+        return <Select 
+          style={{ width: 120,height: 25 }}
+          defaultValue={'right'}
+          onChange={onChange(item)}
+          value={findNodeByComId(comId)?.[item] || 'right'}
+          options={
+          [
+            { label: '左侧', value: 'left' },
+            { label: '右侧', value: 'right' }
           ]
         } />
       }
@@ -78,6 +92,19 @@ export default function RightCom(props) {
           style={{ width: 120,height: 25 }}
           defaultValue={false}
           onChange={onChange(item)}
+          value={findNodeByComId(comId)?.[item] || false}
+          options={
+          [
+            { label: '是', value: true },
+            { label: '否', value: false }
+          ]
+        } />
+      }
+      case 'colon': {
+        return <Select 
+          style={{ width: 120,height: 25 }}
+          onChange={onChange(item)}
+          value={findNodeByComId(comId)?.[item] === undefined ? true : findNodeByComId(comId)?.[item]}
           options={
           [
             { label: '是', value: true },
@@ -90,6 +117,20 @@ export default function RightCom(props) {
           style={{ width: 120,height: 25 }}
           defaultValue={false}
           onChange={onChange(item)}
+          value={findNodeByComId(comId)?.[item] || false}
+          options={
+          [
+            { label: '是', value: true },
+            { label: '否', value: false }
+          ]
+        } />
+      }
+      case 'required': {
+        return <Select 
+          style={{ width: 120,height: 25 }}
+          defaultValue={false}
+          onChange={onChange(item)}
+          value={findNodeByComId(comId)?.[item] || false}
           options={
           [
             { label: '是', value: true },
@@ -102,6 +143,7 @@ export default function RightCom(props) {
           style={{ width: 120,height: 25 }}
           defaultValue={false}
           onChange={onChange(item)}
+          value={findNodeByComId(comId)?.[item] || false}
           options={
           [
             { label: '是', value: true },
@@ -114,6 +156,7 @@ export default function RightCom(props) {
           style={{ width: 120,height: 25 }}
           defaultValue={false}
           onChange={onChange(item)}
+          value={findNodeByComId(comId)?.[item] || false}
           options={
           [
             { label: '是', value: true },
@@ -126,6 +169,7 @@ export default function RightCom(props) {
           style={{ width: 120,height: 25 }}
           defaultValue={false}
           onChange={onChange(item)}
+          value={findNodeByComId(comId)?.[item] || false}
           options={
           [
             { label: '是', value: true },
@@ -138,6 +182,7 @@ export default function RightCom(props) {
           style={{ width: 120,height: 20 }}
           defaultValue='primary'
           onChange={onChange(item)}
+          value={findNodeByComId(comId)?.[item] || 'primary'}
           options={
           [
             { label: '默认按钮', value: 'primary' },
@@ -152,11 +197,25 @@ export default function RightCom(props) {
           style={{ width: 120,height: 25 }}
           defaultValue='default'
           onChange={onChange(item)}
+          value={findNodeByComId(comId)?.[item] || 'default'}
           options={
           [
             { label: '大', value: 'large' },
             { label: '小', value: 'small' },
             { label: '中', value: 'default' },
+          ]
+        } />
+      }
+      case 'layout': {
+        return <Select 
+          style={{ width: 120,height: 25 }}
+          defaultValue={'horizontal'}
+          value={findNodeByComId(comId)?.[item] || 'horizontal'}
+          onChange={onChange(item)}
+          options={
+          [
+            { label: '水平', value: 'horizontal' },
+            { label: '竖直', value: 'vertical' }
           ]
         } />
       }

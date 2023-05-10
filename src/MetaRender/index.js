@@ -39,18 +39,42 @@ export default function MetaRender() {
     setUpdate({})
   })
 
+  const findNodeByComId = (id) => {
+    for(let propName in attributeMap){
+      if(propName === id){
+        return attributeMap[propName];
+      }
+      if(attributeMap[propName].childList){
+        for(let _propName in attributeMap[propName].childList){
+          if(_propName === id){
+            return attributeMap[propName].childList[_propName]
+          }
+        }
+      }
+    }
+  }
+
+  const getComponent = (item) => {
+    const Com = myComponent[item.comType];
+    return <div id={item.comId} key={item.comId} style={item.style}>
+      {<Com
+        {...findNodeByComId(item.comId)}
+        >
+          {
+            Object.keys(item.childList || {}).map(_item => {
+              return getComponent(item.childList[_item])
+            })
+          }
+        </Com>
+      }
+    </div>
+  }
+
   return (
     <div>
       {contextHolder}
-      {Object.keys(attributeMap).map((item,index) => {
-        const Com = myComponent[attributeMap[item].comType];
-        return <div key={index} id={item} style={attributeMap[item].style}>
-          <Com
-            renderFlag={true}
-            onClick={()=>{}}
-            {...attributeMap[item]}
-            />
-        </div>
+      {(Object.keys(attributeMap)).map(item => {
+        return getComponent(attributeMap[item])
       })}
     </div>
   )
