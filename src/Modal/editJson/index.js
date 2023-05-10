@@ -6,16 +6,18 @@ const { Paragraph } = Typography;
 export default function EditAction(props) {
   const {showJson,nowCom, setShowJson} = props
 
-  const submitJson = () => {
-    setShowJson(false)
+  const submitJson = (flag) => {
+    return () => {
+      setShowJson(flag)
+    }
   }
 
   return (
     <Modal
       open={showJson}
       className='editStyle'
-      onOk={submitJson}
-      // onCancel={submitAction(false)}
+      onOk={submitJson(false)}
+      onCancel={submitJson(false)}
       bodyStyle={{width:"800px",height:"400px"}}
       closable={false}
     >
@@ -24,19 +26,12 @@ export default function EditAction(props) {
           maxWidth: 440,
           marginTop: 24,
         }}
-        editable={{
-          onEnd(e){
-            console.log(window.aaaa)
-          },
-          onChange(value){
-            window.aaaa = value
-          }
-        }}
       >
         <pre
           style={{
             border: 'none',
-            height:'350px',
+            height:'370px',
+            width:'450px',
             overflow:'auto'
           }}
         >
