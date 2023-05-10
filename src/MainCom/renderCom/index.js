@@ -98,8 +98,6 @@ export default function RenderCom(props) {
         position: 'fixed',
         left: (endLeft - startLeft) + itemLeft + 'px',
         top: (endTop - startTop) + itemTop + 'px',
-        minWidth: itemWidth,
-        minHeight: itemHeight,
         zIndex:100
       }
     }else{
@@ -107,8 +105,6 @@ export default function RenderCom(props) {
         position: 'fixed',
         left: e.clientX + 'px',
         top: e.clientY + 'px',
-        minWidth: itemWidth,
-        minHeight: itemHeight,
         zIndex:100
       }
     }
@@ -129,7 +125,12 @@ export default function RenderCom(props) {
   const dragToContainer = (clientX,clientY,newCom) => {
     let parentNode;
     for(let propName in attributeMap){
-      if(attributeMap[propName].comType === 'XinForm' && parseInt(attributeMap[propName].style.left) < clientX && parseInt(attributeMap[propName].style.top) < clientY){
+      if(attributeMap[propName].comType === 'XinForm' 
+          && parseInt(attributeMap[propName].style.left) < clientX 
+          && parseInt(attributeMap[propName].style.left) + attributeMap[propName].style.width || 400 > clientX 
+          && parseInt(attributeMap[propName].style.top) < clientY
+          && parseInt(attributeMap[propName].style.top) + attributeMap[propName].style.height || 200 > clientY
+        ){
         parentNode = attributeMap[propName]
       }
     }
