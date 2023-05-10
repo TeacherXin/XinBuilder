@@ -1,0 +1,19 @@
+.contextMenu{
+  width: 80px;
+  /* height: 100px; */
+  box-shadow: 0 0 5px 0 rgb(67 74 84 / 30%);
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #cbcdd0;
+  z-index: 10;
+  position: relative;
+  left: 90px;
+  top: 10px;
+}
+.contextMenuItem{
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.contextMenuItem:hover{
+  background-color: rgb(213, 202, 202);
+}

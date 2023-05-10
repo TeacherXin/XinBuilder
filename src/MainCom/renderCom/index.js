@@ -127,9 +127,9 @@ export default function RenderCom(props) {
     for(let propName in attributeMap){
       if(attributeMap[propName].comType === 'XinForm' 
           && parseInt(attributeMap[propName].style.left) < clientX 
-          && parseInt(attributeMap[propName].style.left) + attributeMap[propName].style.width || 400 > clientX 
+          && parseInt(attributeMap[propName].style.left) + (attributeMap[propName].style.width || 400) > clientX 
           && parseInt(attributeMap[propName].style.top) < clientY
-          && parseInt(attributeMap[propName].style.top) + attributeMap[propName].style.height || 200 > clientY
+          && parseInt(attributeMap[propName].style.top) + (attributeMap[propName].style.height || 200) > clientY
         ){
         parentNode = attributeMap[propName]
       }
