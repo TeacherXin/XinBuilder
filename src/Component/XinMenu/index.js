@@ -5,7 +5,6 @@ export default function XinMenu(props) {
 
   const {styleCss,mode,selectedComId } = props
   const [style,setStyle] = useState({})
-  const [items,setItems] = useState([])
 
   
   useEffect(() => {
