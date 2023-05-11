@@ -54,5 +54,5 @@
   border-radius: 4px;
   padding: 10px;
   color: #ddd4d4;
-  background-image: url("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201607%2F28%2F20160728100448_xWFmZ.thumb.400_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1685262471&t=d7b5beca0031a74254ce5d6e31cf1299");
+  background: linear-gradient(rgb(141, 144, 151),rgb(104, 80, 162) ,#3e0db9);
 }
