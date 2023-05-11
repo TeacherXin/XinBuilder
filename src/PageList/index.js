@@ -121,7 +121,7 @@ export default function PageList() {
         <Row gutter={16}>
           {
             pageList.map(item => {
-              return <Col key={item._id} span={6}>
+              return <Col style={{marginTop:'10px'}} key={item._id} span={6}>
                 <Card title={<div><span>{item.pageName || '匿名'}</span><DeleteOutlined onClick={deletePage(item.pageId)} style={{float:'right',cursor:'pointer'}} /></div>} bordered={false}>
                   <Button type='text' onClick={toBuilderPage(item.pageId)}>编辑页面</Button>
                   <Button type='text' onClick={toShowPage(item.pageId)}>预览页面</Button>

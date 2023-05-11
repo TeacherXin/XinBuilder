@@ -345,9 +345,6 @@ export default function RenderCom(props) {
 
   const menuOnClick = (code,id) => {
     return (menuItem) => {
-      console.log(id)
-      menuItem.domEvent.stopPropagation()
-      menuItem.domEvent.preventDefault()
       switch (menuItem.key) {
         case 'setAttribute': {
           showRightPanel(code,id,'attribute');
