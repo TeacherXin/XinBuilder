@@ -1,5 +1,4 @@
 import {React, useEffect, useState} from 'react'
-import RightClickMenu from './rightClickMenu';
 import EditAction from '../../Modal/editAction'
 import EditStyle from '../../Modal/editStyle';
 import subscribeHook from '../../DefineHook/subscribe';
@@ -195,20 +194,6 @@ export default function RenderCom(props) {
   const onDragOver = (e) => {
     e.preventDefault()
   }
-  
-
-  const clearAllShowMenu = (e) => {
-    Object.keys(attributeMap || {}).forEach(item => {
-      attributeMap[item].showMenu = false
-      if(attributeMap[item].childList){
-        (Object.keys(attributeMap[item].childList || {})).forEach(_item => {
-          attributeMap[item].childList[_item].showMenu = false
-        })
-      }
-    })
-
-    Store.dispatch({type:"change",attributeMap})
-  }
 
   //根据组件的id来更改右侧属性面板
   const changeRightPanelById = (id,list,type,actionName) => {
@@ -388,7 +373,7 @@ export default function RenderCom(props) {
   }
 
   return (
-    <div onClick={clearAllShowMenu} onDrop={onDrop} onDragOver={onDragOver} onDragEnter={onDragEnter} className='renderCom'>
+    <div onDrop={onDrop} onDragOver={onDragOver} onDragEnter={onDragEnter} className='renderCom'>
       {contextHolder}
       {(Object.keys(attributeMap)).map(item => {
         return getComponent(attributeMap[item])
