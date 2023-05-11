@@ -34,6 +34,10 @@ export default function RightClickMenu(props) {
             changeRightPanelById(['disabled','size','layout','colon','labelAlign'],'attribute');
             break;
           }
+          case 'XinIcon': {
+            changeRightPanelById(['iconType','twoToneColor','rotate'],'attribute');
+            break;
+          }
         }
       //动作弹窗
       }else if(type === 'action'){

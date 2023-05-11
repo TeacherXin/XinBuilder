@@ -30,7 +30,10 @@ const attributeValueMap = {
   required: '必填',
   requiredMessage: '必填提示',
   colon: '标题冒号',
-  labelAlign: '标题对齐方式'
+  labelAlign: '标题对齐方式',
+  iconType: '图标类型',
+  twoToneColor: '主题色',
+  rotate: '旋转角度'
 }
 
 
@@ -220,6 +223,9 @@ export default function RightCom(props) {
         } />
       }
       case 'listItemNum': {
+        return <Input style={{ width: 120,height: 25 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
+      }
+      case 'rotate': {
         return <Input style={{ width: 120,height: 25 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
       }
       default: {
