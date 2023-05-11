@@ -33,7 +33,8 @@ const attributeValueMap = {
   labelAlign: '标题对齐方式',
   iconType: '图标类型',
   twoToneColor: '主题色',
-  rotate: '旋转角度'
+  rotate: '旋转角度',
+  mode: '菜单类型'
 }
 
 
@@ -222,6 +223,20 @@ export default function RightCom(props) {
           ]
         } />
       }
+      case 'mode': {
+        return <Select 
+          style={{ width: 120,height: 25 }}
+          defaultValue={'vertical'}
+          value={findNodeByComId(comId)?.[item] || 'vertical'}
+          onChange={onChange(item)}
+          options={
+          [
+            { label: '水平', value: 'horizontal' },
+            { label: '竖直', value: 'vertical' },
+            { label: '内嵌', value: 'inline' }
+          ]
+        } />
+      }
       case 'listItemNum': {
         return <Input style={{ width: 120,height: 25 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
       }
@@ -238,8 +253,7 @@ export default function RightCom(props) {
     return (value) => {
       if(!attributeMapRight[comId]){
         for(let propName in attributeMapRight){
-          if(attributeMapRight[propName].childList){
-            if(attributeMapRight[propName].childList[comId])
+          if(attributeMapRight[propName].childList && attributeMapRight[propName].childList[comId]){
             if(typeof value === 'object'){
               value = value.target.value
             }

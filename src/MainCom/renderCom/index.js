@@ -46,6 +46,11 @@ export default function RenderCom(props) {
   const state = useLocation().state;
   const [messageApi, contextHolder] = message.useMessage();
 
+  const initStyle = {
+    XinForm: [400,200],
+    XinMenu: [600,100]
+  }
+
   
   let attributeMap = _.cloneDeep(Store.getState().attributeMap);
   const { NowCom , changeRightPanel } = props
@@ -125,11 +130,11 @@ export default function RenderCom(props) {
   const dragToContainer = (clientX,clientY,newCom) => {
     let parentNode;
     for(let propName in attributeMap){
-      if(attributeMap[propName].comType === 'XinForm' 
+      if(['XinForm','XinMenu'].includes(attributeMap[propName].comType)
           && parseInt(attributeMap[propName].style.left) < clientX 
-          && parseInt(attributeMap[propName].style.left) + (attributeMap[propName].style.width || 400) > clientX 
+          && parseInt(attributeMap[propName].style.left) + (attributeMap[propName].style.width || initStyle[attributeMap[propName].comType][0]) > clientX 
           && parseInt(attributeMap[propName].style.top) < clientY
-          && parseInt(attributeMap[propName].style.top) + (attributeMap[propName].style.height || 200) > clientY
+          && parseInt(attributeMap[propName].style.top) + (attributeMap[propName].style.height || initStyle[attributeMap[propName].comType][1]) > clientY
         ){
         parentNode = attributeMap[propName]
       }

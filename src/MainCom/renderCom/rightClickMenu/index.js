@@ -38,6 +38,10 @@ export default function RightClickMenu(props) {
             changeRightPanelById(['iconType','twoToneColor','rotate'],'attribute');
             break;
           }
+          case 'XinMenu': {
+            changeRightPanelById(['mode'],'attribute');
+            break;
+          }
         }
       //动作弹窗
       }else if(type === 'action'){

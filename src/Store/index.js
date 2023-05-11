@@ -4,12 +4,27 @@ import '../Util/index.js'
 
 const initialState  = { attributeMap: {} }
 
+const setValue = (attributeMap,id,value) => {
+  for(let propName in attributeMap){
+    if(propName === id){
+      return attributeMap[propName] = value;
+    }
+    if(attributeMap[propName].childList){
+      for(let _propName in attributeMap[propName].childList){
+        if(_propName === id){
+          attributeMap[propName].childList[_propName] = value
+        }
+      }
+    }
+  }
+}
+
 function attributeMapReducer(state = initialState, action) {
   if (action.type === 'change') {
 
     if(action.comId){
       let attributeMap = _.cloneDeep(state.attributeMap);
-      attributeMap[action.comId] = action.attributeMap;
+      setValue(attributeMap,action.comId,action.attributeMap)
       window.xinCtx = _.cloneDeep(attributeMap);
       window.proxyAttributeMap();
       return  {

@@ -4,6 +4,7 @@ import XinLable from './XinLable'
 import XinCheckBox from './XinCheckBox'
 import XinForm from './XinForm'
 import XinIcon from './XinIcon'
+import XinMenu from './XinMenu'
 
 export {
   XinButton,
@@ -11,5 +12,6 @@ export {
   XinLable,
   XinCheckBox,
   XinForm,
-  XinIcon
+  XinIcon,
+  XinMenu
 }
