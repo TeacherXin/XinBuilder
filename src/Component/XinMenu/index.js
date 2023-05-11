@@ -3,7 +3,7 @@ import { Menu } from 'antd'
 
 export default function XinMenu(props) {
 
-  const {styleCss,mode } = props
+  const {styleCss,mode,selectedComId } = props
   const [style,setStyle] = useState({})
   const [items,setItems] = useState([])
 
@@ -19,6 +19,7 @@ export default function XinMenu(props) {
         <Menu
           mode={mode}
           style={style}
+          defaultSelectedKeys={[selectedComId]}
           items={
             props.children.map(element => {
               return {

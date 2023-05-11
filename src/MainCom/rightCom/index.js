@@ -34,7 +34,8 @@ const attributeValueMap = {
   iconType: '图标类型',
   twoToneColor: '主题色',
   rotate: '旋转角度',
-  mode: '菜单类型'
+  mode: '菜单类型',
+  selectedComId: '选中菜单项'
 }
 
 

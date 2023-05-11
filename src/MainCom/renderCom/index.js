@@ -316,7 +316,7 @@ export default function RenderCom(props) {
           break;
         }
         case 'XinMenu': {
-          changeRightPanelById(id,['mode'],'attribute');
+          changeRightPanelById(id,['mode','selectedComId'],'attribute');
           break;
         }
       }
