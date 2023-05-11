@@ -9,7 +9,7 @@ import Store from '../../Store';
 import _ from 'lodash'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios';
-import {  message } from 'antd';
+import {  message,Dropdown } from 'antd';
 
 export default function RenderCom(props) {
 
@@ -50,6 +50,31 @@ export default function RenderCom(props) {
     XinForm: [400,200],
     XinMenu: [600,100]
   }
+
+  const items = [
+    {
+      label: '设置属性',
+      key: 'setAttribute'
+    },
+    {
+      label: '设置样式',
+      key: 'setStyle'
+    },
+    {
+      label: '设置动作',
+      key: 'setAction',
+      children: [
+        {
+          label: 'onClick事件',
+          key: 'setClick'
+        },
+        {
+          label: 'onChange事件',
+          key: 'setChange'
+        }
+      ]
+    }
+  ]
 
   
   let attributeMap = _.cloneDeep(Store.getState().attributeMap);
@@ -171,15 +196,6 @@ export default function RenderCom(props) {
     e.preventDefault()
   }
   
-  //右键菜单栏
-  const onContextMenu = (item) => {
-    return (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      item.showMenu =!item.showMenu;
-      Store.dispatch({type:"change",attributeMap})
-    }
-  }
 
   const clearAllShowMenu = (e) => {
     Object.keys(attributeMap || {}).forEach(item => {
@@ -195,20 +211,18 @@ export default function RenderCom(props) {
   }
 
   //根据组件的id来更改右侧属性面板
-  const changeRightPanelById = (id) => {
-    return (list,type,actionName) => {
-      if(type === 'attribute'){
-        changeRightPanel(list,id)
-      }else if(type === 'action'){
-        setActionId(id)
-        setActionJs({})
-        setShowAction(true)
-        setActionName(actionName)
-      }else if(type === 'style'){
-        setStyleId(id)
-        setStyleCss('')
-        setShowStyle(true)
-      }
+  const changeRightPanelById = (id,list,type,actionName) => {
+    if(type === 'attribute'){
+      changeRightPanel(list,id)
+    }else if(type === 'action'){
+      setActionId(id)
+      setActionJs({})
+      setShowAction(true)
+      setActionName(actionName)
+    }else if(type === 'style'){
+      setStyleId(id)
+      setStyleCss('')
+      setShowStyle(true)
     }
   }
 
@@ -287,21 +301,92 @@ export default function RenderCom(props) {
     }
   }
 
+  //设置各个组件所展示的属性
+  const showRightPanel = (code,id,type,actionName) => {
+      //属性面板
+    if(type === 'attribute'){
+      switch (code) {
+        case 'XinButton': {
+          changeRightPanelById(id,['attributeValue','buttonType','size','disabled','danger','ghost'],'attribute');
+          break;
+        }
+        case 'XinInput': {
+          changeRightPanelById(id,['attributeValue','addonBefore','addonAfter','placeholder','size','prefix','suffix','allowClear','label','required','requiredMessage'],'attribute');
+          break;
+        }
+        case 'XinLable': {
+          changeRightPanelById(id,['attributeValue'],'attribute');
+          break;
+        }
+        case 'XinCheckBox': {
+          changeRightPanelById(id,['attributeValue','disabled','checked'],'attribute');
+          break;
+        }
+        case 'XinForm': {
+          changeRightPanelById(id,['disabled','size','layout','colon','labelAlign'],'attribute');
+          break;
+        }
+        case 'XinIcon': {
+          changeRightPanelById(id,['iconType','twoToneColor','rotate'],'attribute');
+          break;
+        }
+        case 'XinMenu': {
+          changeRightPanelById(id,['mode'],'attribute');
+          break;
+        }
+      }
+    //动作弹窗
+    }else if(type === 'action'){
+      changeRightPanelById(id,['attributeValue'],'action',actionName);
+    }else if(type === 'style'){
+      changeRightPanelById(id,['attributeValue'],'style');
+    }
+  }
+
+  const menuOnClick = (code,id) => {
+    return (menuItem) => {
+      console.log(id)
+      menuItem.domEvent.stopPropagation()
+      menuItem.domEvent.preventDefault()
+      switch (menuItem.key) {
+        case 'setAttribute': {
+          showRightPanel(code,id,'attribute');
+          break;
+        }
+        case 'setStyle': {
+          showRightPanel(code,id,'style');
+          break;
+        }
+        case 'setClick': {
+          showRightPanel(code,id,'action','click')
+          break;
+        }
+        case 'setChange': {
+          showRightPanel(code,id,'action','change');
+          break;
+        }
+      }
+    }
+  }
+
   const getComponent = (item,isChild) => {
     const Com = myComponent[item.comType];
     return <div id={item.comId} key={item.comId} onDragStart={onDragStart} draggable={!isChild} style={item.style}>
-      {<Com
-        {...findNodeByComId(item.comId)}
-        onContextMenu={onContextMenu(item)}
-        >
-          {
-            Object.keys(item.childList || {}).map(_item => {
-              return getComponent(item.childList[_item],true)
-            })
-          }
-        </Com>
+      {
+        <Dropdown menu={{items,onClick: menuOnClick(item.comType,item.comId)}} trigger={['contextMenu']}>
+          <div onContextMenu={(e) => e.stopPropagation()}>
+            <Com
+            {...findNodeByComId(item.comId)}
+            >
+              {
+                Object.keys(item.childList || {}).map(_item => {
+                  return getComponent(item.childList[_item],true)
+                })
+              }
+            </Com>
+          </div>
+        </Dropdown>
       }
-      <RightClickMenu code={item.comType} changeRightPanelById={(changeRightPanelById(item.comId))} showMenu={item.showMenu} left={item?.style?.minWidth} />
     </div>
   }
 

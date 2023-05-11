@@ -3,7 +3,7 @@ import { Menu } from 'antd'
 
 export default function XinMenu(props) {
 
-  const {onContextMenu,styleCss,mode } = props
+  const {styleCss,mode } = props
   const [style,setStyle] = useState({})
   const [items,setItems] = useState([])
 
@@ -15,7 +15,7 @@ export default function XinMenu(props) {
   },[styleCss])
 
   return (
-    <div onContextMenu={onContextMenu}>
+    <div>
         <Menu
           mode={mode}
           style={style}

@@ -3,7 +3,7 @@ import './index.css'
 
 export default function Label(props) {
 
-  const {attributeValue,className,onContextMenu,actionJs} = props
+  const {attributeValue,className,actionJs} = props
 
   const onClick = (e) => {
     let script = document.createElement('script');
@@ -13,7 +13,7 @@ export default function Label(props) {
 
   return (
     <div className='label'>
-      <span onContextMenu={onContextMenu} onClick={onClick} className={className}>{attributeValue || '标签'}</span>
+      <span onClick={onClick} className={className}>{attributeValue || '标签'}</span>
     </div>
   )
 }

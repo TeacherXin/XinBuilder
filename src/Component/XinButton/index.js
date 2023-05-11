@@ -6,7 +6,7 @@ import _ from 'lodash'
 
 export default function XinButton(props) {
 
-  const {attributeValue,onContextMenu,actionJs,styleCss,buttonType,size,disabled,danger,ghost} = props
+  const {attributeValue,actionJs,styleCss,buttonType,size,disabled,danger,ghost} = props
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
   const [style,setStyle] = useState({})
 
@@ -17,7 +17,6 @@ export default function XinButton(props) {
   },[styleCss])
 
   const onClick = (e) => {
-    e.stopPropagation()
     if(!disabled){
       let script = document.createElement('script');
       script.innerHTML = '(function(){' +  actionJs?.click + '})()'
@@ -29,7 +28,6 @@ export default function XinButton(props) {
     <div id='componentButton'>
       <Button
         type={buttonType || 'primary'}
-        onContextMenu={onContextMenu}
         onClick={onClick}
         size={size || 'default'}
         disabled={disabled}

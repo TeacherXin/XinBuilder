@@ -6,7 +6,7 @@ import _ from 'lodash'
 export default function XinForm(props) {
 
   const [style,setStyle] = useState({})
-  const {onContextMenu,styleCss,comId,disabled,size,layout,colon,labelAlign } = props
+  const {styleCss,comId,disabled,size,layout,colon,labelAlign } = props
   const [update,setUpdate] = useState({})
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function XinForm(props) {
 
 
   return (
-    <div onContextMenu={onContextMenu}>
+    <div>
       <Form
         labelCol={{
           span: 8,
