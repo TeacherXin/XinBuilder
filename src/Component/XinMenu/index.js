@@ -3,7 +3,7 @@ import { Menu } from 'antd'
 
 export default function XinMenu(props) {
 
-  const {styleCss,mode,selectedComId } = props
+  const {styleCss,mode,selectedComId,visible } = props
   const [style,setStyle] = useState({})
 
   
@@ -14,7 +14,7 @@ export default function XinMenu(props) {
   },[styleCss])
 
   return (
-    <div>
+    <div style={{display: visible ? 'none':'block'}}>
         <Menu
           mode={mode}
           style={style}

@@ -4,7 +4,7 @@ import Store from '../../Store';
 import _ from 'lodash'
 
 export default function XinCheckBox(props) {
-  const {attributeValue,actionJs,styleCss,disabled,checked,comId} = props
+  const {attributeValue,actionJs,styleCss,disabled,checked,comId,visible} = props
   const [style,setStyle] = useState({})
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
 
@@ -28,7 +28,7 @@ export default function XinCheckBox(props) {
   }
 
   return (
-    <div>
+    <div style={{display: visible ? 'none':'block'}}>
       <Checkbox
         checked={checked}
         disabled={disabled}

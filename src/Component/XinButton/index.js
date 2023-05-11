@@ -6,7 +6,7 @@ import _ from 'lodash'
 
 export default function XinButton(props) {
 
-  const {attributeValue,actionJs,styleCss,buttonType,size,disabled,danger,ghost} = props
+  const {attributeValue,actionJs,styleCss,buttonType,size,disabled,danger,ghost,visible} = props
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
   const [style,setStyle] = useState({})
 
@@ -25,7 +25,7 @@ export default function XinButton(props) {
   }
 
   return (
-    <div id='componentButton'>
+    <div style={{display: visible ? 'none':'block'}} id='componentButton'>
       <Button
         type={buttonType || 'primary'}
         onClick={onClick}

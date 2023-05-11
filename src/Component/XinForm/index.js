@@ -6,7 +6,7 @@ import _ from 'lodash'
 export default function XinForm(props) {
 
   const [style,setStyle] = useState({})
-  const {styleCss,comId,disabled,size,layout,colon,labelAlign } = props
+  const {styleCss,comId,disabled,size,layout,colon,labelAlign,visible,childList } = props
   const [update,setUpdate] = useState({})
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function XinForm(props) {
 
 
   return (
-    <div>
+    <div style={{display: visible ? 'none':'block'}}>
       <Form
         labelCol={{
           span: 8,
@@ -38,6 +38,7 @@ export default function XinForm(props) {
       >
           {(props?.children || []).map(item => {
             return <Form.Item
+                    style={{display: childList[item.key].visible ? 'none':'block'}}
                     key={item.key}
                     label={props.childList[item.key].label}
                     name={props.childList[item.key].label}

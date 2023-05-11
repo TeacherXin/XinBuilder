@@ -4,7 +4,7 @@ import './index.css'
 export default function Label(props) {
 
   const [style,setStyle] = useState({})
-  const {attributeValue,className,actionJs,styleCss} = props
+  const {attributeValue,className,actionJs,styleCss,visible} = props
 
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','');
@@ -20,7 +20,7 @@ export default function Label(props) {
   }
 
   return (
-    <div className='label'>
+    <div style={{display: visible ? 'none':'block'}} className='label'>
       <span style={{...style,display:'inline-block'}} onClick={onClick} className={className}>{attributeValue || '标签'}</span>
     </div>
   )

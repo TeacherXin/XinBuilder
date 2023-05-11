@@ -7,7 +7,7 @@ export default function XinInput(props) {
 
   const [value,setValue] = useState('');
   const [style,setSyle] = useState({})
-  const {attributeValue,styleCss,actionJs,addonBefore,addonAfter,placeholder,size,prefix,suffix,allowClear,showCount,comId} = props
+  const {attributeValue,styleCss,actionJs,addonBefore,addonAfter,placeholder,size,prefix,suffix,allowClear,showCount,comId,visible} = props
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
 
   const findNodeByComId = (id) => {
@@ -56,7 +56,7 @@ export default function XinInput(props) {
   },[styleCss])
 
   return (
-    <div className='componentInput'>
+    <div style={{display: visible ? 'none':'block'}} className='componentInput'>
       <Input
         size={size}
         prefix={prefix}

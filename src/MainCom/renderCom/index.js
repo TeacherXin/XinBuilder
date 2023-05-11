@@ -292,31 +292,31 @@ export default function RenderCom(props) {
     if(type === 'attribute'){
       switch (code) {
         case 'XinButton': {
-          changeRightPanelById(id,['attributeValue','buttonType','size','disabled','danger','ghost'],'attribute');
+          changeRightPanelById(id,['attributeValue','visible','buttonType','size','disabled','danger','ghost'],'attribute');
           break;
         }
         case 'XinInput': {
-          changeRightPanelById(id,['attributeValue','addonBefore','addonAfter','placeholder','size','prefix','suffix','allowClear','label','required','requiredMessage'],'attribute');
+          changeRightPanelById(id,['attributeValue','visible','addonBefore','addonAfter','placeholder','size','prefix','suffix','allowClear','label','required','requiredMessage'],'attribute');
           break;
         }
         case 'XinLable': {
-          changeRightPanelById(id,['attributeValue'],'attribute');
+          changeRightPanelById(id,['attributeValue','visible'],'attribute');
           break;
         }
         case 'XinCheckBox': {
-          changeRightPanelById(id,['attributeValue','disabled','checked'],'attribute');
+          changeRightPanelById(id,['attributeValue','visible','disabled','checked'],'attribute');
           break;
         }
         case 'XinForm': {
-          changeRightPanelById(id,['disabled','size','layout','colon','labelAlign'],'attribute');
+          changeRightPanelById(id,['visible','disabled','size','layout','colon','labelAlign'],'attribute');
           break;
         }
         case 'XinIcon': {
-          changeRightPanelById(id,['iconType','twoToneColor','rotate'],'attribute');
+          changeRightPanelById(id,['visible','iconType','twoToneColor','rotate'],'attribute');
           break;
         }
         case 'XinMenu': {
-          changeRightPanelById(id,['mode','selectedComId'],'attribute');
+          changeRightPanelById(id,['visible','mode','selectedComId'],'attribute');
           break;
         }
       }

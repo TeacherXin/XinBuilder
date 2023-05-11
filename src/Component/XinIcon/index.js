@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react'
 export default function XinIcon(props) {
 
-  const {styleCss,iconType,twoToneColor,rotate } = props
+  const {styleCss,iconType,twoToneColor,rotate,visible } = props
   const [style,setStyle] = useState({})
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function XinIcon(props) {
   let Ctor = require('@ant-design/icons')[name] ? require('@ant-design/icons')[name] : require('@ant-design/icons')['SmileOutlined'];
 
   return (
-    <div>
+    <div style={{display: visible ? 'none':'block'}}>
       {
         <Ctor twoToneColor={twoToneColor} style={style} rotate={rotate} />
       }

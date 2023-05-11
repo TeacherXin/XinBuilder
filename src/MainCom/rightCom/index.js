@@ -35,7 +35,8 @@ const attributeValueMap = {
   twoToneColor: '主题色',
   rotate: '旋转角度',
   mode: '菜单类型',
-  selectedComId: '选中菜单项'
+  selectedComId: '选中菜单项',
+  visible: '隐藏'
 }
 
 
@@ -70,6 +71,14 @@ export default function RightCom(props) {
         return <Switch 
           style={{ marginRight:'70px'}}
           defaultValue={false}
+          onChange={onChange(item)}
+          value={findNodeByComId(comId)?.[item] || false}
+        />
+      }
+      case 'visible': {
+        return <Switch 
+          style={{ marginRight:'70px'}}
+          defaultValue={true}
           onChange={onChange(item)}
           value={findNodeByComId(comId)?.[item] || false}
         />

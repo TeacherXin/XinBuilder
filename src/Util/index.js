@@ -28,6 +28,11 @@ const setAttributeProxy = (ctx) => {
         Store.dispatch({type: 'change',attributeMap: target,comId:target.comId});
         return true
       }
+    },
+    deleteProperty(target,property){
+      delete target[property];
+      Store.dispatch({type: 'change',attributeMap: target,comId:target.comId});
+      return true;
     }
   })
 }
