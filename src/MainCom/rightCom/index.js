@@ -3,7 +3,7 @@ import './index.css'
 import Store from '../../Store';
 import _ from 'lodash'
 import subscribeHook from '../../DefineHook/subscribe';
-import { Select, Input } from 'antd';
+import { Select, Input, Switch } from 'antd';
 
 const attributeValueMap = {
   attributeValue: '属性值',
@@ -67,17 +67,12 @@ export default function RightCom(props) {
   const getAttributeValueCom = (item,index) => {
     switch (item) {
       case 'disabled': {
-        return <Select 
-          style={{ width: 120,height: 25 }}
+        return <Switch 
+          style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
           value={findNodeByComId(comId)?.[item] || false}
-          options={
-          [
-            { label: '是', value: true },
-            { label: '否', value: false }
-          ]
-        } />
+        />
       }
       case 'labelAlign': {
         return <Select 
@@ -93,94 +88,59 @@ export default function RightCom(props) {
         } />
       }
       case 'checked': {
-        return <Select 
-          style={{ width: 120,height: 25 }}
+        return <Switch 
+        style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
           value={findNodeByComId(comId)?.[item] || false}
-          options={
-          [
-            { label: '是', value: true },
-            { label: '否', value: false }
-          ]
-        } />
+        />
       }
       case 'colon': {
-        return <Select 
-          style={{ width: 120,height: 25 }}
+        return <Switch 
+        style={{ marginRight:'70px'}}
           onChange={onChange(item)}
           value={findNodeByComId(comId)?.[item] === undefined ? true : findNodeByComId(comId)?.[item]}
-          options={
-          [
-            { label: '是', value: true },
-            { label: '否', value: false }
-          ]
-        } />
+        />
       }
       case 'danger': {
-        return <Select 
-          style={{ width: 120,height: 25 }}
+        return <Switch 
+          style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
           value={findNodeByComId(comId)?.[item] || false}
-          options={
-          [
-            { label: '是', value: true },
-            { label: '否', value: false }
-          ]
-        } />
+        />
       }
       case 'required': {
-        return <Select 
-          style={{ width: 120,height: 25 }}
+        return <Switch 
+          style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
           value={findNodeByComId(comId)?.[item] || false}
-          options={
-          [
-            { label: '是', value: true },
-            { label: '否', value: false }
-          ]
-        } />
+        />
       }
       case 'ghost': {
-        return <Select 
-          style={{ width: 120,height: 25 }}
+        return <Switch 
+          style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
           value={findNodeByComId(comId)?.[item] || false}
-          options={
-          [
-            { label: '是', value: true },
-            { label: '否', value: false }
-          ]
-        } />
+        />
       }
       case 'allowClear': {
-        return <Select 
-          style={{ width: 120,height: 25 }}
+        return <Switch 
+          style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
           value={findNodeByComId(comId)?.[item] || false}
-          options={
-          [
-            { label: '是', value: true },
-            { label: '否', value: false }
-          ]
-        } />
+        />
       }
       case 'showCount': {
-        return <Select 
-          style={{ width: 120,height: 25 }}
+        return <Switch 
+          style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
           value={findNodeByComId(comId)?.[item] || false}
-          options={
-          [
-            { label: '是', value: true },
-            { label: '否', value: false }
-          ]
-        } />
+        />
       }
       case 'buttonType': {
         return <Select 
@@ -239,13 +199,13 @@ export default function RightCom(props) {
         } />
       }
       case 'listItemNum': {
-        return <Input style={{ width: 120,height: 25 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
       }
       case 'rotate': {
-        return <Input style={{ width: 120,height: 25 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
       }
       default: {
-        return <Input style={{ width: 120, height: 25 }} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
+        return <Input style={{ width: 120, height: 30 }} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
       }
     }
   }
