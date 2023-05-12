@@ -65,7 +65,8 @@ export default function XinInput(props) {
         addonAfter={addonAfter}
         allowClear={allowClear}
         showCount={showCount}
-        onClick={onClick} value={value || ''}
+        onClick={onClick}
+        value={value || ''}
         onChange={onChange}
         placeholder={placeholder}
         style={style}

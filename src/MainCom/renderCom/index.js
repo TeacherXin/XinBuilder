@@ -319,6 +319,10 @@ export default function RenderCom(props) {
           changeRightPanelById(id,['visible','mode','selectedComId'],'attribute');
           break;
         }
+        case 'XinDatePicker': {
+          changeRightPanelById(id,['attributeValue','picker','showTime','dateFormat','disabled','size','allowClear'],'attribute');
+          break;
+        }
       }
     //动作弹窗
     }else if(type === 'action'){

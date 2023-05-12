@@ -36,7 +36,10 @@ const attributeValueMap = {
   rotate: '旋转角度',
   mode: '菜单类型',
   selectedComId: '选中菜单项',
-  visible: '隐藏'
+  visible: '隐藏',
+  picker: '日期类型',
+  showTime: '展示时间',
+  dateFormat: '日期格式'
 }
 
 
@@ -83,6 +86,14 @@ export default function RightCom(props) {
           checked={findNodeByComId(comId)?.[item] || false}
         />
       }
+      case 'showTime': {
+        return <Switch 
+          style={{ marginRight:'70px'}}
+          defaultValue={true}
+          onChange={onChange(item)}
+          checked={findNodeByComId(comId)?.[item] || false}
+        />
+      }
       case 'labelAlign': {
         return <Select 
           style={{ width: 120,height: 25 }}
@@ -93,6 +104,23 @@ export default function RightCom(props) {
           [
             { label: '左侧', value: 'left' },
             { label: '右侧', value: 'right' }
+          ]
+        } />
+      }
+      case 'picker': {
+        return <Select 
+          style={{ width: 120,height: 25 }}
+          defaultValue={'date'}
+          onChange={onChange(item)}
+          value={findNodeByComId(comId)?.[item] || 'date'}
+          options={
+          [
+            { label: '日期', value: 'date' },
+            { label: '周份', value: 'week' },
+            { label: '月份', value: 'month' },
+            { label: '季度', value: 'quarter' },
+            { label: '年份', value: 'year' }
+
           ]
         } />
       }

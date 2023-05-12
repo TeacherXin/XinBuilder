@@ -5,6 +5,7 @@ import XinCheckBox from './XinCheckBox'
 import XinForm from './XinForm'
 import XinIcon from './XinIcon'
 import XinMenu from './XinMenu'
+import XinDatePicker from './XinDatePicker'
 
 export {
   XinButton,
@@ -13,5 +14,6 @@ export {
   XinCheckBox,
   XinForm,
   XinIcon,
-  XinMenu
+  XinMenu,
+  XinDatePicker
 }
