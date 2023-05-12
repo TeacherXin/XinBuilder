@@ -72,7 +72,7 @@ export default function RightCom(props) {
           style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
-          value={findNodeByComId(comId)?.[item] || false}
+          checked={findNodeByComId(comId)?.[item] || false}
         />
       }
       case 'visible': {
@@ -80,7 +80,7 @@ export default function RightCom(props) {
           style={{ marginRight:'70px'}}
           defaultValue={true}
           onChange={onChange(item)}
-          value={findNodeByComId(comId)?.[item] || false}
+          checked={findNodeByComId(comId)?.[item] || false}
         />
       }
       case 'labelAlign': {
@@ -101,14 +101,14 @@ export default function RightCom(props) {
         style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
-          value={findNodeByComId(comId)?.[item] || false}
+          checked={findNodeByComId(comId)?.[item] || false}
         />
       }
       case 'colon': {
         return <Switch 
         style={{ marginRight:'70px'}}
           onChange={onChange(item)}
-          value={findNodeByComId(comId)?.[item] === undefined ? true : findNodeByComId(comId)?.[item]}
+          checked={findNodeByComId(comId)?.[item] === undefined ? true : findNodeByComId(comId)?.[item]}
         />
       }
       case 'danger': {
@@ -116,7 +116,7 @@ export default function RightCom(props) {
           style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
-          value={findNodeByComId(comId)?.[item] || false}
+          checked={findNodeByComId(comId)?.[item] || false}
         />
       }
       case 'required': {
@@ -124,7 +124,7 @@ export default function RightCom(props) {
           style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
-          value={findNodeByComId(comId)?.[item] || false}
+          checked={findNodeByComId(comId)?.[item] || false}
         />
       }
       case 'ghost': {
@@ -132,7 +132,7 @@ export default function RightCom(props) {
           style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
-          value={findNodeByComId(comId)?.[item] || false}
+          checked={findNodeByComId(comId)?.[item] || false}
         />
       }
       case 'allowClear': {
@@ -140,7 +140,7 @@ export default function RightCom(props) {
           style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
-          value={findNodeByComId(comId)?.[item] || false}
+          checked={findNodeByComId(comId)?.[item] || false}
         />
       }
       case 'showCount': {
@@ -148,7 +148,7 @@ export default function RightCom(props) {
           style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
-          value={findNodeByComId(comId)?.[item] || false}
+          checked={findNodeByComId(comId)?.[item] || false}
         />
       }
       case 'buttonType': {

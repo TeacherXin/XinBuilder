@@ -4,8 +4,19 @@ import Store from '../../Store'
 import _ from 'lodash'
 import subscribeHook from '../../DefineHook/subscribe'
 import { Tree } from 'antd';
-import ContextMenu from './contextMenu'
 import EditJson from '../../Modal/editJson'
+import { Dropdown, theme } from 'antd';
+
+const items = [
+  {
+    label: '查看JSON',
+    key: 'showJson'
+  },
+  {
+    label: '删除节点',
+    key: 'deleteNode'
+  }
+]
 
 export default function LeftList(props) {
 
@@ -18,42 +29,25 @@ export default function LeftList(props) {
     setUpdate({})
   })
 
-  const onContextMenu = (item) => {
-    return (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      item.showListMenu = true;
-      setNowCom(item)
-      Store.dispatch({type: 'change',attributeMap})
-    }
-  }
 
-  const clearAllShowListMenu = (e) => {
-    Object.keys(attributeMap || {}).forEach(item => {
-      attributeMap[item].showListMenu = false
-      if(attributeMap[item].childList){
-        (Object.keys(attributeMap[item].childList || {})).forEach(_item => {
-          attributeMap[item].childList[_item].showListMenu = false
-        })
+  const menuOnClick = (com) =>{
+    return (menuItem) => {
+      if(menuItem.key === 'showJson'){
+        setShowJson(true);
+        setNowCom(com)
       }
-    })
-
-    Store.dispatch({type:"change",attributeMap})
+    }
   }
 
   const getTreeData = (attributeMap) => {
     let treeData = []
     for(let propName in attributeMap){
       treeData.push({
-        title: <div
-          onContextMenu={onContextMenu(attributeMap[propName])}
-          style={{height:'40px'}}>
-            {
-              <div><span>{propName}</span>
-                <ContextMenu setShowJson={setShowJson} showListMenu={attributeMap[propName].showListMenu}/>
-              </div>
-            }
-          </div>,
+        title: <div>
+                <Dropdown menu={{onClick: menuOnClick(attributeMap[propName]), items }} trigger={['contextMenu']}>
+                  <span>{propName}</span>
+                </Dropdown>
+              </div>,
         key: attributeMap[propName].comId,
         children: getTreeData(attributeMap[propName].childList)
       })
@@ -62,7 +56,7 @@ export default function LeftList(props) {
   }
 
   return (
-    <div className='leftList' onClick={clearAllShowListMenu}>
+    <div className='leftList'>
       <Tree
         showLine={true}
         selectable={false}
