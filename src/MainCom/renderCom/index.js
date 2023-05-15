@@ -47,7 +47,8 @@ export default function RenderCom(props) {
 
   const initStyle = {
     XinForm: [400,200],
-    XinMenu: [600,100]
+    XinMenu: [600,100],
+    XinRadioGroup: [250,40]
   }
 
   const items = [
@@ -154,7 +155,7 @@ export default function RenderCom(props) {
   const dragToContainer = (clientX,clientY,newCom) => {
     let parentNode;
     for(let propName in attributeMap){
-      if(['XinForm','XinMenu'].includes(attributeMap[propName].comType)
+      if(['XinForm','XinMenu','XinRadioGroup'].includes(attributeMap[propName].comType)
           && parseInt(attributeMap[propName].style.left) < clientX 
           && parseInt(attributeMap[propName].style.left) + (attributeMap[propName].style.width || initStyle[attributeMap[propName].comType][0]) > clientX 
           && parseInt(attributeMap[propName].style.top) < clientY
@@ -307,8 +308,16 @@ export default function RenderCom(props) {
           changeRightPanelById(id,['attributeValue','visible','disabled','checked','label','required','requiredMessage'],'attribute');
           break;
         }
+        case 'XinRadio': {
+          changeRightPanelById(id,['attributeValue','visible','disabled','checked'],'attribute');
+          break;
+        }
         case 'XinForm': {
           changeRightPanelById(id,['visible','disabled','size','layout','colon','labelAlign'],'attribute');
+          break;
+        }
+        case 'XinRadioGroup': {
+          changeRightPanelById(id,['visible','disabled','buttonStyle','optionType','size','selectedID'],'attribute');
           break;
         }
         case 'XinIcon': {
@@ -316,7 +325,7 @@ export default function RenderCom(props) {
           break;
         }
         case 'XinMenu': {
-          changeRightPanelById(id,['visible','mode','selectedComId'],'attribute');
+          changeRightPanelById(id,['visible','mode'],'attribute');
           break;
         }
         case 'XinDatePicker': {
@@ -364,7 +373,7 @@ export default function RenderCom(props) {
     return <div id={item.comId} key={item.comId} onDragStart={onDragStart} draggable={!isChild} style={item.style}>
       {
         <Dropdown menu={{items,onClick: menuOnClick(item.comType,item.comId)}} trigger={['contextMenu']}>
-          <div onContextMenu={(e) => e.stopPropagation()}>
+          <div onContextMenu={(e) => {e.stopPropagation()}}>
             <Com
             {...findNodeByComId(item.comId)}
             >

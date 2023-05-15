@@ -35,7 +35,6 @@ const attributeValueMap = {
   twoToneColor: '主题色',
   rotate: '旋转角度',
   mode: '菜单类型',
-  selectedComId: '选中菜单项',
   visible: '隐藏',
   picker: '日期类型',
   showTime: '展示时间',
@@ -43,7 +42,10 @@ const attributeValueMap = {
   attributeValueNumber: '属性值',
   max: '最大值',
   min: '最小值',
-  step: '步数大小'
+  step: '步数大小',
+  optionType: '单选类型',
+  buttonStyle: '按钮风格',
+  selectedID: '选中节点ID'
 }
 
 
@@ -108,6 +110,32 @@ export default function RightCom(props) {
           [
             { label: '左侧', value: 'left' },
             { label: '右侧', value: 'right' }
+          ]
+        } />
+      }
+      case 'optionType': {
+        return <Select 
+          style={{ width: 120,height: 25 }}
+          defaultValue={'default'}
+          onChange={onChange(item)}
+          value={findNodeByComId(comId)?.[item] || 'default'}
+          options={
+          [
+            { label: '默认', value: 'default' },
+            { label: '按钮', value: 'button' }
+          ]
+        } />
+      }
+      case 'buttonStyle': {
+        return <Select 
+          style={{ width: 120,height: 25 }}
+          defaultValue={'outline '}
+          onChange={onChange(item)}
+          value={findNodeByComId(comId)?.[item] || 'outline '}
+          options={
+          [
+            { label: '虚线', value: 'outline ' },
+            { label: '实线', value: 'solid' }
           ]
         } />
       }
