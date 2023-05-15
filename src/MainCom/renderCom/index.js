@@ -336,6 +336,10 @@ export default function RenderCom(props) {
           changeRightPanelById(id,['attributeValueNumber','visible','placeholder','size','prefix','allowClear','max','min','label','required','requiredMessage','step'],'attribute');
           break;
         }
+        case 'XinRate': {
+          changeRightPanelById(id,['allowHalf','count','disabled'],'attribute');
+          break;
+        }
       }
     //动作弹窗
     }else if(type === 'action'){

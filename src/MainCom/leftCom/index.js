@@ -41,7 +41,7 @@ export default function LeftCom(props) {
       {
         selected === 1 ? <div className='componentList'>
         {
-          <Collapse defaultActiveKey={['1']} style={{width:"100%",background:'none',height:'100%'}}>
+          <Collapse defaultActiveKey={['1']} style={{width:"100%",background:'none',height:'100%',overflow:'auto'}}>
             <Panel header="容器类型组件" key="1" style={{background:'none',height:'100%'}}>
               {containerList.map(cName => {
                 const Com = myComponent[cName];

@@ -9,6 +9,7 @@ import XinDatePicker from './XinDatePicker'
 import XinNumber from './XinNumber'
 import XinRadio from './XinRadio'
 import XinRadioGroup from './XinRadioGroup'
+import XinRate from './XinRate'
 
 export {
   XinButton,
@@ -21,5 +22,6 @@ export {
   XinDatePicker,
   XinNumber,
   XinRadio,
-  XinRadioGroup
+  XinRadioGroup,
+  XinRate
 }

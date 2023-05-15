@@ -45,7 +45,10 @@ const attributeValueMap = {
   step: '步数大小',
   optionType: '单选类型',
   buttonStyle: '按钮风格',
-  selectedID: '选中节点ID'
+  selectedID: '选中节点ID',
+  allowHalf: '允许半选',
+  count: 'star总数',
+  disabled: '禁用'
 }
 
 
@@ -77,6 +80,14 @@ export default function RightCom(props) {
   const getAttributeValueCom = (item,index) => {
     switch (item) {
       case 'disabled': {
+        return <Switch 
+          style={{ marginRight:'70px'}}
+          defaultValue={false}
+          onChange={onChange(item)}
+          checked={findNodeByComId(comId)?.[item] || false}
+        />
+      }
+      case 'allowHalf': {
         return <Switch 
           style={{ marginRight:'70px'}}
           defaultValue={false}
@@ -268,6 +279,9 @@ export default function RightCom(props) {
         } />
       }
       case 'attributeValueNumber': {
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
+      }
+      case 'count': {
         return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
       }
       case 'step': {
