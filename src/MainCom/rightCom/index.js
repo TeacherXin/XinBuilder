@@ -39,7 +39,11 @@ const attributeValueMap = {
   visible: '隐藏',
   picker: '日期类型',
   showTime: '展示时间',
-  dateFormat: '日期格式'
+  dateFormat: '日期格式',
+  attributeValueNumber: '属性值',
+  max: '最大值',
+  min: '最小值',
+  step: '步数大小'
 }
 
 
@@ -235,7 +239,16 @@ export default function RightCom(props) {
           ]
         } />
       }
-      case 'listItemNum': {
+      case 'attributeValueNumber': {
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
+      }
+      case 'step': {
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
+      }
+      case 'max': {
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
+      }
+      case 'min': {
         return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
       }
       case 'rotate': {

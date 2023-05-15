@@ -14,13 +14,29 @@ export default function XinCheckBox(props) {
     setStyle(style)
   },[styleCss])
 
+  const findNodeByComId = (id) => {
+    for(let propName in attributeMap){
+      if(propName === id){
+        return attributeMap[propName];
+      }
+      if(attributeMap[propName].childList){
+        for(let _propName in attributeMap[propName].childList){
+          if(_propName === id){
+            return attributeMap[propName].childList[_propName]
+          }
+        }
+      }
+    }
+  }
+
+
   const onClick = () => {
     let script = document.createElement('script');
     script.innerHTML = actionJs?.click
     document.body.append(script)
   }
   const onChange = (e) =>{
-    attributeMap[comId].checked = !attributeMap?.[comId]?.checked;
+    findNodeByComId(comId).checked = !findNodeByComId(comId)?.checked;
     Store.dispatch({type: 'change',attributeMap});
     let script = document.createElement('script');
     script.innerHTML = actionJs?.change

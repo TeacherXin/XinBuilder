@@ -7,7 +7,7 @@ import _ from 'lodash'
 export default function XinDatePicker(props) {
   const [value,setValue] = useState('');
   const [style,setStyle] = useState({})
-  const {styleCss,picker,showTime,comId,actionJs,attributeValue,dateFormat,disabled,size,allowClear} = props
+  const {styleCss,picker,showTime,comId,actionJs,attributeValue,dateFormat,disabled,size,allowClear,visible} = props
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export default function XinDatePicker(props) {
 
 
   return (
-    <div>
+    <div style={{display: visible ? 'none':'block'}}>
       <DatePicker
         style={style}
         picker={picker}

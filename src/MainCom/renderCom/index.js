@@ -304,7 +304,7 @@ export default function RenderCom(props) {
           break;
         }
         case 'XinCheckBox': {
-          changeRightPanelById(id,['attributeValue','visible','disabled','checked'],'attribute');
+          changeRightPanelById(id,['attributeValue','visible','disabled','checked','label','required','requiredMessage'],'attribute');
           break;
         }
         case 'XinForm': {
@@ -320,7 +320,11 @@ export default function RenderCom(props) {
           break;
         }
         case 'XinDatePicker': {
-          changeRightPanelById(id,['attributeValue','picker','showTime','dateFormat','disabled','size','allowClear'],'attribute');
+          changeRightPanelById(id,['attributeValue','visible','picker','showTime','dateFormat','disabled','size','allowClear','label','required','requiredMessage'],'attribute');
+          break;
+        }
+        case 'XinNumber': {
+          changeRightPanelById(id,['attributeValueNumber','visible','placeholder','size','prefix','allowClear','max','min','label','required','requiredMessage','step'],'attribute');
           break;
         }
       }
