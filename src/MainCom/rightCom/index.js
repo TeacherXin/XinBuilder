@@ -48,7 +48,8 @@ const attributeValueMap = {
   selectedID: '选中节点ID',
   allowHalf: '允许半选',
   count: 'star总数',
-  disabled: '禁用'
+  disabled: '禁用',
+  bordered: '边框'
 }
 
 
@@ -80,6 +81,14 @@ export default function RightCom(props) {
   const getAttributeValueCom = (item,index) => {
     switch (item) {
       case 'disabled': {
+        return <Switch 
+          style={{ marginRight:'70px'}}
+          defaultValue={false}
+          onChange={onChange(item)}
+          checked={findNodeByComId(comId)?.[item] || false}
+        />
+      }
+      case 'bordered': {
         return <Switch 
           style={{ marginRight:'70px'}}
           defaultValue={false}

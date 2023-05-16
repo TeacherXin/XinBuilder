@@ -15,7 +15,7 @@ export default function LeftCom(props) {
 
   useEffect(() => {
     Object.keys(myComponent).forEach(item => {
-      if(['XinForm','XinMenu','XinRadioGroup'].includes(item)){
+      if(['XinForm','XinMenu','XinRadioGroup','XinCard'].includes(item)){
         containerList.push(item)
       }else{
         controlList.push(item)

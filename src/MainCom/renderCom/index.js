@@ -48,7 +48,8 @@ export default function RenderCom(props) {
   const initStyle = {
     XinForm: [400,200],
     XinMenu: [600,100],
-    XinRadioGroup: [250,40]
+    XinRadioGroup: [250,40],
+    XinCard: [300,400]
   }
 
   const items = [
@@ -155,7 +156,7 @@ export default function RenderCom(props) {
   const dragToContainer = (clientX,clientY,newCom) => {
     let parentNode;
     for(let propName in attributeMap){
-      if(['XinForm','XinMenu','XinRadioGroup'].includes(attributeMap[propName].comType)
+      if(['XinForm','XinMenu','XinRadioGroup','XinCard'].includes(attributeMap[propName].comType)
           && parseInt(attributeMap[propName].style.left) < clientX 
           && parseInt(attributeMap[propName].style.left) + (attributeMap[propName].style.width || initStyle[attributeMap[propName].comType][0]) > clientX 
           && parseInt(attributeMap[propName].style.top) < clientY
@@ -338,6 +339,10 @@ export default function RenderCom(props) {
         }
         case 'XinRate': {
           changeRightPanelById(id,['allowHalf','count','disabled'],'attribute');
+          break;
+        }
+        case 'XinCard': {
+          changeRightPanelById(id,['bordered','size','title'],'attribute');
           break;
         }
       }
