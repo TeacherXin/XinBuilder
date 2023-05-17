@@ -38,3 +38,17 @@
 .selected {
   background-color: rgb(147, 141, 237);
 }
+
+.code-wrapper {
+  display: flex;
+  height: calc(100vh);
+  background: #f0f0f0;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  justify-content: center;
+  align-items: center;
+}
+
+.ace_editor{
+  height: 400px !important;
+}

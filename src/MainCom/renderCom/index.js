@@ -240,9 +240,9 @@ export default function RenderCom(props) {
     }
   }
 
-  const changeActionJs = (e) => {
+  const changeActionJs = (value) => {
     const actionJs = {};
-    actionJs[actionName] = e.target.value
+    actionJs[actionName] = value
     setActionJs(actionJs)
   }
 
