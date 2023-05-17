@@ -3,7 +3,62 @@ import './index.css'
 import * as myComponent from '../../Component'
 import LeftList from '../leftList'
 import { Collapse } from 'antd';
-import {RightOutlined, LeftOutlined} from '@ant-design/icons'
+import 
+{
+  RightOutlined,
+  LeftOutlined,
+  CreditCardOutlined,
+  FormOutlined,
+  MenuUnfoldOutlined,
+  GroupOutlined,
+  TabletOutlined,
+  CheckSquareOutlined,
+  FieldTimeOutlined,
+  FrownOutlined,
+  DoubleRightOutlined,
+  FileTextOutlined,
+  FieldNumberOutlined,
+  TrademarkCircleOutlined,
+  EditOutlined,
+  CloudDownloadOutlined,
+  TableOutlined
+} from '@ant-design/icons';
+
+const componentIconMap = {
+  XinCard: CreditCardOutlined,
+  XinForm: FormOutlined,
+  XinMenu: MenuUnfoldOutlined,
+  XinRadioGroup: GroupOutlined,
+  XinButton: TabletOutlined,
+  XinCheckBox: CheckSquareOutlined,
+  XinDatePicker: FieldTimeOutlined,
+  XinIcon: FrownOutlined,
+  XinInput: DoubleRightOutlined,
+  XinLable: FileTextOutlined,
+  XinNumber: FieldNumberOutlined,
+  XinRadio: TrademarkCircleOutlined,
+  XinRate: EditOutlined,
+  XinUpload: CloudDownloadOutlined,
+  XinTable: TableOutlined
+}
+
+const componentTextMap = {
+  XinCard: '卡片',
+  XinForm: '表单',
+  XinMenu: '菜单',
+  XinRadioGroup: '单选栏',
+  XinButton: '按钮',
+  XinCheckBox: '多选按钮',
+  XinDatePicker: '日期框',
+  XinIcon: '图标',
+  XinInput: '输入框',
+  XinLable: '标签',
+  XinNumber: '数值框',
+  XinRadio: '单选框',
+  XinRate: '评分',
+  XinUpload: '图片上传',
+  XinTable: '表格'
+}
 
 const { Panel } = Collapse;
 
@@ -54,24 +109,30 @@ export default function LeftCom(props) {
             <Panel header="容器类型组件" key="1" style={{background:'none',height:'100%'}}>
               {containerList.map(cName => {
                 const Com = myComponent[cName];
+                const Icon = componentIconMap[cName]
+                const name = componentTextMap[cName]
                 return  <div onDragStart={onDragStart(Com,cName)} key={cName} className='componentItem'>
-                  <div style={{display: 'inline-block'}} draggable>{cName}</div>
+                  <div style={{display: 'inline-block'}} draggable><Icon style={{marginRight:'10px'}} />{name}</div>
               </div>
               })}
             </Panel>
             <Panel header="数据录入组件" key="2">
               {controlList.map(cName => {
                 const Com = myComponent[cName];
+                const Icon = componentIconMap[cName]
+                const name = componentTextMap[cName]
                 return  <div onDragStart={onDragStart(Com,cName)} key={cName} className='componentItem'>
-                  <div style={{display: 'inline-block'}} draggable>{cName}</div>
+                  <div style={{display: 'inline-block'}} draggable><Icon style={{marginRight:'10px'}} />{name}</div>
               </div>
               })}
             </Panel>
             <Panel header="数据展示组件" key="3">
               {showDataList.map(cName => {
                 const Com = myComponent[cName];
+                const Icon = componentIconMap[cName]
+                const name = componentTextMap[cName]
                 return  <div onDragStart={onDragStart(Com,cName)} key={cName} className='componentItem'>
-                  <div style={{display: 'inline-block'}} draggable>{cName}</div>
+                  <div style={{display: 'inline-block'}} draggable><Icon style={{marginRight:'10px'}} />{name}</div>
               </div>
               })}
             </Panel>
