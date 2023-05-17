@@ -345,6 +345,10 @@ export default function RenderCom(props) {
           changeRightPanelById(id,['bordered','size','title'],'attribute');
           break;
         }
+        case 'XinTable': {
+          changeRightPanelById(id,['setColumns','setTableData','bordered','showHeader','size'],'attribute');
+          break;
+        }
       }
     //动作弹窗
     }else if(type === 'action'){

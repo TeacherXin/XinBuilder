@@ -12,6 +12,7 @@ import XinRadioGroup from './XinRadioGroup'
 import XinRate from './XinRate'
 import XinUpload from './XinUpload'
 import XinCard from './XinCard'
+import XinTable from './XinTable'
 
 export {
   XinButton,
@@ -27,5 +28,6 @@ export {
   XinRadioGroup,
   XinRate,
   XinUpload,
-  XinCard
+  XinCard,
+  XinTable
 }

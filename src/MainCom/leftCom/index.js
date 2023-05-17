@@ -12,17 +12,21 @@ export default function LeftCom(props) {
   const [selected,setSelected] = useState(1)
   const [containerList,setContanerList] = useState([])
   const [controlList,setControlList] = useState([])
+  const [showDataList,setShowDataList] = useState([])
 
   useEffect(() => {
     Object.keys(myComponent).forEach(item => {
       if(['XinForm','XinMenu','XinRadioGroup','XinCard'].includes(item)){
         containerList.push(item)
+      }else if(['XinTable'].includes(item)){
+        showDataList.push(item)
       }else{
         controlList.push(item)
       }
     })
     setContanerList([...containerList])
     setControlList([...controlList])
+    setShowDataList([...showDataList])
   },[])
 
   const onDragStart = (Com,cName) =>{
@@ -50,8 +54,16 @@ export default function LeftCom(props) {
               </div>
               })}
             </Panel>
-            <Panel header="基础类型组件" key="2">
+            <Panel header="数据录入组件" key="2">
               {controlList.map(cName => {
+                const Com = myComponent[cName];
+                return  <div onDragStart={onDragStart(Com,cName)} key={cName} className='componentItem'>
+                  <div style={{display: 'inline-block'}} draggable>{cName}</div>
+              </div>
+              })}
+            </Panel>
+            <Panel header="数据展示组件" key="3">
+              {showDataList.map(cName => {
                 const Com = myComponent[cName];
                 return  <div onDragStart={onDragStart(Com,cName)} key={cName} className='componentItem'>
                   <div style={{display: 'inline-block'}} draggable>{cName}</div>

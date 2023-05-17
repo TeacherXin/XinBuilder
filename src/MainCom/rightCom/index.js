@@ -3,7 +3,9 @@ import './index.css'
 import Store from '../../Store';
 import _ from 'lodash'
 import subscribeHook from '../../DefineHook/subscribe';
-import { Select, Input, Switch } from 'antd';
+import SetColumns from '../../Modal/setColumns';
+import SetTableData from '../../Modal/setTableData';
+import { Select, Input, Switch, Button } from 'antd';
 
 const attributeValueMap = {
   attributeValue: '属性值',
@@ -49,13 +51,18 @@ const attributeValueMap = {
   allowHalf: '允许半选',
   count: 'star总数',
   disabled: '禁用',
-  bordered: '边框'
+  bordered: '边框',
+  setColumns: '表头字段',
+  setTableData: '表格内容',
+  showHeader: '禁用表头'
 }
 
 
 export default function RightCom(props) {
 
   const {rightPanel,comId} = props;
+  const [showSetColumns,setShowSetColumns] = useState(false)
+  const [showSetTableData,setShowTableData] = useState(false)
   const attributeMapRight = _.cloneDeep(Store.getState().attributeMap)
   const [update,setUpdate] = useState({})
 
@@ -81,6 +88,14 @@ export default function RightCom(props) {
   const getAttributeValueCom = (item,index) => {
     switch (item) {
       case 'disabled': {
+        return <Switch 
+          style={{ marginRight:'70px'}}
+          defaultValue={false}
+          onChange={onChange(item)}
+          checked={findNodeByComId(comId)?.[item] || false}
+        />
+      }
+      case 'showHeader': {
         return <Switch 
           style={{ marginRight:'70px'}}
           defaultValue={false}
@@ -287,6 +302,12 @@ export default function RightCom(props) {
           ]
         } />
       }
+      case 'setColumns': {
+        return <Button onClick={() => {setShowSetColumns(true)}} style={{width:'130px',position: 'relative',bottom: '5px',left:'20px'}}>设置表头</Button>
+      }
+      case 'setTableData': {
+        return <Button onClick={() => {setShowTableData(true)}} style={{width:'130px',position: 'relative',bottom: '5px',left:'20px'}}>设置内容</Button>
+      }
       case 'attributeValueNumber': {
         return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
       }
@@ -335,6 +356,8 @@ export default function RightCom(props) {
 
   return (
     <div className='rightCom'>
+      <SetColumns comId={comId} setShowSetColumns={setShowSetColumns} showSetColumns={showSetColumns} />
+      <SetTableData comId={comId} setShowTableData={setShowTableData} showSetTableData={showSetTableData} />
       <div style={{marginTop:'40px'}}>
         {comId}
         <hr></hr>

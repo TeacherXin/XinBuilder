@@ -1,0 +1,235 @@
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { Button, Form, Input, Popconfirm, Table, Modal } from 'antd';
+import Store from '../../Store'
+import _ from 'lodash'
+import subscribe from '../../DefineHook/subscribe'
+import './index.css'
+const EditableContext = React.createContext(null);
+
+const EditableRow = ({ index, ...props }) => {
+  const [form] = Form.useForm();
+  return (
+    <Form form={form} component={false}>
+      <EditableContext.Provider value={form}>
+        <tr {...props} />
+      </EditableContext.Provider>
+    </Form>
+  );
+};
+
+const EditableCell = ({
+  title,
+  editable,
+  children,
+  dataIndex,
+  record,
+  handleSave,
+  ...restProps
+}) => {
+  const [editing, setEditing] = useState(false);
+  const inputRef = useRef(null);
+  const form = useContext(EditableContext);
+  useEffect(() => {
+    if (editing) {
+      inputRef.current.focus();
+    }
+  }, [editing]);
+  const toggleEdit = () => {
+    setEditing(!editing);
+    form.setFieldsValue({
+      [dataIndex]: record[dataIndex],
+    });
+  };
+  const save = async () => {
+    try {
+      const values = await form.validateFields();
+      toggleEdit();
+      handleSave({
+        ...record,
+        ...values,
+      });
+    } catch (errInfo) {
+      console.log('Save failed:', errInfo);
+    }
+  };
+  let childNode = children;
+  if (editable) {
+    childNode = editing ? (
+      <Form.Item
+        style={{
+          margin: 0,
+        }}
+        name={dataIndex}
+        rules={[
+          {
+            required: true,
+            message: `${title} is required.`,
+          },
+        ]}
+      >
+        <Input ref={inputRef} onPressEnter={save} onBlur={save} />
+      </Form.Item>
+    ) : (
+      <div
+        className="editable-cell-value-wrap"
+        style={{
+          paddingRight: 24,
+        }}
+        onClick={toggleEdit}
+      >
+        {children}
+      </div>
+    );
+  }
+  return <td {...restProps}>{childNode}</td>;
+};
+
+const components = {
+  body: {
+    row: EditableRow,
+    cell: EditableCell,
+  },
+};
+
+export default function SetColumns(props) {
+ 
+  const {showSetColumns,setShowSetColumns,comId} = props
+  const attributeMap = _.cloneDeep(Store.getState().attributeMap)
+  const [update,setUpdate] = useState({})
+  const [count, setCount] = useState(3);
+
+  const defaultColumns = [
+    {
+      title: '标题',
+      dataIndex: 'title',
+      key: 'title',
+      editable: true,
+    },
+    {
+      title: '类型',
+      dataIndex: 'type',
+      key: 'type',
+      editable: true,
+    },
+    {
+      title: 'dataIndex',
+      dataIndex: 'dataIndex',
+      key: 'dataIndex',
+      editable: true,
+    },
+    {
+      title: 'key',
+      dataIndex: 'key',
+      key: 'key',
+      editable: true,
+    },
+    {
+      title: 'operation',
+      dataIndex: 'operation',
+      render: (_, record) =>
+        findNodeByComId(comId).columnsData.length >= 1 ? (
+          <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
+            <a>Delete</a>
+          </Popconfirm>
+        ) : null,
+    },
+  ]
+
+  subscribe(() => {
+    setUpdate({})
+  },[])
+
+  const findNodeByComId = (id) => {
+    for(let propName in attributeMap){
+      if(propName === id){
+        return attributeMap[propName];
+      }
+      if(attributeMap[propName].childList){
+        for(let _propName in attributeMap[propName].childList){
+          if(_propName === id){
+            return attributeMap[propName].childList[_propName]
+          }
+        }
+      }
+    }
+  }
+
+  const columns = defaultColumns.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        editable: col.editable,
+        dataIndex: col.dataIndex,
+        title: col.title,
+        handleSave,
+      }),
+    };
+  });
+
+  const handleDelete = (key) => {
+    const index = findNodeByComId(comId)?.columnsData.findIndex((item) => item.key === key);
+    findNodeByComId(comId)?.columnsData.splice(index,1)
+    Store.dispatch({type:'change',attributeMap})
+  };
+
+  const handleSave = (row) => {
+    const newData = [...findNodeByComId(comId)?.columnsData];
+    const index = newData.findIndex((item) => row.key === item.key);
+    const item = newData[index];
+    newData.splice(index, 1, {
+      ...item,
+      ...row,
+    });
+    findNodeByComId(comId).columnsData= newData
+    Store.dispatch({type:'change',attributeMap})
+  };
+
+  const handleAdd = () => {
+    const newData = {
+      key: count,
+      title: `标题${count}`,
+      type: '文本',
+      dataIndex: `dataIndex${count}`,
+      key:`key${count}`
+    };
+    findNodeByComId(comId)?.columnsData.push(newData)
+    Store.dispatch({type:'change',attributeMap})
+    setCount(count + 1);
+  };
+
+  return (
+    <div>
+      <Modal
+        open={showSetColumns}
+        className='editStyle'
+        width={1000}
+        closable={true}
+        footer={null}
+        onCancel={() => {setShowSetColumns(false)}}
+      >
+        <Button
+          onClick={handleAdd}
+          type="primary"
+          style={{
+            marginBottom: 16,
+          }}
+        >
+          Add a row
+        </Button>
+        <Table
+          columns={columns}
+          dataSource={findNodeByComId(comId)?.columnsData}
+          components={components}
+          rowClassName={() => 'editable-row'}
+          bordered
+          scroll={{y: 300}}
+          pagination={false}
+        />
+      </Modal>
+    </div>
+  )
+}
