@@ -6,6 +6,7 @@ import subscribeHook from '../../DefineHook/subscribe';
 import SetColumns from '../../Modal/setColumns';
 import SetTableData from '../../Modal/setTableData';
 import { Select, Input, Switch, Button } from 'antd';
+import {RightOutlined, LeftOutlined} from '@ant-design/icons'
 
 const attributeValueMap = {
   attributeValue: '属性值',
@@ -65,6 +66,7 @@ export default function RightCom(props) {
   const [showSetTableData,setShowTableData] = useState(false)
   const attributeMapRight = _.cloneDeep(Store.getState().attributeMap)
   const [update,setUpdate] = useState({})
+  const [showRightPanel,setShowRightPanel] = useState(true)
 
   subscribeHook(() => {
     setUpdate({})
@@ -355,10 +357,11 @@ export default function RightCom(props) {
   }
 
   return (
-    <div className='rightCom'>
+    showRightPanel? <div className='rightCom'>
       <SetColumns comId={comId} setShowSetColumns={setShowSetColumns} showSetColumns={showSetColumns} />
       <SetTableData comId={comId} setShowTableData={setShowTableData} showSetTableData={showSetTableData} />
       <div style={{marginTop:'40px'}}>
+        <RightOutlined onClick={() => {setShowRightPanel(false)}} style={{color:'blue',cursor: 'pointer',marginRight:'10px'}} />
         {comId}
         <hr></hr>
         {
@@ -372,6 +375,6 @@ export default function RightCom(props) {
           })
         }
       </div>
-    </div>
+    </div> : <LeftOutlined onClick={() => {setShowRightPanel(true)}} style={{color:'blue',cursor: 'pointer'}} />
   )
 }

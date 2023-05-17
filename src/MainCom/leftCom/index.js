@@ -3,6 +3,7 @@ import './index.css'
 import * as myComponent from '../../Component'
 import LeftList from '../leftList'
 import { Collapse } from 'antd';
+import {RightOutlined, LeftOutlined} from '@ant-design/icons'
 
 const { Panel } = Collapse;
 
@@ -13,6 +14,7 @@ export default function LeftCom(props) {
   const [containerList,setContanerList] = useState([])
   const [controlList,setControlList] = useState([])
   const [showDataList,setShowDataList] = useState([])
+  const [showLeftPanel,setShowLeftPanel] = useState(true)
 
   useEffect(() => {
     Object.keys(myComponent).forEach(item => {
@@ -37,10 +39,13 @@ export default function LeftCom(props) {
 
 
   return (
-    <div className='leftCom'>
+    showLeftPanel? <div className='leftCom'>
       <div className='Tab'>
         <p onClick={() => {setSelected(1)}} style={{background: selected === 2? 'rgb(240 203 203)':''}} className='TabItem'>组件</p>
-        <p onClick={() => {setSelected(2)}} style={{background: selected === 1? 'rgb(240 203 203)':''}} className='TabItem'>数据</p>
+        <p onClick={() => {setSelected(2)}} style={{background: selected === 1? 'rgb(240 203 203)':''}} className='TabItem'>
+          数据
+          <LeftOutlined onClick={() => {setShowLeftPanel(false)}} style={{color:'blue',cursor: 'pointer',position:'relative',left:'30px'}} />
+        </p>
       </div>
       {
         selected === 1 ? <div className='componentList'>
@@ -74,6 +79,6 @@ export default function LeftCom(props) {
         }
       </div> : <LeftList />
       }
-    </div>
+    </div> : <RightOutlined onClick={() => {setShowLeftPanel(true)}} style={{color:'blue',cursor: 'pointer'}} />
   )
 }
