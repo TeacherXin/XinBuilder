@@ -21,7 +21,7 @@ const setAttributeProxy = (ctx) => {
     set(target,property,value,receiver){
       if(typeof value === 'object'){
         target[property] = setAttributeProxy(value);
-        Store.dispatch({type: 'change',attributeMap: target});
+        Store.dispatch({type: 'change',attributeMap: target,comId: target.comId});
         return true
       }else{
         target[property] = value;
