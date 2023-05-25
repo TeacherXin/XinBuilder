@@ -29,27 +29,53 @@ export default function LeftList(props) {
     setUpdate({})
   })
 
+  
+  const findNodeByComId = (id) => {
+    for(let propName in attributeMap){
+      if(propName === id){
+        return attributeMap[propName];
+      }
+      if(attributeMap[propName].childList){
+        for(let _propName in attributeMap[propName].childList){
+          if(_propName === id){
+            return attributeMap[propName].childList[_propName]
+          }
+        }
+      }
+    }
+  }
 
-  const menuOnClick = (com) =>{
+
+  const menuOnClick = (com,parentId) =>{
     return (menuItem) => {
       if(menuItem.key === 'showJson'){
         setShowJson(true);
         setNowCom(com)
       }
+      if(menuItem.key === 'deleteNode'){
+        if(parentId){
+          const node = findNodeByComId(parentId);
+          let childList = node.childList;
+          delete childList[com.comId]
+        }else{
+          delete attributeMap[com.comId]
+        }
+      }
+      Store.dispatch({type:'change',attributeMap})
     }
   }
 
-  const getTreeData = (attributeMap) => {
+  const getTreeData = (attributeMap,parentId) => {
     let treeData = []
     for(let propName in attributeMap){
       treeData.push({
         title: <div>
-                <Dropdown menu={{onClick: menuOnClick(attributeMap[propName]), items }} trigger={['contextMenu']}>
+                <Dropdown menu={{onClick: menuOnClick(attributeMap[propName],parentId), items }} trigger={['contextMenu']}>
                   <span>{propName}</span>
                 </Dropdown>
               </div>,
         key: attributeMap[propName].comId,
-        children: getTreeData(attributeMap[propName].childList)
+        children: getTreeData(attributeMap[propName].childList,attributeMap[propName].comId)
       })
     }
     return treeData
