@@ -7,10 +7,12 @@ import { Image,Button,message } from 'antd';
 import _ from 'lodash'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
+import {UpOutlined,DownOutlined} from '@ant-design/icons'
 
 export default function DesignTop(props) {
 
   const [update,setUpdate] = useState({})
+  const [showTop,setShowTop] = useState(true)
   const state = useLocation().state;
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -48,8 +50,9 @@ export default function DesignTop(props) {
   }
 
   return (
-    <div className='designTop'>
+    showTop ? <div className='designTop'>
       {contextHolder}
+      <UpOutlined onClick={() => {setShowTop(false)}} style={{color:'blue',cursor: 'pointer',position:'absolute',left:'1000px',zIndex:'10000'}} />
       <Image
         width={30}
         height={30}
@@ -60,6 +63,6 @@ export default function DesignTop(props) {
       <Button style={{width: 80,height:30}} type='primary' ghost onClick={savePageInfo}>保存</Button>
       <Button style={{width: 80,height:30}} type='primary' ghost onClick={() => {navigate('/')}}>返回</Button>
       {/* <Button style={{width: 80,height:30}} type='primary' ghost onClick={toMetaRender}>预览</Button> */}
-    </div>
+    </div> : <DownOutlined onClick={() => {setShowTop(true)}} style={{color:'blue',cursor: 'pointer',position:'absolute',left:'1000px',zIndex:'10000'}} />
   )
 }

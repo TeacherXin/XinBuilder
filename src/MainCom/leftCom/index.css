@@ -1,15 +1,16 @@
 .leftCom{
-  height: 100%;
+  height: 93.3%;
   width: 20%;
   overflow: auto;
   background: linear-gradient(rgb(234 213 210),rgb(236 235 202) ,#dbf0c7);
   z-index: 1000;
+  margin-top: 40px;
 }
 
 .leftCom .Tab{
   display: flex;
   position: relative;
-  top: 24px;
+  top: -14px;
 }
 
 .leftCom .Tab .TabItem{
@@ -22,10 +23,10 @@
 }
 
 .componentList{
-  margin-top: 40px;
   display: flex;
   width: 100%;
   flex-wrap: wrap;
+  margin-top: -30px;
 }
 
 .componentList .ant-collapse-content-active{

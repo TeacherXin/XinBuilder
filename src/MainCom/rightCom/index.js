@@ -360,7 +360,7 @@ export default function RightCom(props) {
     showRightPanel? <div className='rightCom'>
       <SetColumns comId={comId} setShowSetColumns={setShowSetColumns} showSetColumns={showSetColumns} />
       <SetTableData comId={comId} setShowTableData={setShowTableData} showSetTableData={showSetTableData} />
-      <div style={{marginTop:'40px'}}>
+      <div>
         <RightOutlined onClick={() => {setShowRightPanel(false)}} style={{color:'blue',cursor: 'pointer',marginRight:'10px'}} />
         {comId}
         <hr></hr>
