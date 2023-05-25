@@ -47,7 +47,7 @@ export default function XinUpload(props) {
     }
     if (info.file.status === "done") {
       getBase64(info.file.originFileObj, () => {
-        setImg('http://localhost:3003/images/' + info.file.response.filename);
+        setImg(`http://${window.location.hostname}:3003/images/` + info.file.response.filename);
       });
     }
   };
