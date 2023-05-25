@@ -7,7 +7,7 @@
 }
 
 .editAction{
-  position: fixed;
+  position: absolute;
   left: 30%;
 }
 

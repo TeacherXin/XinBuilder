@@ -1,7 +1,6 @@
 .rightCom{
   height: 93.3%;
   width: 20%;
-  position: absolute;
   background: linear-gradient(rgb(234 213 210),rgb(236 235 202) ,#dbf0c7);
   right: 0;
   overflow: auto;

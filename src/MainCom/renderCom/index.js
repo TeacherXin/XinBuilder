@@ -126,14 +126,14 @@ export default function RenderCom(props) {
     let style;
     if(startLeft && startTop){
       style = {
-        position: 'fixed',
+        position: 'absolute',
         left: (endLeft - startLeft) + itemLeft + 'px',
         top: (endTop - startTop) + itemTop + 'px',
         zIndex:100
       }
     }else{
       style = {
-        position: 'fixed',
+        position: 'absolute',
         left: e.clientX + 'px',
         top: e.clientY + 'px',
         zIndex:100

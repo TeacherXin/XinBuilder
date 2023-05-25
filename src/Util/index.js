@@ -45,7 +45,7 @@ window.xinComEvent.addNode = (node,top,left) => {
   node.style = {
     left: parseInt(node.style.left) + left + 'px',
     top: parseInt(node.style.top) + top + 'px',
-    position: 'fixed',
+    position: 'absolute',
     zIndex:100
   }
   node.comId += (new Date().getTime() + '').slice(6)
