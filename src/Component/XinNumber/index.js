@@ -31,18 +31,12 @@ export default function XinNumber(props) {
     setSyle(style)
   },[styleCss])
 
-  const onClick = () => {
-    let script = document.createElement('script');
-    script.innerHTML = actionJs?.click
-    document.body.append(script)
-  }
   const onChange = (value) =>{
     setValue(value);
     findNodeByComId(comId).attributeValue = value;
     Store.dispatch({type: 'change',attributeMap});
-    let script = document.createElement('script');
-    script.innerHTML = actionJs?.change
-    document.body.append(script)
+    const changeFun = new Function(actionJs?.change);
+    changeFun(value)
   }
 
   useEffect(() => {
@@ -61,7 +55,6 @@ export default function XinNumber(props) {
         size={size}
         prefix={prefix}
         showCount={showCount}
-        onClick={onClick}
         value={value || ''}
         onChange={onChange}
         placeholder={placeholder}

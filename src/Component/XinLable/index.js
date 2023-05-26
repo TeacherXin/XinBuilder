@@ -13,15 +13,9 @@ export default function Label(props) {
   },[styleCss])
 
 
-  const onClick = (e) => {
-    let script = document.createElement('script');
-    script.innerHTML = '(function(){' +  actionJs?.click + '})()'
-    document.body.append(script)
-  }
-
   return (
     <div style={{display: visible ? 'none':'block'}} className='label'>
-      <span style={{...style,display:'inline-block'}} onClick={onClick} className={className}>{attributeValue || '标签'}</span>
+      <span style={{...style,display:'inline-block'}} className={className}>{attributeValue || '标签'}</span>
     </div>
   )
 }

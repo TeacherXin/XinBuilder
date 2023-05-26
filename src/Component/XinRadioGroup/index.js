@@ -47,9 +47,8 @@ export default function XinRadioGroup(props) {
   const onChange = (e) => {
     findNodeByComId(comId).selectedID = e.target.value;
     Store.dispatch({type: 'change',attributeMap})
-    let script = document.createElement('script');
-    script.innerHTML = actionJs?.change
-    document.body.append(script)
+    const changeFun = new Function(actionJs?.change);
+    changeFun(e)
   };
 
 

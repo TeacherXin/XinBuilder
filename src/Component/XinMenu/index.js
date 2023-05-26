@@ -3,7 +3,7 @@ import { Menu } from 'antd'
 
 export default function XinMenu(props) {
 
-  const {styleCss,mode,visible } = props
+  const {styleCss,mode,visible,actionJs } = props
   const [style,setStyle] = useState({})
 
   
@@ -13,20 +13,26 @@ export default function XinMenu(props) {
     setStyle(style)
   },[styleCss])
 
+  const onSelect= ({ item, key, keyPath, selectedKeys, domEvent }) => {
+    let changeFun = new Function(actionJs?.change);
+    changeFun({ item, key, keyPath, selectedKeys, domEvent })
+  }
+
   return (
     <div style={{display: visible ? 'none':'block'}}>
-        <Menu
-          mode={mode}
-          style={style}
-          items={
-            props.children.map(element => {
-              return {
-                label: element,
-                key: element.key
-              }
-            })
-          }
-        />
+      <Menu
+        onSelect={onSelect}
+        mode={mode}
+        style={style}
+        items={
+          props.children.map(element => {
+            return {
+              label: element,
+              key: element.key
+            }
+          })
+        }
+      />
     </div>
   )
 }

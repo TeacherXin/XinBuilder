@@ -30,17 +30,11 @@ export default function XinCheckBox(props) {
   }
 
 
-  const onClick = () => {
-    let script = document.createElement('script');
-    script.innerHTML = actionJs?.click
-    document.body.append(script)
-  }
   const onChange = (e) =>{
     findNodeByComId(comId).checked = !findNodeByComId(comId)?.checked;
     Store.dispatch({type: 'change',attributeMap});
-    let script = document.createElement('script');
-    script.innerHTML = actionJs?.change
-    document.body.append(script)
+    const changeFun = new Function(actionJs?.change);
+    changeFun(e);
   }
 
   return (
@@ -49,7 +43,6 @@ export default function XinCheckBox(props) {
         checked={checked}
         disabled={disabled}
         style={style}
-        onClick={onClick}
         onChange={onChange}
       >
         {attributeValue || 'CheckBox'}

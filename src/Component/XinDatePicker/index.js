@@ -39,9 +39,8 @@ export default function XinDatePicker(props) {
     setValue(dataString);
     findNodeByComId(comId).attributeValue = dataString;
     Store.dispatch({type: 'change',attributeMap});
-    let script = document.createElement('script');
-    script.innerHTML = actionJs?.change
-    document.body.append(script)
+    let changeFun = new Function(actionJs?.change);
+    changeFun(data,dataString);
   }
 
 

@@ -31,18 +31,12 @@ export default function XinInput(props) {
     setSyle(style)
   },[styleCss])
 
-  const onClick = () => {
-    let script = document.createElement('script');
-    script.innerHTML = actionJs?.click
-    document.body.append(script)
-  }
   const onChange = (e) =>{
     setValue(e.target.value);
     findNodeByComId(comId).attributeValue = e.target.value;
     Store.dispatch({type: 'change',attributeMap});
-    let script = document.createElement('script');
-    script.innerHTML = actionJs?.change
-    document.body.append(script)
+    const changeFun = new Function(actionJs?.change);
+    changeFun(e)
   }
 
   useEffect(() => {
@@ -65,7 +59,6 @@ export default function XinInput(props) {
         addonAfter={addonAfter}
         allowClear={allowClear}
         showCount={showCount}
-        onClick={onClick}
         value={value || ''}
         onChange={onChange}
         placeholder={placeholder}

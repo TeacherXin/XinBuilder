@@ -30,17 +30,17 @@ export default function XinRadio(props) {
   }
 
 
-  const onClick = () => {
+  const onClick = (e) => {
     findNodeByComId(comId).checked = !findNodeByComId(comId)?.checked;
     Store.dispatch({type: 'change',attributeMap});
-    let script = document.createElement('script');
-    script.innerHTML = actionJs?.click
-    document.body.append(script)
+    const changeFun = new Function(actionJs?.click);
+    changeFun(e)
   }
   const onChange = (e) =>{
-    let script = document.createElement('script');
-    script.innerHTML = actionJs?.change
-    document.body.append(script)
+    findNodeByComId(comId).checked = !findNodeByComId(comId)?.checked;
+    Store.dispatch({type: 'change',attributeMap});
+    const changeFun = new Function(actionJs?.change);
+    changeFun(e)
   }
   
   return (

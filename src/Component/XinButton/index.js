@@ -17,11 +17,8 @@ export default function XinButton(props) {
   },[styleCss])
 
   const onClick = (e) => {
-    if(!disabled){
-      let script = document.createElement('script');
-      script.innerHTML = '(function(){' +  actionJs?.click + '})()'
-      document.body.append(script)
-    }
+    let clickFun = new Function(actionJs?.click);
+    clickFun(e)
   }
 
   return (

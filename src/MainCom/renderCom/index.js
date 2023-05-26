@@ -52,30 +52,130 @@ export default function RenderCom(props) {
     XinCard: [300,400]
   }
 
-  const items = [
-    {
-      label: '设置属性',
-      key: 'setAttribute'
-    },
-    {
-      label: '设置样式',
-      key: 'setStyle'
-    },
-    {
-      label: '设置动作',
-      key: 'setAction',
-      children: [
-        {
-          label: 'onClick事件',
-          key: 'setClick'
-        },
-        {
-          label: 'onChange事件',
-          key: 'setChange'
-        }
-      ]
+  const getItems = (type) => {
+    const items = [
+      {
+        label: '设置属性',
+        key: 'setAttribute'
+      },
+      {
+        label: '设置样式',
+        key: 'setStyle'
+      }
+    ]
+    switch (type) {
+      case 'XinButton': {
+        items.push({
+          label: '设置动作',
+          key: 'setAction',
+          children: [
+            {
+              label: 'onClick事件',
+              key: 'setClick'
+            }
+          ]
+        })
+        break;
+      }
+      case 'XinCheckBox': {
+        items.push({
+          label: '设置动作',
+          key: 'setAction',
+          children: [
+            {
+              label: 'onChange事件',
+              key: 'setChange'
+            }
+          ]
+        })
+        break;
+      }
+      case 'XinDatePicker': {
+        items.push({
+          label: '设置动作',
+          key: 'setAction',
+          children: [
+            {
+              label: 'onChange事件',
+              key: 'setChange'
+            }
+          ]
+        })
+        break;
+      }
+      case 'XinInput': {
+        items.push({
+          label: '设置动作',
+          key: 'setAction',
+          children: [
+            {
+              label: 'onChange事件',
+              key: 'setChange'
+            }
+          ]
+        })
+        break;
+      }
+      case 'XinMenu': {
+        items.push({
+          label: '设置动作',
+          key: 'setAction',
+          children: [
+            {
+              label: 'onChange事件',
+              key: 'setChange'
+            }
+          ]
+        })
+        break;
+      }
+      case 'XinNumber': {
+        items.push({
+          label: '设置动作',
+          key: 'setAction',
+          children: [
+            {
+              label: 'onChange事件',
+              key: 'setChange'
+            }
+          ]
+        })
+        break;
+      }
+      case 'XinRadio': {
+        items.push({
+          label: '设置动作',
+          key: 'setAction',
+          children: [
+            {
+              label: 'onClick事件',
+              key: 'setClick'
+            },
+            {
+              label: 'onChange事件',
+              key: 'setChange'
+            }
+
+          ]
+        })
+        break;
+      }
+      case 'XinRadioGroup': {
+        items.push({
+          label: '设置动作',
+          key: 'setAction',
+          children: [
+            {
+              label: 'onChange事件',
+              key: 'setChange'
+            }
+          ]
+        })
+        break;
+      }
     }
-  ]
+    return items
+  }
 
   
   let attributeMap = _.cloneDeep(Store.getState().attributeMap);
@@ -385,7 +485,7 @@ export default function RenderCom(props) {
     const Com = myComponent[item.comType];
     return <div id={item.comId} key={item.comId} onDragStart={onDragStart} draggable={!isChild} style={item.style}>
       {
-        <Dropdown menu={{items,onClick: menuOnClick(item.comType,item.comId)}} trigger={['contextMenu']}>
+        <Dropdown menu={{items: getItems(item.comType),onClick: menuOnClick(item.comType,item.comId)}} trigger={['contextMenu']}>
           <div onContextMenu={(e) => {e.stopPropagation()}}>
             <Com
             {...findNodeByComId(item.comId)}
