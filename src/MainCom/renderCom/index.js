@@ -453,7 +453,7 @@ export default function RenderCom(props) {
           break;
         }
         case 'XinMenu': {
-          changeRightPanelById(id,['visible','mode'],'attribute');
+          changeRightPanelById(id,['visible','mode','selectedKey'],'attribute');
           break;
         }
         case 'XinDatePicker': {

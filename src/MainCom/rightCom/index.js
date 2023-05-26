@@ -55,7 +55,8 @@ const attributeValueMap = {
   bordered: '边框',
   setColumns: '表头字段',
   setTableData: '表格内容',
-  showHeader: '禁用表头'
+  showHeader: '禁用表头',
+  selectedKey: '选中菜单key'
 }
 
 

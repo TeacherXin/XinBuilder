@@ -3,7 +3,7 @@ import { Menu } from 'antd'
 
 export default function XinMenu(props) {
 
-  const {styleCss,mode,visible,actionJs } = props
+  const {styleCss,mode,visible,actionJs,selectedKey } = props
   const [style,setStyle] = useState({})
 
   
@@ -21,6 +21,7 @@ export default function XinMenu(props) {
   return (
     <div style={{display: visible ? 'none':'block'}}>
       <Menu
+        selectedKeys={[selectedKey]}
         onSelect={onSelect}
         mode={mode}
         style={style}
