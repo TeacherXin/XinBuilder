@@ -12,10 +12,14 @@ export default function Label(props) {
     setStyle(style)
   },[styleCss])
 
+  const onClick = (e) => {
+    let clickFun = new Function(actionJs?.click);
+    clickFun(e)
+  }
 
   return (
     <div style={{display: visible ? 'none':'block'}} className='label'>
-      <span style={{...style,display:'inline-block'}} className={className}>{attributeValue || '标签'}</span>
+      <span onClick={onClick} style={{...style,display:'inline-block'}} className={className}>{attributeValue || '标签'}</span>
     </div>
   )
 }

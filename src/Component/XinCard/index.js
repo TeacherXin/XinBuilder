@@ -5,7 +5,7 @@ import subscribe from '../../DefineHook/subscribe';
 export default function XinCard(props) {
 
   const [style,setStyle] = useState({})
-  const { styleCss,size,title,bordered } = props
+  const { styleCss,size,title,bordered,visible } = props
   const [update,setUpdate] = useState({})
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function XinCard(props) {
   })
 
   return (
-    <div>
+    <div style={{display: visible ? 'none' : 'block'}}>
       <Card
         size={size}
         title={title || '卡片标题'}

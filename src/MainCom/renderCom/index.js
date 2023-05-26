@@ -49,7 +49,8 @@ export default function RenderCom(props) {
     XinForm: [400,200],
     XinMenu: [600,100],
     XinRadioGroup: [250,40],
-    XinCard: [300,400]
+    XinCard: [300,400],
+    XinFlex: [400,400]
   }
 
   const getItems = (type) => {
@@ -173,6 +174,32 @@ export default function RenderCom(props) {
         })
         break;
       }
+      case 'XinLable': {
+        items.push({
+          label: '设置动作',
+          key: 'setAction',
+          children: [
+            {
+              label: 'onClick事件',
+              key: 'setClick'
+            }
+          ]
+        })
+        break;
+      }
+      case 'XinIcon': {
+        items.push({
+          label: '设置动作',
+          key: 'setAction',
+          children: [
+            {
+              label: 'onClick事件',
+              key: 'setClick'
+            }
+          ]
+        })
+        break;
+      }
     }
     return items
   }
@@ -256,7 +283,7 @@ export default function RenderCom(props) {
   const dragToContainer = (clientX,clientY,newCom) => {
     let parentNode;
     for(let propName in attributeMap){
-      if(['XinForm','XinMenu','XinRadioGroup','XinCard'].includes(attributeMap[propName].comType)
+      if(['XinForm','XinMenu','XinRadioGroup','XinCard','XinFlex'].includes(attributeMap[propName].comType)
           && parseInt(attributeMap[propName].style.left) < clientX 
           && parseInt(attributeMap[propName].style.left) + (attributeMap[propName].style.width || initStyle[attributeMap[propName].comType][0]) > clientX 
           && parseInt(attributeMap[propName].style.top) < clientY
@@ -442,11 +469,15 @@ export default function RenderCom(props) {
           break;
         }
         case 'XinCard': {
-          changeRightPanelById(id,['bordered','size','title'],'attribute');
+          changeRightPanelById(id,['bordered','size','title','visible'],'attribute');
           break;
         }
         case 'XinTable': {
           changeRightPanelById(id,['setColumns','setTableData','bordered','showHeader','size'],'attribute');
+          break;
+        }
+        case 'XinFlex': {
+          changeRightPanelById(id,['visible'],'attribute');
           break;
         }
       }

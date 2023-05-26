@@ -13,6 +13,7 @@ import XinRate from './XinRate'
 import XinUpload from './XinUpload'
 import XinCard from './XinCard'
 import XinTable from './XinTable'
+import XinFlex from './XinFlex'
 
 export {
   XinButton,
@@ -29,5 +30,6 @@ export {
   XinRate,
   XinUpload,
   XinCard,
-  XinTable
+  XinTable,
+  XinFlex
 }

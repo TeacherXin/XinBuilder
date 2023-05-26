@@ -21,7 +21,8 @@ import
   TrademarkCircleOutlined,
   EditOutlined,
   CloudDownloadOutlined,
-  TableOutlined
+  TableOutlined,
+  BoxPlotOutlined
 } from '@ant-design/icons';
 
 const componentIconMap = {
@@ -39,7 +40,8 @@ const componentIconMap = {
   XinRadio: TrademarkCircleOutlined,
   XinRate: EditOutlined,
   XinUpload: CloudDownloadOutlined,
-  XinTable: TableOutlined
+  XinTable: TableOutlined,
+  XinFlex: BoxPlotOutlined
 }
 
 const componentTextMap = {
@@ -57,7 +59,8 @@ const componentTextMap = {
   XinRadio: '单选框',
   XinRate: '评分',
   XinUpload: '图片上传',
-  XinTable: '表格'
+  XinTable: '表格',
+  XinFlex: 'Flex布局'
 }
 
 const { Panel } = Collapse;
@@ -73,7 +76,7 @@ export default function LeftCom(props) {
 
   useEffect(() => {
     Object.keys(myComponent).forEach(item => {
-      if(['XinForm','XinMenu','XinRadioGroup','XinCard'].includes(item)){
+      if(['XinForm','XinMenu','XinRadioGroup','XinCard','XinFlex'].includes(item)){
         containerList.push(item)
       }else if(['XinTable'].includes(item)){
         showDataList.push(item)
