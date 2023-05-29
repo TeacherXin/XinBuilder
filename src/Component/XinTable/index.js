@@ -7,7 +7,8 @@ import subscribe from '../../DefineHook/subscribe';
 
 export default function XinTable(props) {
 
-  const {comId,bordered,showHeader,size} = props;
+  const {comId,bordered,showHeader,size,styleCss} = props;
+  const [style,setStyle] = useState({})
   const attributeMap = _.cloneDeep(Store.getState().attributeMap);
   const [update,setUpdate] = useState({})
 
@@ -48,16 +49,27 @@ export default function XinTable(props) {
     findNodeByComId(comId).columnsData = columnsData;
     Store.dispatch({type:'change',attributeMap})
   },[])
+  
+  useEffect(() => {
+    let styleStr = styleCss?.replaceAll('\n','') || '{"minWidth":"300px","minHeight":"200px"}';
+    let style = JSON.parse(styleStr)
+    setStyle(style)
+  },[styleCss])
+
 
   return (
     <div>
       <Table
+        style={{maxWidth:'1285px',...style}}
         dataSource={findNodeByComId(comId).tableData}
         columns={findNodeByComId(comId).columnsData}
         bordered={bordered}
         showHeader={!showHeader}
         size={size}
         pagination={false}
+        scroll={{
+          y: 240,
+        }}
       />
     </div>
   )
