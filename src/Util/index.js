@@ -1,5 +1,8 @@
 import _ from 'lodash';
 import Store from '../Store'
+import { createHashHistory } from 'history'
+
+const history = createHashHistory();
 
 
 window.xinCtx = {}
@@ -50,4 +53,9 @@ window.xinComEvent.addNode = (node,top,left) => {
   }
   node.comId += (new Date().getTime() + '').slice(6)
   window.xinCtx[node.comId] = node;
+}
+
+window.xinComEvent.toPageById = (pageId) => {
+  history.push('/metaRender',{pageId});
+  window.location.replace(window.location.href)
 }
