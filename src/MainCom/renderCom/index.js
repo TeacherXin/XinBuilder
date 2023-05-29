@@ -480,6 +480,9 @@ export default function RenderCom(props) {
           changeRightPanelById(id,['visible'],'attribute');
           break;
         }
+        case 'XinLink': {
+          changeRightPanelById(id,['visible','attributeValue','pageUrl'],'attribute');
+        }
       }
     //动作弹窗
     }else if(type === 'action'){

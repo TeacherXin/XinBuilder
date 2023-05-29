@@ -56,7 +56,8 @@ const attributeValueMap = {
   setColumns: '表头字段',
   setTableData: '表格内容',
   showHeader: '禁用表头',
-  selectedKey: '选中菜单key'
+  selectedKey: '选中菜单key',
+  pageUrl: '页面ID'
 }
 
 

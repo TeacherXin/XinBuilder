@@ -22,7 +22,8 @@ import
   EditOutlined,
   CloudDownloadOutlined,
   TableOutlined,
-  BoxPlotOutlined
+  BoxPlotOutlined,
+  LinkedinOutlined
 } from '@ant-design/icons';
 
 const componentIconMap = {
@@ -41,7 +42,8 @@ const componentIconMap = {
   XinRate: EditOutlined,
   XinUpload: CloudDownloadOutlined,
   XinTable: TableOutlined,
-  XinFlex: BoxPlotOutlined
+  XinFlex: BoxPlotOutlined,
+  XinLink: LinkedinOutlined
 }
 
 const componentTextMap = {
@@ -60,7 +62,8 @@ const componentTextMap = {
   XinRate: '评分',
   XinUpload: '图片上传',
   XinTable: '表格',
-  XinFlex: 'Flex布局'
+  XinFlex: 'Flex布局',
+  XinLink: '页面跳转'
 }
 
 const { Panel } = Collapse;

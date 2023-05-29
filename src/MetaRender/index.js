@@ -33,7 +33,7 @@ export default function MetaRender() {
         content: '获取页面详情失败',
       });
     }
-  },[])
+  },[state])
 
   subscribeHook(() => {
     setUpdate({})
