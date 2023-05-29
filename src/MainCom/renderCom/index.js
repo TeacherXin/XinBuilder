@@ -50,7 +50,8 @@ export default function RenderCom(props) {
     XinMenu: [600,100],
     XinRadioGroup: [250,40],
     XinCard: [300,400],
-    XinFlex: [400,400]
+    XinFlex: [400,400],
+    XinCarousel: [600,200]
   }
 
   const getItems = (type) => {
@@ -200,6 +201,19 @@ export default function RenderCom(props) {
         })
         break;
       }
+      case 'XinCarousel': {
+        items.push({
+          label: '设置动作',
+          key: 'setAction',
+          children: [
+            {
+              label: 'onChange事件',
+              key: 'setChange'
+            }
+          ]
+        })
+        break;
+      }
     }
     return items
   }
@@ -283,7 +297,7 @@ export default function RenderCom(props) {
   const dragToContainer = (clientX,clientY,newCom) => {
     let parentNode;
     for(let propName in attributeMap){
-      if(['XinForm','XinMenu','XinRadioGroup','XinCard','XinFlex'].includes(attributeMap[propName].comType)
+      if(['XinForm','XinMenu','XinRadioGroup','XinCard','XinFlex','XinCarousel'].includes(attributeMap[propName].comType)
           && parseInt(attributeMap[propName].style.left) < clientX 
           && parseInt(attributeMap[propName].style.left) + (attributeMap[propName].style.width || initStyle[attributeMap[propName].comType][0]) > clientX 
           && parseInt(attributeMap[propName].style.top) < clientY
@@ -482,6 +496,15 @@ export default function RenderCom(props) {
         }
         case 'XinLink': {
           changeRightPanelById(id,['visible','attributeValue','pageUrl'],'attribute');
+          break;
+        }
+        case 'XinDiv': {
+          changeRightPanelById(id,['visible'],'attribute');
+          break;
+        }
+        case 'XinCarousel': {
+          changeRightPanelById(id,['visible','autoplay'],'attribute');
+          break;
         }
       }
     //动作弹窗

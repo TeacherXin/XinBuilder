@@ -15,6 +15,8 @@ import XinCard from './XinCard'
 import XinTable from './XinTable'
 import XinFlex from './XinFlex'
 import XinLink from './XinLink'
+import XinDiv from './XinDiv'
+import XinCarousel from './XinCarousel'
 
 export {
   XinButton,
@@ -33,5 +35,7 @@ export {
   XinCard,
   XinTable,
   XinFlex,
-  XinLink
+  XinLink,
+  XinDiv,
+  XinCarousel
 }

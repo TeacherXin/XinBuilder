@@ -23,7 +23,8 @@ import
   CloudDownloadOutlined,
   TableOutlined,
   BoxPlotOutlined,
-  LinkedinOutlined
+  LinkedinOutlined,
+  MinusSquareOutlined
 } from '@ant-design/icons';
 
 const componentIconMap = {
@@ -43,7 +44,9 @@ const componentIconMap = {
   XinUpload: CloudDownloadOutlined,
   XinTable: TableOutlined,
   XinFlex: BoxPlotOutlined,
-  XinLink: LinkedinOutlined
+  XinLink: LinkedinOutlined,
+  XinDiv: MinusSquareOutlined,
+  XinCarousel: CreditCardOutlined
 }
 
 const componentTextMap = {
@@ -63,7 +66,9 @@ const componentTextMap = {
   XinUpload: '图片上传',
   XinTable: '表格',
   XinFlex: 'Flex布局',
-  XinLink: '页面跳转'
+  XinLink: '页面跳转',
+  XinDiv: '空div',
+  XinCarousel: '轮播图'
 }
 
 const { Panel } = Collapse;
@@ -79,9 +84,9 @@ export default function LeftCom(props) {
 
   useEffect(() => {
     Object.keys(myComponent).forEach(item => {
-      if(['XinForm','XinMenu','XinRadioGroup','XinCard','XinFlex'].includes(item)){
+      if(['XinForm','XinMenu','XinRadioGroup','XinCard','XinFlex','XinCarousel'].includes(item)){
         containerList.push(item)
-      }else if(['XinTable'].includes(item)){
+      }else if(['XinTable','XinDiv'].includes(item)){
         showDataList.push(item)
       }else{
         controlList.push(item)

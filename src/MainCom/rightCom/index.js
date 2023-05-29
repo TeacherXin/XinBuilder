@@ -57,7 +57,8 @@ const attributeValueMap = {
   setTableData: '表格内容',
   showHeader: '禁用表头',
   selectedKey: '选中菜单key',
-  pageUrl: '页面ID'
+  pageUrl: '页面ID',
+  autoplay: '自动切换'
 }
 
 
@@ -92,6 +93,14 @@ export default function RightCom(props) {
   const getAttributeValueCom = (item,index) => {
     switch (item) {
       case 'disabled': {
+        return <Switch 
+          style={{ marginRight:'70px'}}
+          defaultValue={false}
+          onChange={onChange(item)}
+          checked={findNodeByComId(comId)?.[item] || false}
+        />
+      }
+      case 'autoplay': {
         return <Switch 
           style={{ marginRight:'70px'}}
           defaultValue={false}
