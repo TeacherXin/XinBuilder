@@ -8,7 +8,7 @@ import Store from '../../Store';
 import _ from 'lodash'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios';
-import {  message,Dropdown } from 'antd';
+import { message,Dropdown } from 'antd';
 
 export default function RenderCom(props) {
 

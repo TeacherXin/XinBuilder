@@ -1,16 +1,33 @@
 import React, { useState,useEffect } from 'react'
-import { Radio } from 'antd'
+import { Radio,message } from 'antd'
 import Store from '../../Store';
 import _ from 'lodash'
 
 export default function XinRadio(props) {
   const {attributeValue,actionJs,styleCss,disabled,checked,comId,visible} = props
   const [style,setStyle] = useState({})
+  const [messageApi, contextHolder] = message.useMessage();
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
 
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','') || '{}';
-    let style = JSON.parse(styleStr)
+    let style;
+    try {
+      style = JSON.parse(styleStr || '{}')
+    } catch (error) {
+      style = {};
+      messageApi.open({
+        type: 'warning',
+        content: '请按照样式标准进行配置',
+      });
+    }
+    if(style.toString() !== '[object Object]'){
+      style = {};
+      messageApi.open({
+        type: 'warning',
+        content: '请按照样式标准进行配置',
+      });
+    }
     setStyle(style)
   },[styleCss])
 
@@ -45,6 +62,7 @@ export default function XinRadio(props) {
   
   return (
     <div style={{display: visible ? 'none':'block'}}>
+      {contextHolder}
       <Radio
         checked={checked}
         disabled={disabled}

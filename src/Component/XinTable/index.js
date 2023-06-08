@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react'
-import { Table } from 'antd';
+import { Table,message } from 'antd';
 import Store from '../../Store';
 import _ from 'lodash'
 import subscribe from '../../DefineHook/subscribe';
@@ -9,6 +9,7 @@ export default function XinTable(props) {
 
   const {comId,bordered,showHeader,size,styleCss} = props;
   const [style,setStyle] = useState({})
+  const [messageApi, contextHolder] = message.useMessage();
   const attributeMap = _.cloneDeep(Store.getState().attributeMap);
   const [update,setUpdate] = useState({})
 
@@ -52,13 +53,36 @@ export default function XinTable(props) {
   
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','') || '{"minWidth":"300px","minHeight":"200px"}';
-    let style = JSON.parse(styleStr)
+    let style;
+    try {
+      style = JSON.parse(styleStr || '{}')
+    } catch (error) {
+      style = {
+        minWidth:'300px',
+        minHeight:'200px'
+      };
+      messageApi.open({
+        type: 'warning',
+        content: '请按照样式标准进行配置',
+      });
+    }
+    if(style.toString() !== '[object Object]'){
+      style = {
+        minWidth:'300px',
+        minHeight:'200px'
+      };
+      messageApi.open({
+        type: 'warning',
+        content: '请按照样式标准进行配置',
+      });
+    }
     setStyle(style)
   },[styleCss])
 
 
   return (
     <div>
+      {contextHolder}
       <Table
         style={{maxWidth:'1285px',...style}}
         dataSource={findNodeByComId(comId).tableData}

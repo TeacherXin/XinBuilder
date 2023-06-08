@@ -1,12 +1,30 @@
 import React, { useState,useEffect } from 'react'
+import { message } from 'antd'
 export default function XinIcon(props) {
 
   const {styleCss,iconType,twoToneColor,rotate,visible,actionJs } = props
+  const [messageApi, contextHolder] = message.useMessage();
   const [style,setStyle] = useState({})
 
   useEffect(() => {
-    let styleStr = styleCss?.replaceAll('\n','');
-    let style = JSON.parse(styleStr || '{}')
+    let styleStr = styleCss?.replaceAll('\n','') || '{}';
+    let style;
+    try {
+      style = JSON.parse(styleStr || '{}')
+    } catch (error) {
+      style = {};
+      messageApi.open({
+        type: 'warning',
+        content: '请按照样式标准进行配置',
+      });
+    }
+    if(style.toString() !== '[object Object]'){
+      style = {};
+      messageApi.open({
+        type: 'warning',
+        content: '请按照样式标准进行配置',
+      });
+    }
     setStyle(style)
   },[styleCss])
 
@@ -20,6 +38,7 @@ export default function XinIcon(props) {
 
   return (
     <div style={{display: visible ? 'none':'block'}}>
+      {contextHolder}
       {
         <Ctor onClick={onClick} twoToneColor={twoToneColor} style={style} rotate={rotate} />
       }

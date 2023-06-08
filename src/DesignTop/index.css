@@ -4,7 +4,7 @@
   color: rgb(211, 202, 202);
   background: linear-gradient(to right,rgb(220, 122, 77),rgb(231, 160, 109) ,#eeb99d);
   width: 100%;
-  z-index: 10000;
+  z-index: 1000;
 }
 
 .designTop button{

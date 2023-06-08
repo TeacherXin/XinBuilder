@@ -14,4 +14,5 @@
 .PageList{
   background-color: #e0e5ec;
   height: 100%;
+  overflow: scroll;
 }

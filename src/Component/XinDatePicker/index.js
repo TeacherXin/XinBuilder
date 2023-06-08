@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { DatePicker, Space } from 'antd';
+import { DatePicker, message } from 'antd';
 import dayjs from 'dayjs';
 import Store from '../../Store';
 import _ from 'lodash'
@@ -7,12 +7,30 @@ import _ from 'lodash'
 export default function XinDatePicker(props) {
   const [value,setValue] = useState('');
   const [style,setStyle] = useState({})
+  const [messageApi, contextHolder] = message.useMessage();
+
   const {styleCss,picker,showTime,comId,actionJs,attributeValue,dateFormat,disabled,size,allowClear,visible} = props
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
 
   useEffect(() => {
-    let styleStr = styleCss?.replaceAll('\n','');
-    let style = JSON.parse(styleStr || '{}')
+    let styleStr = styleCss?.replaceAll('\n','') || '{}';
+    let style;
+    try {
+      style = JSON.parse(styleStr || '{}')
+    } catch (error) {
+      style = {};
+      messageApi.open({
+        type: 'warning',
+        content: '请按照样式标准进行配置',
+      });
+    }
+    if(style.toString() !== '[object Object]'){
+      style = {};
+      messageApi.open({
+        type: 'warning',
+        content: '请按照样式标准进行配置',
+      });
+    }
     setStyle(style)
   },[styleCss])
 
@@ -46,6 +64,7 @@ export default function XinDatePicker(props) {
 
   return (
     <div style={{display: visible ? 'none':'block'}}>
+      {contextHolder}
       <DatePicker
         style={style}
         picker={picker}

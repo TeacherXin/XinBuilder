@@ -1,17 +1,33 @@
 import React, { useState,useEffect } from 'react'
-import { Checkbox } from 'antd'
+import { Checkbox, message } from 'antd'
 import Store from '../../Store';
 import _ from 'lodash'
 
 export default function XinCheckBox(props) {
   const {attributeValue,actionJs,styleCss,disabled,checked,comId,visible} = props
   const [style,setStyle] = useState({})
+  const [messageApi, contextHolder] = message.useMessage();
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
 
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','') || '{}';
-    let style = JSON.parse(styleStr)
-    setStyle(style)
+    let style;
+    try {
+      style = JSON.parse(styleStr)
+    } catch (error) {
+      style = {};
+      messageApi.open({
+        type: 'warning',
+        content: '请按照样式标准进行配置',
+      });
+    }
+    if(style.toString() !== '[object Object]'){
+      style = {};
+      messageApi.open({
+        type: 'warning',
+        content: '请按照样式标准进行配置',
+      });
+    }
   },[styleCss])
 
   const findNodeByComId = (id) => {
@@ -39,6 +55,7 @@ export default function XinCheckBox(props) {
 
   return (
     <div style={{display: visible ? 'none':'block'}}>
+      {contextHolder}
       <Checkbox
         checked={checked}
         disabled={disabled}

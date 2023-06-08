@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { InputNumber } from 'antd'
+import { InputNumber,message } from 'antd'
 import Store from '../../Store';
 import _ from 'lodash'
 
 export default function XinNumber(props) {
 
   const [value,setValue] = useState('');
-  const [style,setSyle] = useState({})
+  const [style,setSyle] = useState({});
+  const [messageApi, contextHolder] = message.useMessage();
   const {attributeValueNumber,styleCss,actionJs,placeholder,size,prefix,showCount,comId,visible,max,min,step} = props
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
 
@@ -27,7 +28,23 @@ export default function XinNumber(props) {
 
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','') || '{}';
-    let style = JSON.parse(styleStr)
+    let style;
+    try {
+      style = JSON.parse(styleStr || '{}')
+    } catch (error) {
+      style = {};
+      messageApi.open({
+        type: 'warning',
+        content: '请按照样式标准进行配置',
+      });
+    }
+    if(style.toString() !== '[object Object]'){
+      style = {};
+      messageApi.open({
+        type: 'warning',
+        content: '请按照样式标准进行配置',
+      });
+    }
     setSyle(style)
   },[styleCss])
 
@@ -51,6 +68,7 @@ export default function XinNumber(props) {
 
   return (
     <div style={{display: visible ? 'none':'block'}}>
+      {contextHolder}
       <InputNumber
         size={size}
         prefix={prefix}
