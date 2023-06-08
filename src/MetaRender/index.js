@@ -55,7 +55,14 @@ export default function MetaRender() {
   }
 
   const getComponent = (item) => {
-    const Com = myComponent[item.comType];
+    let Com = myComponent[item.comType];
+    if(!Com && item.defineComJs){
+      let fun = new Function(item.defineComJs)
+      Com = fun();
+    }
+    if(!Com){
+      return <></>
+    }
     return <div id={item.comId} key={item.comId} style={item.style}>
       {<Com
         {...findNodeByComId(item.comId)}

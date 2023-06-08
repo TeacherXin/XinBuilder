@@ -147,6 +147,11 @@ export default function LeftCom(props) {
               </div>
               })}
             </Panel>
+            <Panel header="自定义组件" key="4">
+              <div onDragStart={onDragStart('defineCom','defineCom')} className='componentItem'>
+                <div style={{display: 'inline-block'}} draggable>{'defineCom'}</div>
+              </div>
+            </Panel>
           </Collapse>
         }
       </div> : <LeftList />

@@ -302,6 +302,10 @@ export default function RenderCom(props) {
       if(flag){
         return;
       }
+      if(newCom.comType === 'defineCom'){
+        setActionId(newCom.comId)
+        setShowAction(true)
+      }
       attributeMap[newCom.comId] = newCom
     }
     Store.dispatch({type: 'change',attributeMap})
@@ -372,6 +376,12 @@ export default function RenderCom(props) {
     return () => {
       if(flag){
         let node = findNodeByComId(actionId)
+        if(node.comType === 'defineCom'){
+          node.defineComJs = actionJs?.[actionName];
+          Store.dispatch({type: 'change',attributeMap});
+          setShowAction(false);
+          return;
+        }
         if(!node.actionJs){
           node.actionJs = {}
         }
@@ -552,7 +562,14 @@ export default function RenderCom(props) {
   }
 
   const getComponent = (item,isChild) => {
-    const Com = myComponent[item.comType];
+    let Com = myComponent[item.comType];
+    if(!Com && item.defineComJs){
+      let fun = new Function(item.defineComJs)
+      Com = fun();
+    }
+    if(!Com){
+      return <></>
+    }
     return <div id={item.comId} key={item.comId} onDragStart={onDragStart} draggable={!isChild} style={item.style}>
       {
         <Dropdown menu={{items: getItems(item.comType),onClick: menuOnClick(item.comType,item.comId)}} trigger={['contextMenu']}>
