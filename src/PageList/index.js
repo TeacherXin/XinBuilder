@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Col, Row, Button,Input, message, Modal } from 'antd';
+import { Card, Col, Row, Button,Input, message, Modal,Divider  } from 'antd';
 import { useNavigate } from "react-router-dom";
 import './index.css'
 import axios from 'axios';
@@ -14,14 +14,15 @@ export default function PageList() {
   const [pageList,setPageList] = useState([])
   const [isModalOpen,setIsModalOpen] = useState(false)
   const [pageName,setPageName] = useState('')
+  const [searchValue,setSearchValue] = useState('')
 
   useEffect(() => {
     getPageList();
   },[])
 
 
-  const onSearch = () => {
-
+  const onSearch = (value) => {
+    setSearchValue(value)
   }
 
   const getPageList = () => {
@@ -107,29 +108,54 @@ export default function PageList() {
     }
   }
 
+  const getSearchList = (list) => {
+    return list.filter(item => {
+      return item.pageName.indexOf(searchValue) > -1
+    })
+  }
+
   return (
     <div className='PageList'>
       {contextHolder}
-      <div className='PageHeader'>
-        <Search
-          style={{ width: 304 }}
-          onSearch={onSearch}
-        />
-        <Button onClick={addNewPage}>新建页面</Button>
+      <div className='pageLeft'>
+        <div className='leftHeader'>XinBuilder</div>
+        <div className='leftDiscribe'>轻量级的低代码平台</div>
+        <Divider />
       </div>
-      <div className='PageBody'>
-        <Row gutter={16}>
-          {
-            pageList.map(item => {
-              return <Col style={{marginTop:'10px'}} key={item._id} span={6}>
-                <Card title={<div><span>{item.pageName || '匿名'}</span><DeleteOutlined onClick={deletePage(item.pageId)} style={{float:'right',cursor:'pointer'}} /></div>} bordered={false}>
-                  <Button type='text' onClick={toBuilderPage(item.pageId)}>编辑页面</Button>
-                  <Button type='text' onClick={toShowPage(item.pageId)}>预览页面</Button>
-                </Card>
-              </Col>
-            })
-          }
-        </Row>
+      <div className='pageRight'>
+        <div className='PageHeader'>
+          <Search
+            style={{ width: 304 }}
+            onSearch={onSearch}
+          />
+          <Button className='pageButton' onClick={addNewPage}>新建页面</Button>
+          <div style={{display:'flex',float:'right'}}>
+            <Button type='link'>使用文档</Button>
+            <Button type='link'>API参考</Button>
+            <Button type='link'>生态系统</Button>
+          </div>
+        </div>
+        <Divider />
+        <div className='PageBody'>
+          <Row style={{width:'100%'}} gutter={16}>
+            {
+              (getSearchList(pageList) || []).map(item => {
+                return <Col style={{marginTop:'10px'}} key={item._id} span={6}>
+                  <Card
+                    title={<div><span>{item.pageName || '匿名'}</span><DeleteOutlined onClick={deletePage(item.pageId)}style={{float:'right',cursor:'pointer'}} /></div>}
+                    bordered={false}
+                    headStyle={{fontSize:'14px'}}
+                  >
+                    <div style={{height:'50px'}}>
+                      <Button type='text' onClick={toBuilderPage(item.pageId)}>编辑页面</Button>
+                      <Button type='text' onClick={toShowPage(item.pageId)}>预览页面</Button>
+                    </div>
+                  </Card>
+                </Col>
+              })
+            }
+          </Row>
+        </div>
       </div>
       <Modal title="创建页面" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
           <Input addonBefore="页面名称" value={pageName} onChange={changePageName} />
