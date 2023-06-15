@@ -5,6 +5,7 @@ import './index.css'
 import axios from 'axios';
 import {DeleteOutlined} from '@ant-design/icons';
 import Store from '../Store';
+import Lgoin from '../LgonIn';
 const { Search } = Input
 
 export default function PageList() {
@@ -15,9 +16,24 @@ export default function PageList() {
   const [isModalOpen,setIsModalOpen] = useState(false)
   const [pageName,setPageName] = useState('')
   const [searchValue,setSearchValue] = useState('')
+  const [loginStatu,setLoginStatu] = useState(false)
 
   useEffect(() => {
     getPageList();
+  },[])
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if(user){
+      axios.post(`http://${window.location.hostname}:3003/login/getUser`,{
+        username: user.username,
+        password: user.password
+      }).then(res => {
+        if(res.data.data){
+          setLoginStatu(true)
+        }
+      })
+    }
   },[])
 
 
@@ -52,8 +68,12 @@ export default function PageList() {
   }
 
   const addNewPage = () => {
-    setIsModalOpen(true);
-    setPageName('')
+    if(loginStatu){
+      setIsModalOpen(true);
+      setPageName('')
+    }else{
+      messageApi.warning('请先登录')
+    }
   }
   
   const handleOk = () => {
@@ -136,7 +156,7 @@ export default function PageList() {
           </div>
         </div>
         <Divider />
-        <div className='PageBody'>
+        {loginStatu ? <div className='PageBody'>
           <Row style={{width:'100%'}} gutter={16}>
             {
               (getSearchList(pageList) || []).map(item => {
@@ -155,7 +175,7 @@ export default function PageList() {
               })
             }
           </Row>
-        </div>
+        </div> : <Lgoin setLoginStatu={setLoginStatu} />}
       </div>
       <Modal title="创建页面" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
           <Input addonBefore="页面名称" value={pageName} onChange={changePageName} />

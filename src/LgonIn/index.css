@@ -1,0 +1,18 @@
+.login {
+  display: flex;
+  justify-content: space-between;
+}
+.login .leftCard {
+  width: 500px;
+  height: 480px;
+  background-image: url('./Login.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position:center;
+
+}
+.login .rightForm .card {
+  width: 350px;
+  margin-right: 30px;
+  padding: 10px;
+}
