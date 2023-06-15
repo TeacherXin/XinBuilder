@@ -19,10 +19,6 @@ export default function PageList() {
   const [loginStatu,setLoginStatu] = useState(false)
 
   useEffect(() => {
-    getPageList();
-  },[])
-
-  useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     if(user){
       axios.post(`http://${window.location.hostname}:3003/login/getUser`,{
@@ -31,10 +27,11 @@ export default function PageList() {
       }).then(res => {
         if(res.data.data){
           setLoginStatu(true)
+          getPageList();
         }
       })
     }
-  },[])
+  },[loginStatu])
 
 
   const onSearch = (value) => {
@@ -42,7 +39,10 @@ export default function PageList() {
   }
 
   const getPageList = () => {
-    axios.get(`http://${window.location.hostname}:3003/pageJson/findAllPage`)
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    axios.post(`http://${window.location.hostname}:3003/pageJson/findAllPage`,{
+      username: user.username
+    })
     .then(res => {
       setPageList(res.data.data)
     })
@@ -77,10 +77,12 @@ export default function PageList() {
   }
   
   const handleOk = () => {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
     axios.post(`http://${window.location.hostname}:3003/pageJson/addPage`,{
       pageName: pageName,
       pageId:'pageInfo_' + new Date().getTime(),
-      pageJson: {}
+      pageJson: {},
+      username: user.username
     })
     .then(res => {
       messageApi.open({
@@ -129,9 +131,14 @@ export default function PageList() {
   }
 
   const getSearchList = (list) => {
-    return list.filter(item => {
+    return (list || []).filter(item => {
       return item.pageName.indexOf(searchValue) > -1
     })
+  }
+
+  const refeshLogin = () => {
+    localStorage.removeItem('user');
+    setLoginStatu(false)
   }
 
   return (
@@ -153,6 +160,7 @@ export default function PageList() {
             <Button type='link'>使用文档</Button>
             <Button type='link'>API参考</Button>
             <Button type='link'>生态系统</Button>
+            <Button onClick={refeshLogin} type='link'>退出登录</Button>
           </div>
         </div>
         <Divider />
