@@ -4,15 +4,32 @@ import RightCom from './MainCom/rightCom';
 import RenderCom from './MainCom/renderCom';
 import DesignTop from './DesignTop';
 import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 function App() {
 
+  const navigate  = useNavigate();
   //用来存储当前拖拽的组件
   const [nowCom, changeNowCom] = useState()
   //用来存储右侧属性面板列表
   const [rightPanel,setRightPanel] = useState({})
   //用来存储当前组件的id
   const [comId,setComId] = useState()
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if(user){
+      axios.post(`http://${window.location.hostname}:3003/login/getUser`,{
+        username: user.username,
+        password: user.password
+      }).then(res => {
+        if(!res.data.data){
+          navigate('/');
+        }
+      })
+    }
+  },[])
 
   //左侧组件列表拖拽时更新nowCom
   const changeTopCom =(Com) => {
