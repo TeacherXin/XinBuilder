@@ -372,8 +372,8 @@ export default function RightCom(props) {
       <SetColumns comId={comId} setShowSetColumns={setShowSetColumns} showSetColumns={showSetColumns} />
       <SetTableData comId={comId} setShowTableData={setShowTableData} showSetTableData={showSetTableData} />
       <div>
-        <RightOutlined onClick={() => {setShowRightPanel(false)}} style={{color:'blue',cursor: 'pointer',marginRight:'10px'}} />
-        {comId}
+        <RightOutlined onClick={() => {setShowRightPanel(false)}} style={{color:'rgb(192, 190, 230)',cursor: 'pointer',marginRight:'10px'}} />
+        <div style={{height:'30px'}}><span style={{fontWeight:'bold'}}>{comId}</span></div>
         <hr></hr>
         {
           (rightPanel[comId] || []).map((item,index) => {
@@ -386,6 +386,6 @@ export default function RightCom(props) {
           })
         }
       </div>
-    </div> : <LeftOutlined onClick={() => {setShowRightPanel(true)}} style={{color:'blue',cursor: 'pointer'}} />
+    </div> : <LeftOutlined onClick={() => {setShowRightPanel(true)}} style={{color:'rgb(192, 190, 230)',cursor: 'pointer'}} />
   )
 }

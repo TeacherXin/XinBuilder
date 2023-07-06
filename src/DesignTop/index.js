@@ -52,17 +52,11 @@ export default function DesignTop(props) {
   return (
     showTop ? <div className='designTop'>
       {contextHolder}
-      <UpOutlined onClick={() => {setShowTop(false)}} style={{color:'blue',cursor: 'pointer',position:'absolute',left:'1000px',zIndex:'10000'}} />
-      <Image
-        width={30}
-        height={30}
-        style={{position:'relative',left:'300px'}}
-        src={'https://tpc.googlesyndication.com/simgad/13961833089927279457/14763004658117789537?w=200&h=200'}
-      />
-      <span style={{position:'relative',left:'320px',fontSize:'24px',top:'4px',fontStyle: 'italic'}}>XinBuilder</span>
+      <UpOutlined onClick={() => {setShowTop(false)}} style={{color:'rgb(192, 190, 230)',cursor: 'pointer',position:'absolute',left:'1000px',zIndex:'10000'}} />
+      <span style={{color:'rgb(192, 190, 230)',position:'relative',left:'100px',fontSize:'28px',top:'15px',fontStyle: 'italic',fontWeight:'bold'}}>XinBuilder</span>
       <Button style={{width: 80,height:30}} type='primary' ghost onClick={savePageInfo}>保存</Button>
       <Button style={{width: 80,height:30}} type='primary' ghost onClick={() => {navigate('/')}}>返回</Button>
       {/* <Button style={{width: 80,height:30}} type='primary' ghost onClick={toMetaRender}>预览</Button> */}
-    </div> : <DownOutlined onClick={() => {setShowTop(true)}} style={{color:'blue',cursor: 'pointer',position:'absolute',left:'1000px',zIndex:'10000'}} />
+    </div> : <DownOutlined onClick={() => {setShowTop(true)}} style={{color:'rgb(192, 190, 230)',cursor: 'pointer',position:'absolute',left:'1000px',zIndex:'10000'}} />
   )
 }

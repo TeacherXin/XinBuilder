@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './index.css'
 import * as myComponent from '../../Component'
 import LeftList from '../leftList'
-import { Collapse } from 'antd';
+import { Collapse, Tabs } from 'antd';
 import 
 {
   RightOutlined,
@@ -71,12 +71,12 @@ const componentTextMap = {
   XinCarousel: '轮播图'
 }
 
+
 const { Panel } = Collapse;
 
 export default function LeftCom(props) {
 
   const {changeTopCom} = props
-  const [selected,setSelected] = useState(1)
   const [containerList,setContanerList] = useState([])
   const [controlList,setControlList] = useState([])
   const [showDataList,setShowDataList] = useState([])
@@ -103,59 +103,61 @@ export default function LeftCom(props) {
     }
   }
 
+  const getTabPane = () => {
+    return  [
+      {
+        key: 'com',
+        label: <div style={{fontSize:'18px',width:'100px',textAlign:'center'}}>组件</div>,
+        children: <Collapse defaultActiveKey={['1']} style={{width:"100%",background:'none',height:'100%',overflow:'auto',marginTop:'-16px',borderRadius:'0'}}>
+        <Panel header={<span style={{fontWeight:"bold"}}>容器类型组件</span>} key="1" style={{background:'none',height:'100%'}}>
+          {containerList.map(cName => {
+            const Com = myComponent[cName];
+            const Icon = componentIconMap[cName]
+            const name = componentTextMap[cName]
+            return  <div onDragStart={onDragStart(Com,cName)} key={cName} className='componentItem'>
+              <div style={{display: 'inline-block'}} draggable><Icon style={{marginRight:'10px'}} /><span>{name}</span></div>
+          </div>
+          })}
+        </Panel>
+        <Panel header={<span style={{fontWeight:"bold"}}>数据录入组件</span>} key="2">
+          {controlList.map(cName => {
+            const Com = myComponent[cName];
+            const Icon = componentIconMap[cName]
+            const name = componentTextMap[cName]
+            return  <div onDragStart={onDragStart(Com,cName)} key={cName} className='componentItem'>
+              <div style={{display: 'inline-block'}} draggable><Icon style={{marginRight:'10px'}} /><span>{name}</span></div>
+          </div>
+          })}
+        </Panel>
+        <Panel header={<span style={{fontWeight:"bold"}}>数据展示组件</span>} key="3">
+          {showDataList.map(cName => {
+            const Com = myComponent[cName];
+            const Icon = componentIconMap[cName]
+            const name = componentTextMap[cName]
+            return  <div onDragStart={onDragStart(Com,cName)} key={cName} className='componentItem'>
+              <div style={{display: 'inline-block'}} draggable><Icon style={{marginRight:'10px'}} /><span>{name}</span></div>
+          </div>
+          })}
+        </Panel>
+        <Panel header={<span style={{fontWeight:"bold"}}>自定义组件</span>} key="4">
+          <div onDragStart={onDragStart('defineCom','defineCom')} className='componentItem'>
+            <div style={{display: 'inline-block'}} draggable>{'defineCom'}</div>
+          </div>
+        </Panel>
+      </Collapse>
+      },
+      {
+        key: 'data',
+        label: <div style={{display:'flex'}}><div style={{fontSize:'16px',width:'80px',textAlign:'center'}}>数据</div><LeftOutlined onClick={() => {setShowLeftPanel(false)}} style={{color:'rgb(192, 190, 230)',cursor: 'pointer',position:'relative',left:'30px'}} /></div>,
+        children: <LeftList />
+      }
+    ];
+  }
+
 
   return (
     showLeftPanel? <div className='leftCom'>
-      <div className='Tab'>
-        <p onClick={() => {setSelected(1)}} style={{background: selected === 2? 'rgb(240 203 203)':''}} className='TabItem'>组件</p>
-        <p onClick={() => {setSelected(2)}} style={{background: selected === 1? 'rgb(240 203 203)':''}} className='TabItem'>
-          数据
-          <LeftOutlined onClick={() => {setShowLeftPanel(false)}} style={{color:'blue',cursor: 'pointer',position:'relative',left:'30px'}} />
-        </p>
-      </div>
-      {
-        selected === 1 ? <div className='componentList'>
-        {
-          <Collapse defaultActiveKey={['1']} style={{width:"100%",background:'none',height:'100%',overflow:'auto'}}>
-            <Panel header="容器类型组件" key="1" style={{background:'none',height:'100%'}}>
-              {containerList.map(cName => {
-                const Com = myComponent[cName];
-                const Icon = componentIconMap[cName]
-                const name = componentTextMap[cName]
-                return  <div onDragStart={onDragStart(Com,cName)} key={cName} className='componentItem'>
-                  <div style={{display: 'inline-block'}} draggable><Icon style={{marginRight:'10px'}} />{name}</div>
-              </div>
-              })}
-            </Panel>
-            <Panel header="数据录入组件" key="2">
-              {controlList.map(cName => {
-                const Com = myComponent[cName];
-                const Icon = componentIconMap[cName]
-                const name = componentTextMap[cName]
-                return  <div onDragStart={onDragStart(Com,cName)} key={cName} className='componentItem'>
-                  <div style={{display: 'inline-block'}} draggable><Icon style={{marginRight:'10px'}} />{name}</div>
-              </div>
-              })}
-            </Panel>
-            <Panel header="数据展示组件" key="3">
-              {showDataList.map(cName => {
-                const Com = myComponent[cName];
-                const Icon = componentIconMap[cName]
-                const name = componentTextMap[cName]
-                return  <div onDragStart={onDragStart(Com,cName)} key={cName} className='componentItem'>
-                  <div style={{display: 'inline-block'}} draggable><Icon style={{marginRight:'10px'}} />{name}</div>
-              </div>
-              })}
-            </Panel>
-            <Panel header="自定义组件" key="4">
-              <div onDragStart={onDragStart('defineCom','defineCom')} className='componentItem'>
-                <div style={{display: 'inline-block'}} draggable>{'defineCom'}</div>
-              </div>
-            </Panel>
-          </Collapse>
-        }
-      </div> : <LeftList />
-      }
-    </div> : <RightOutlined onClick={() => {setShowLeftPanel(true)}} style={{color:'blue',cursor: 'pointer'}} />
+      <Tabs defaultActiveKey="1" items={getTabPane()} />
+    </div> : <RightOutlined onClick={() => {setShowLeftPanel(true)}} style={{color:'rgb(192, 190, 230)',cursor: 'pointer'}} />
   )
 }

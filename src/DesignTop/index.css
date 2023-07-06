@@ -1,14 +1,16 @@
 .designTop{
   position: absolute;
-  height: 40px;
+  height: 66px;
   color: rgb(211, 202, 202);
-  background: linear-gradient(to right,rgb(220, 122, 77),rgb(231, 160, 109) ,#eeb99d);
   width: 100%;
   z-index: 1000;
+  /* border-bottom: 1px solid rgb(209, 203, 203); */
+  box-shadow: 0 0 2px 2px rgb(209, 203, 203);
+  background-color: #ffffff;
 }
 
 .designTop button{
   float: right;
-  margin-top: 5px;
+  margin-top: 20px;
   margin-right: 10px;
 }

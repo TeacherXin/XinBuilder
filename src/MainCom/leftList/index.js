@@ -87,7 +87,6 @@ export default function LeftList(props) {
         showLine={true}
         selectable={false}
         treeData={getTreeData(attributeMap)}
-        style={{background:'linear-gradient(rgb(234 213 210),rgb(236 235 202) ,#dbf0c7)'}}
       />
       <EditJson setShowJson={setShowJson} nowCom={nowCom} showJson={showJson} />
     </div>

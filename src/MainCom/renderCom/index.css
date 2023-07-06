@@ -1,9 +1,10 @@
 .renderCom{
   flex:1;
-  background: linear-gradient(rgb(147, 146, 146),rgb(218, 214, 214) ,#7599dd);
+  /* background: linear-gradient(rgb(147, 146, 146),rgb(218, 214, 214) ,#7599dd); */
   background-repeat: no-repeat;
   background-size: 100% 100%;
   height: 100%;
+  background-color: #f2f2f2;
 }
 
 .editAction{

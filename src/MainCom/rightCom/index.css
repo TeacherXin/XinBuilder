@@ -1,11 +1,12 @@
 .rightCom{
-  height: 93.3%;
+  height: 89.5%;
   width: 20%;
-  background: linear-gradient(rgb(234 213 210),rgb(236 235 202) ,#dbf0c7);
   right: 0;
   overflow: auto;
   z-index: 1000;
-  margin-top: 40px;
+  margin-top: 70px;
+  /* border-left: 1px solid rgb(210, 199, 199); */
+  background-color: #ffffff;
 }
 
 .attributeItem{

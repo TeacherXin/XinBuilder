@@ -1,43 +1,23 @@
 .leftCom{
-  height: 93.3%;
+  height: 89.5%;
   width: 20%;
   overflow: auto;
-  background: linear-gradient(rgb(234 213 210),rgb(236 235 202) ,#dbf0c7);
+  /* background: linear-gradient(rgb(234 213 210),rgb(236 235 202) ,#dbf0c7); */
   z-index: 1000;
-  margin-top: 40px;
-}
-
-.leftCom .Tab{
-  display: flex;
-  position: relative;
-  top: -14px;
-}
-
-.leftCom .Tab .TabItem{
-  flex: 1;
-  height: 40px;
-  text-align: center;
-  line-height: 40px;
-  /* background-color: #f2f2f2; */
-  cursor: pointer;
-}
-
-.componentList{
-  display: flex;
-  width: 100%;
-  flex-wrap: wrap;
-  margin-top: -30px;
+  margin-top: 70px;
+  /* border-right: 1px solid rgb(210, 199, 199); */
+  background-color: #ffffff;
 }
 
 .componentList .ant-collapse-content-active{
-  background: linear-gradient(rgb(234 213 210),rgb(236 235 202) ,#dbf0c7);
+  /* background: linear-gradient(rgb(234 213 210),rgb(236 235 202) ,#dbf0c7); */
 }
 
 .componentList .ant-collapse-content{
-  background: linear-gradient(rgb(234 213 210),rgb(236 235 202) ,#dbf0c7);
+  /* background: linear-gradient(rgb(234 213 210),rgb(236 235 202) ,#dbf0c7); */
 }
 
-.componentList .ant-collapse-content-box{
+.leftCom .ant-collapse-content-box{
   display: flex;
   width: 100%;
   height: 100%;
@@ -56,6 +36,4 @@
   border: 1px solid rgb(187, 181, 181);
   border-radius: 4px;
   padding: 10px;
-  color: #ddd4d4;
-  background: linear-gradient(rgb(141, 144, 151),rgb(104, 80, 162) ,#3e0db9);
 }
