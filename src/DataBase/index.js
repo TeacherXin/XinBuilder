@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form, List, Modal, Input, message,Card } from 'antd';
+import { Button, Form, Modal, Input, message,Tree,Divider, Card  } from 'antd';
 import './index.css'
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -22,10 +22,16 @@ export default function DataBase() {
       username: JSON.parse(localStorage.getItem('user')).username
     })
     if(res.data.data){
-      const entityList = res.data.data.map(item => {
+      const entityList = res.data.data.map((item,index) => {
         return {
-          title: item.entityName,
-          entitySchema: item.entitySchema
+          title: <div style={{fontSize:'18px'}}>{item.entityName}</div>,
+          key: item.entityCode,
+          children: Object.keys(item.entitySchema).map((_item,_index) => {
+            return {
+              title: <div style={{fontSize:'16px'}}>{_item}</div>,
+              key: item.entityCode + _item
+            }
+          })
         }
       })
       setEntityList(entityList)
@@ -81,30 +87,15 @@ export default function DataBase() {
   return (
     <div style={{overflow:'hidden'}}>
       {contextHolder}
-      <div className='DBHeader'>
-        <Button style={{position:'absolute',right:'20px'}} onClick={() => {setShowModal(true)}}>新建数据库</Button>
+      <div style={{display:'flex'}} className='DBHeader'>
+        <h2 style={{position:'absolute',left:'100px',color:'rgb(192, 190, 230)'}}>基于MongoDB实现动态创建表，字段</h2>
+        <Button style={{position:'absolute',right:'20px',top:'20px'}} onClick={() => {setShowModal(true)}}>新建数据库</Button>
       </div>
       <div className='DBContainer'>
-          <List
-            itemLayout="horizontal"
-            dataSource={entityList}
-            renderItem={(item, index) => (
-              <List.Item>
-                <List.Item.Meta
-                  title={<h2>数据库表：{item.title}</h2>}
-                  description={
-                    <Card title={item.title + '表字段'}>
-                      {
-                        Object.keys(item.entitySchema).map(_item => {
-                          return <Card.Grid style={{width:'120px'}}>{_item}</Card.Grid>
-                        })
-                      }
-                    </Card>
-                  }
-                />
-              </List.Item>
-            )}
-          />
+        <Card className='DBLeftList'>
+          <h2>数据库表：</h2>
+          <Tree treeData={entityList} />
+        </Card>
       </div>
       <Modal closable={false} title="新建数据库表" open={showModal} okText='下一步' cancelText='取消' onOk={handleOk} onCancel={handleCancel}>
           <Form

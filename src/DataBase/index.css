@@ -1,5 +1,13 @@
 .DBHeader{
-  margin-top: 10px;
-  height: 40px;
+  height: 70px;
   position: relative;
+  box-shadow: 0 0 5px 5px rgb(227, 223, 223);
+}
+
+.DBContainer{
+  margin-top: 10px;
+}
+
+.DBLeftList{
+  width: 400px;
 }
