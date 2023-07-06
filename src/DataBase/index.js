@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form, Modal, Input, message,Tree,Divider, Card  } from 'antd';
+import { Button, Form, Modal, Input, message,Tree,Table, Card  } from 'antd';
 import './index.css'
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -16,6 +16,8 @@ export default function DataBase() {
   const [schema,setSchema] = useState('')
   const [entityList,setEntityList] = useState([])
   const [messageApi, contextHolder] = message.useMessage();
+  const [tableData,setTableData] = useState([])
+  const [tableColumns,setTableColumns] = useState([])
 
   const getEntityList = async () => {
     const res = await axios.post(`http://${window.location.hostname}:3003/entity/getEntityList`,{
@@ -29,7 +31,7 @@ export default function DataBase() {
           children: Object.keys(item.entitySchema).map((_item,_index) => {
             return {
               title: <div style={{fontSize:'16px'}}>{_item}</div>,
-              key: item.entityCode + _item
+              key: item.entityCode + '.' + _item
             }
           })
         }
@@ -84,6 +86,35 @@ export default function DataBase() {
     setShowModal(true)
   }
 
+  const onSelect = async (data) => {
+    const res = await axios.post(`http://${window.location.hostname}:3003/entity/getEntityItem`,{
+      entityCode: data[0]
+    });
+    const columns = new Set();
+    if(res.data.code === 200){
+      const resList = res.data.data;
+      setTableData(resList)
+      for(let i=0;i<resList.length;i++){
+        const resData = resList[i];
+        Object.keys(resData).forEach(propName => {
+          columns.add(propName);
+        })
+      }
+      setTableColumns(Array.from(columns).map(item => {
+        return {
+          key: item,
+          dataIndex: item,
+          title: item
+        }
+      }))
+    }else{
+      messageApi.open({
+        type: 'error',
+        content: '查询失败',
+      });
+    }
+  }
+
   return (
     <div style={{overflow:'hidden'}}>
       {contextHolder}
@@ -94,7 +125,10 @@ export default function DataBase() {
       <div className='DBContainer'>
         <Card className='DBLeftList'>
           <h2>数据库表：</h2>
-          <Tree treeData={entityList} />
+          <Tree onSelect={onSelect} treeData={entityList} />
+        </Card>
+        <Card className='DBRightTable'>
+          <Table dataSource={tableData} columns={tableColumns}></Table>
         </Card>
       </div>
       <Modal closable={false} title="新建数据库表" open={showModal} okText='下一步' cancelText='取消' onOk={handleOk} onCancel={handleCancel}>

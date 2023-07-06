@@ -6,8 +6,14 @@
 
 .DBContainer{
   margin-top: 10px;
+  display: flex;
 }
 
 .DBLeftList{
   width: 400px;
+}
+
+.DBRightTable{
+  margin-left: 10px;
+  width: 1000px;
 }

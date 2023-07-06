@@ -2,19 +2,9 @@
   height: 89.5%;
   width: 20%;
   overflow: auto;
-  /* background: linear-gradient(rgb(234 213 210),rgb(236 235 202) ,#dbf0c7); */
   z-index: 1000;
   margin-top: 70px;
-  /* border-right: 1px solid rgb(210, 199, 199); */
   background-color: #ffffff;
-}
-
-.componentList .ant-collapse-content-active{
-  /* background: linear-gradient(rgb(234 213 210),rgb(236 235 202) ,#dbf0c7); */
-}
-
-.componentList .ant-collapse-content{
-  /* background: linear-gradient(rgb(234 213 210),rgb(236 235 202) ,#dbf0c7); */
 }
 
 .leftCom .ant-collapse-content-box{
