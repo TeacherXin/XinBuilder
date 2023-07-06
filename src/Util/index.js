@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import Store from '../Store'
+import axios from 'axios'
 import { createHashHistory } from 'history'
 
 const history = createHashHistory();
@@ -58,4 +59,24 @@ window.xinComEvent.addNode = (node,top,left) => {
 window.xinComEvent.toPageById = (pageId) => {
   history.push('/metaRender',{pageId});
   window.location.replace(window.location.href)
+}
+
+window.xinComEvent.sendAjax = (type,entityCode,params,resCallBack,errCallBack) => {
+  if(type === 'create'){
+    axios.post(`http://${window.location.hostname}:3003/entity/addEntityItem`,{entityParam: params,entityCode})
+    .then(res => {
+      resCallBack(res)
+    })
+    .catch(err => {
+      errCallBack(err)
+    })
+  }else if(type === 'find'){
+    axios.post(`http://${window.location.hostname}:3003/entity/getEntityItem`,{entityParam: params,entityCode})
+    .then(res => {
+      resCallBack(res)
+    })
+    .catch(err => {
+      errCallBack(err)
+    })
+  }
 }

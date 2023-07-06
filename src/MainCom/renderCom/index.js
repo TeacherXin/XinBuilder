@@ -214,6 +214,19 @@ export default function RenderCom(props) {
         })
         break;
       }
+      case 'XinTable': {
+        items.push({
+          label: '设置动作',
+          key: 'setAction',
+          children: [
+            {
+              label: 'onClick事件',
+              key: 'setClick'
+            }
+          ]
+        })
+        break;
+      }
       case 'XinCarousel': {
         items.push({
           label: '设置动作',

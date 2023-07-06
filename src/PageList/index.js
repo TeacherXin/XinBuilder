@@ -3,7 +3,7 @@ import { Card, Col, Row, Button,Input, message, Modal,Divider  } from 'antd';
 import { useNavigate } from "react-router-dom";
 import './index.css'
 import axios from 'axios';
-import {DeleteOutlined} from '@ant-design/icons';
+import {DeleteOutlined,DatabaseOutlined} from '@ant-design/icons';
 import Store from '../Store';
 import Lgoin from '../LgonIn';
 const { Search } = Input
@@ -141,12 +141,23 @@ export default function PageList() {
     setLoginStatu(false)
   }
 
+  const toXinBuilderDoc = () => {
+    window.open('http://localhost:9000/#/Xinbuilder/createPage')
+  }
+
+  const toDataBase = () => {
+    navigate('/dataBase');
+  }
+
   return (
     <div className='PageList'>
       {contextHolder}
       <div className='pageLeft'>
         <div className='leftHeader'>XinBuilder</div>
         <div className='leftDiscribe'>轻量级的低代码平台</div>
+        <Divider />
+        <Button onClick={toDataBase} size='large' type='link'>构建数据库</Button>
+        <DatabaseOutlined />
         <Divider />
       </div>
       <div className='pageRight'>
@@ -157,7 +168,7 @@ export default function PageList() {
           />
           <Button className='pageButton' onClick={addNewPage}>新建页面</Button>
           <div style={{display:'flex',float:'right'}}>
-            <Button type='link'>使用文档</Button>
+            <Button onClick={toXinBuilderDoc} type='link'>使用文档</Button>
             <Button type='link'>API参考</Button>
             <Button type='link'>生态系统</Button>
             <Button onClick={refeshLogin} type='link'>退出登录</Button>

@@ -7,7 +7,7 @@ import subscribe from '../../DefineHook/subscribe';
 
 export default function XinTable(props) {
 
-  const {comId,bordered,showHeader,size,styleCss} = props;
+  const {comId,bordered,showHeader,size,styleCss,actionJs} = props;
   const [style,setStyle] = useState({})
   const [messageApi, contextHolder] = message.useMessage();
   const attributeMap = _.cloneDeep(Store.getState().attributeMap);
@@ -27,6 +27,11 @@ export default function XinTable(props) {
       }
     }
   }
+
+  useEffect((e) => {
+    let clickFun = new Function(actionJs?.click);
+    clickFun(e)
+  },[])
 
   subscribe(() => {
     setUpdate({})
