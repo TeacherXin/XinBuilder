@@ -1,11 +1,14 @@
 import React from 'react'
-import { Button, Form, Modal, Input, message,Tree,Table, Card  } from 'antd';
+import { Button, Form, Modal, Input, message,Tree,Table, Card, Dropdown } from 'antd';
 import './index.css'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios'
 
 const { TextArea } = Input;
+const items = [
+  {label: '删除数据库',key: 'del'}
+]
 
 export default function DataBase() {
 
@@ -26,7 +29,7 @@ export default function DataBase() {
     if(res.data.data){
       const entityList = res.data.data.map((item,index) => {
         return {
-          title: <div style={{fontSize:'18px'}}>{item.entityName}</div>,
+          title: <Dropdown menu={{onClick:changeConnection(item.entityCode),items}} trigger={['contextMenu']}><div style={{fontSize:'18px'}}>{item.entityName}</div></Dropdown>,
           key: item.entityCode,
           children: Object.keys(item.entitySchema).map((_item,_index) => {
             return {
@@ -112,6 +115,32 @@ export default function DataBase() {
         type: 'error',
         content: '查询失败',
       });
+    }
+  }
+
+  const changeConnection = (entityCode) => {
+    return (menuItem,e) => {
+      switch (menuItem.key){
+        case 'del' : {
+          axios.post(`http://${window.location.hostname}:3003/entity/delEntityItem`,{
+            entityCode
+          })
+          .then(res => {
+            getEntityList();
+            messageApi.open({
+              type: 'sucess',
+              content: '删除成功',
+            });
+          })
+          .catch(err => {
+            messageApi.open({
+              type: 'error',
+              content: '删除失败',
+            });
+          })
+          break;
+        }
+      }
     }
   }
 
