@@ -9,6 +9,18 @@ const { TextArea } = Input;
 const items = [
   {label: '删除数据库',key: 'del'}
 ]
+const columns = [
+  {
+    title: '字段编码',
+    key: 'code',
+    dataIndex: 'code'
+  },
+  {
+    title: '字段类型',
+    key: 'type',
+    dataIndex: 'type'
+  }
+]
 
 export default function DataBase() {
 
@@ -19,8 +31,13 @@ export default function DataBase() {
   const [schema,setSchema] = useState('')
   const [entityList,setEntityList] = useState([])
   const [messageApi, contextHolder] = message.useMessage();
-  const [tableData,setTableData] = useState([])
-  const [tableColumns,setTableColumns] = useState([])
+  const [tableData,setTableData] = useState([]);
+  const [tableColumns,setTableColumns] = useState([]);
+  const [schemaTableData,setSchemaTableData] = useState([]);
+  const [showEditSchema,setShowEditSchema] = useState(false);
+  const [textArea,setTextArea] = useState(false)
+  const [schemaEdit,setSchemaEdit] = useState({})
+
 
   const getEntityList = async () => {
     const res = await axios.post(`http://${window.location.hostname}:3003/entity/getEntityList`,{
@@ -52,6 +69,21 @@ export default function DataBase() {
     getEntityList()
   },[])
 
+  useEffect(() => {
+    let schemaData;
+    try {
+      schemaData = JSON.parse(schema);
+    } catch (error) {
+      schemaData = {}
+    }
+    setSchemaTableData(Object.keys(schemaData).map(item => {
+      return {
+        code: item,
+        type: schemaData[item]
+      }
+    }))
+  },[schema])
+
   const handleOk = () => {
     if(entityName && entityCode){
       setShowModal(false)
@@ -61,6 +93,8 @@ export default function DataBase() {
 
   const handleCancel = () => {
     setShowModal(false)
+    setEntityName('')
+    setEntityCode('')
   }
 
   const schemaHandleOk = async () => {
@@ -87,6 +121,7 @@ export default function DataBase() {
   const schemaHandleCancel =() => {
     setShowSchemaModa(false);
     setShowModal(true)
+    setSchema('')
   }
 
   const onSelect = async (data) => {
@@ -144,6 +179,25 @@ export default function DataBase() {
     }
   }
 
+  const changeSchemaEdit = (dataIndex) => {
+    return (e) => {
+      if(dataIndex === 'code'){
+        schemaEdit.code = e.target.value
+      }else{
+        schemaEdit.type = e.target.value
+      }
+      setSchemaEdit({...schemaEdit})
+    }
+  }
+
+  const addSchema = () => {
+    const schemaObj = JSON.parse(schema || '{}');
+    schemaObj[schemaEdit.code] = schemaEdit.type;
+    setSchema(JSON.stringify(schemaObj))
+    setShowEditSchema(false)
+    setSchemaEdit({})
+  }
+
   return (
     <div style={{overflow:'hidden'}}>
       {contextHolder}
@@ -194,7 +248,28 @@ export default function DataBase() {
           </Form>
       </Modal>
       <Modal closable={false} open={showSchemaModal} okText='新建' cancelText='上一步' onOk={schemaHandleOk} onCancel={schemaHandleCancel}>
-        <TextArea value={schema} onChange={e => setSchema(e.target.value)} rows={4} placeholder="请输入数据库表中的字段"/>
+        {textArea ? <div>
+          <Button onClick={() => {setTextArea(false)}} style={{float:'right'}} type='text'>表格编辑</Button>
+          <TextArea value={schema} onChange={e => setSchema(e.target.value)} rows={4} placeholder="请输入数据库表中的字段"/>
+        </div>:
+        <div>
+          <Button style={{float:'right'}} type='text' onClick={() => {setShowEditSchema(true)}}>新增</Button>
+          <Button onClick={() => {setTextArea(true)}} style={{float:'right'}} type='text'>JSON编辑</Button>
+          <Table
+            columns={columns}
+            dataSource={schemaTableData}
+          />
+          <Modal open={showEditSchema} closable={false} okText='添加' cancelText='取消' onCancel={() => {setShowEditSchema(false)}} onOk={addSchema}>
+              <Form>
+                <Form.Item label='字段编码'>
+                  <Input value={schemaEdit.code} onChange={changeSchemaEdit('code')}/>
+                </Form.Item>
+                <Form.Item label='字段类型'>
+                  <Input value={schemaEdit.type} onChange={changeSchemaEdit('type')}/>
+                </Form.Item>
+              </Form>
+          </Modal>
+        </div>}
       </Modal>
     </div>
   )
