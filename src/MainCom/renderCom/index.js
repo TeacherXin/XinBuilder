@@ -9,6 +9,7 @@ import _ from 'lodash'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios';
 import { message,Dropdown } from 'antd';
+import { getItems } from './Util/rightClickMenu';
 
 export default function RenderCom(props) {
 
@@ -52,196 +53,6 @@ export default function RenderCom(props) {
     XinCard: [300,400],
     XinFlex: [400,400],
     XinCarousel: [600,200]
-  }
-
-  const getItems = (type) => {
-    const items = [
-      {
-        label: '设置属性',
-        key: 'setAttribute'
-      },
-      {
-        label: '设置样式',
-        key: 'setStyle'
-      }
-    ]
-    switch (type) {
-      case 'XinButton': {
-        items.push({
-          label: '设置动作',
-          key: 'setAction',
-          children: [
-            {
-              label: 'onClick事件',
-              key: 'setClick'
-            }
-          ]
-        })
-        break;
-      }
-      case 'XinCheckBox': {
-        items.push({
-          label: '设置动作',
-          key: 'setAction',
-          children: [
-            {
-              label: 'onChange事件',
-              key: 'setChange'
-            }
-          ]
-        })
-        break;
-      }
-      case 'XinDatePicker': {
-        items.push({
-          label: '设置动作',
-          key: 'setAction',
-          children: [
-            {
-              label: 'onChange事件',
-              key: 'setChange'
-            }
-          ]
-        })
-        break;
-      }
-      case 'XinInput': {
-        items.push({
-          label: '设置动作',
-          key: 'setAction',
-          children: [
-            {
-              label: 'onChange事件',
-              key: 'setChange'
-            }
-          ]
-        })
-        break;
-      }
-      case 'XinMenu': {
-        items.push({
-          label: '设置动作',
-          key: 'setAction',
-          children: [
-            {
-              label: 'onChange事件',
-              key: 'setChange'
-            }
-          ]
-        })
-        break;
-      }
-      case 'XinNumber': {
-        items.push({
-          label: '设置动作',
-          key: 'setAction',
-          children: [
-            {
-              label: 'onChange事件',
-              key: 'setChange'
-            }
-          ]
-        })
-        break;
-      }
-      case 'XinRadio': {
-        items.push({
-          label: '设置动作',
-          key: 'setAction',
-          children: [
-            {
-              label: 'onClick事件',
-              key: 'setClick'
-            },
-            {
-              label: 'onChange事件',
-              key: 'setChange'
-            }
-
-          ]
-        })
-        break;
-      }
-      case 'XinRadioGroup': {
-        items.push({
-          label: '设置动作',
-          key: 'setAction',
-          children: [
-            {
-              label: 'onChange事件',
-              key: 'setChange'
-            }
-          ]
-        })
-        break;
-      }
-      case 'XinLable': {
-        items.push({
-          label: '设置动作',
-          key: 'setAction',
-          children: [
-            {
-              label: 'onClick事件',
-              key: 'setClick'
-            }
-          ]
-        })
-        break;
-      }
-      case 'XinIcon': {
-        items.push({
-          label: '设置动作',
-          key: 'setAction',
-          children: [
-            {
-              label: 'onClick事件',
-              key: 'setClick'
-            }
-          ]
-        })
-        break;
-      }
-      case 'XinDiv': {
-        items.push({
-          label: '设置动作',
-          key: 'setAction',
-          children: [
-            {
-              label: 'onClick事件',
-              key: 'setClick'
-            }
-          ]
-        })
-        break;
-      }
-      case 'XinTable': {
-        items.push({
-          label: '设置动作',
-          key: 'setAction',
-          children: [
-            {
-              label: 'onClick事件',
-              key: 'setClick'
-            }
-          ]
-        })
-        break;
-      }
-      case 'XinCarousel': {
-        items.push({
-          label: '设置动作',
-          key: 'setAction',
-          children: [
-            {
-              label: 'onChange事件',
-              key: 'setChange'
-            }
-          ]
-        })
-        break;
-      }
-    }
-    return items
   }
 
   
@@ -568,6 +379,10 @@ export default function RenderCom(props) {
         }
         case 'setChange': {
           showRightPanel(code,id,'action','change');
+          break;
+        }
+        case 'setLoad': {
+          showRightPanel(code,id,'action','load');
           break;
         }
       }

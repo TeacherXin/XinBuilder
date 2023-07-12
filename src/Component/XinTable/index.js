@@ -29,7 +29,7 @@ export default function XinTable(props) {
   }
 
   useEffect((e) => {
-    let clickFun = new Function(actionJs?.click);
+    let clickFun = new Function(actionJs?.load);
     clickFun(e)
   },[])
 
