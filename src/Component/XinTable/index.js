@@ -96,9 +96,6 @@ export default function XinTable(props) {
         showHeader={!showHeader}
         size={size}
         pagination={false}
-        scroll={{
-          y: 240,
-        }}
       />
     </div>
   )
