@@ -14,3 +14,11 @@
   margin-top: 20px;
   margin-right: 10px;
 }
+
+.designTop .pageIdTitle{
+  float: right;
+  margin-top: 25px;
+  margin-right: 40px;
+  color: black;
+  font-style: italic;
+}
