@@ -10,6 +10,8 @@ import { useLocation } from 'react-router-dom'
 import axios from 'axios';
 import { message,Dropdown } from 'antd';
 import { getItems } from './Util/rightClickMenu';
+import { CONTAINERCOM } from './Util/globalData'
+import SelectContainer from './Util/selectContainer.js'
 
 export default function RenderCom(props) {
 
@@ -40,6 +42,9 @@ export default function RenderCom(props) {
   const [mouseUpTop,setMouseUpTop] = useState()
   const [mousedownFlag,setMousedownFlag] = useState(false)
   const [showMouse,setShowMouse] = useState(false)
+  const [showSelectContainer,setShowSelectContainer] = useState(false)
+  const [containerOptions, setContainerOptions] = useState([])
+  const [newCom,setNewCom] = useState({})
   
   const [update,setUpdate] = useState({})
 
@@ -94,7 +99,6 @@ export default function RenderCom(props) {
     setStyleCss(findNodeByComId(styleId)?.styleCss)
   },[showAction,showStyle])
 
-
   const onDrop = (e) => {
     //用来确定拖拽的节点的位置
 
@@ -121,7 +125,8 @@ export default function RenderCom(props) {
     if(node){
       node.style = style
     }else{
-      let newCom = {style,comId: NowCom.name + e.clientX,comType: NowCom.name}
+      let newCom = {style,comId: NowCom.name + e.clientX,comType: NowCom.name,groupType: NowCom.groupType}
+      setNewCom(newCom)
       let flag = dragToContainer(e.clientX,e.clientY,newCom);
       if(flag){
         return;
@@ -138,7 +143,7 @@ export default function RenderCom(props) {
   const dragToContainer = (clientX,clientY,newCom) => {
     let parentNode;
     for(let propName in attributeMap){
-      if(['XinForm','XinMenu','XinRadioGroup','XinCard','XinFlex','XinCarousel'].includes(attributeMap[propName].comType)
+      if(CONTAINERCOM.includes(attributeMap[propName].comType)
           && parseInt(attributeMap[propName].style.left) < clientX 
           && parseInt(attributeMap[propName].style.left) + (attributeMap[propName].style.width || initStyle[attributeMap[propName].comType][0]) > clientX 
           && parseInt(attributeMap[propName].style.top) < clientY
@@ -147,7 +152,15 @@ export default function RenderCom(props) {
         parentNode = attributeMap[propName]
       }
     }
-    if(parentNode){
+    if(parentNode && parentNode.childList){
+      const parentNodeList = []
+      countParentNode(parentNode,parentNodeList);
+      if(parentNodeList.length > 1){
+        setContainerOptions(parentNodeList)
+        setShowSelectContainer(true)
+        return true;
+      }
+    }else if(parentNode){
       delete newCom.style
       if(parentNode.childList){
         parentNode.childList[newCom.comId] = newCom
@@ -157,6 +170,23 @@ export default function RenderCom(props) {
       }
       Store.dispatch({type: 'change',attributeMap})
       return true;
+    }
+  }
+
+  const countParentNode = (node,list) =>{
+    if(node.childList){
+      list.push(node)
+      const childValueList = Object.values(node.childList);
+      for(let i=0; i<childValueList.length;i++){
+        if(childValueList[i].groupType === 'container'){
+          list.push(childValueList[i])
+        }
+        if(childValueList[i].childList){
+          Object.values(childValueList[i].childList).forEach(element => {
+            countParentNode(element,list)
+          });
+        }
+      }
     }
   }
 
@@ -426,6 +456,7 @@ export default function RenderCom(props) {
       <div style={{ display:(showMouse?'block':'none'),border:'1px solid blue',width: Math.abs(mouseUpLeft-mouseDownLeft)+'px',height:Math.abs(mouseUpTop-mouseDownTop)+'px',position:'absolute',left:mouseDownLeft<mouseUpLeft?mouseDownLeft:mouseUpLeft+'px',top:mouseDownTop<mouseUpTop?mouseDownTop:mouseUpTop+'px'}}></div>
       <EditAction actionName={actionName} showAction={showAction} changeActionJs={changeActionJs} actionJs={actionJs} submitAction={submitAction} />
       <EditStyle showStyle={showStyle} changeStyleCss={changeStyleCss} styleCss={styleCss} submitStyle={submitStyle} />
+      <SelectContainer newCom={newCom} containerOptions={containerOptions} setShowSelectContainer={setShowSelectContainer} showSelectContainer={showSelectContainer}/>
       <div onMouseUp={mouseUp} onMouseMove={mouseMove} onMouseDown={mouseDown} style={{width:'60%',height:'100%',position:'absolute',zIndex:'10'}}></div>
     </div>
   )

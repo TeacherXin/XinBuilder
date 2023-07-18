@@ -97,9 +97,9 @@ export default function LeftCom(props) {
     setShowDataList([...showDataList])
   },[])
 
-  const onDragStart = (Com,cName) =>{
+  const onDragStart = (Com,cName,groupType) =>{
     return () => {
-      changeTopCom({component: Com, name: cName})
+      changeTopCom({component: Com, name: cName,groupType})
     }
   }
 
@@ -114,7 +114,7 @@ export default function LeftCom(props) {
             const Com = myComponent[cName];
             const Icon = componentIconMap[cName]
             const name = componentTextMap[cName]
-            return  <div onDragStart={onDragStart(Com,cName)} key={cName} className='componentItem'>
+            return  <div onDragStart={onDragStart(Com,cName,'container')} key={cName} className='componentItem'>
               <div style={{display: 'inline-block'}} draggable><Icon style={{marginRight:'10px'}} /><span>{name}</span></div>
           </div>
           })}
@@ -124,7 +124,7 @@ export default function LeftCom(props) {
             const Com = myComponent[cName];
             const Icon = componentIconMap[cName]
             const name = componentTextMap[cName]
-            return  <div onDragStart={onDragStart(Com,cName)} key={cName} className='componentItem'>
+            return  <div onDragStart={onDragStart(Com,cName,'controlCin')} key={cName} className='componentItem'>
               <div style={{display: 'inline-block'}} draggable><Icon style={{marginRight:'10px'}} /><span>{name}</span></div>
           </div>
           })}
@@ -134,13 +134,13 @@ export default function LeftCom(props) {
             const Com = myComponent[cName];
             const Icon = componentIconMap[cName]
             const name = componentTextMap[cName]
-            return  <div onDragStart={onDragStart(Com,cName)} key={cName} className='componentItem'>
+            return  <div onDragStart={onDragStart(Com,cName,'controlCout')} key={cName} className='componentItem'>
               <div style={{display: 'inline-block'}} draggable><Icon style={{marginRight:'10px'}} /><span>{name}</span></div>
           </div>
           })}
         </Panel>
         <Panel header={<span style={{fontWeight:"bold"}}>自定义组件</span>} key="4">
-          <div onDragStart={onDragStart('defineCom','defineCom')} className='componentItem'>
+          <div onDragStart={onDragStart('defineCom','defineCom','defineCom')} className='componentItem'>
             <div style={{display: 'inline-block'}} draggable>{'defineCom'}</div>
           </div>
         </Panel>
