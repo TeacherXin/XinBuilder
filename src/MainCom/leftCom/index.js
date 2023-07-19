@@ -24,7 +24,8 @@ import
   TableOutlined,
   BoxPlotOutlined,
   LinkedinOutlined,
-  MinusSquareOutlined
+  MinusSquareOutlined,
+  UserOutlined
 } from '@ant-design/icons';
 
 const componentIconMap = {
@@ -46,7 +47,8 @@ const componentIconMap = {
   XinFlex: BoxPlotOutlined,
   XinLink: LinkedinOutlined,
   XinDiv: MinusSquareOutlined,
-  XinCarousel: CreditCardOutlined
+  XinCarousel: CreditCardOutlined,
+  XinAvatar: UserOutlined
 }
 
 const componentTextMap = {
@@ -68,7 +70,8 @@ const componentTextMap = {
   XinFlex: 'Flex布局',
   XinLink: '页面跳转',
   XinDiv: '空div',
-  XinCarousel: '轮播图'
+  XinCarousel: '轮播图',
+  XinAvatar: '头像'
 }
 
 
@@ -86,7 +89,7 @@ export default function LeftCom(props) {
     Object.keys(myComponent).forEach(item => {
       if(['XinForm','XinMenu','XinRadioGroup','XinCard','XinFlex','XinCarousel'].includes(item)){
         containerList.push(item)
-      }else if(['XinTable','XinDiv'].includes(item)){
+      }else if(['XinTable','XinDiv','XinAvatar'].includes(item)){
         showDataList.push(item)
       }else{
         controlList.push(item)

@@ -58,7 +58,9 @@ const attributeValueMap = {
   showHeader: '禁用表头',
   selectedKey: '选中菜单key',
   pageUrl: '页面ID',
-  autoplay: '自动切换'
+  autoplay: '自动切换',
+  src: '资源地址',
+  shape: '形状'
 }
 
 
@@ -171,6 +173,19 @@ export default function RightCom(props) {
           [
             { label: '默认', value: 'default' },
             { label: '按钮', value: 'button' }
+          ]
+        } />
+      }
+      case 'shape': {
+        return <Select 
+          style={{ width: 120,height: 25 }}
+          defaultValue={'circle'}
+          onChange={onChange(item)}
+          value={findNodeByComId(comId)?.[item] || 'circle'}
+          options={
+          [
+            { label: '圆形', value: 'circle' },
+            { label: '方形', value: 'square' }
           ]
         } />
       }
