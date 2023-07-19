@@ -127,7 +127,7 @@ export default function SetColumns(props) {
       title: 'operation',
       dataIndex: 'operation',
       render: (_, record) =>
-        findNodeByComId(comId).columnsData.length >= 1 ? (
+        window.findNodeByComId(comId,attributeMap).columnsData.length >= 1 ? (
           <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
             <a>Delete</a>
           </Popconfirm>
@@ -138,21 +138,6 @@ export default function SetColumns(props) {
   subscribe(() => {
     setUpdate({})
   },[])
-
-  const findNodeByComId = (id) => {
-    for(let propName in attributeMap){
-      if(propName === id){
-        return attributeMap[propName];
-      }
-      if(attributeMap[propName].childList){
-        for(let _propName in attributeMap[propName].childList){
-          if(_propName === id){
-            return attributeMap[propName].childList[_propName]
-          }
-        }
-      }
-    }
-  }
 
   const columns = defaultColumns.map((col) => {
     if (!col.editable) {
@@ -171,20 +156,20 @@ export default function SetColumns(props) {
   });
 
   const handleDelete = (key) => {
-    const index = findNodeByComId(comId)?.columnsData.findIndex((item) => item.key === key);
-    findNodeByComId(comId)?.columnsData.splice(index,1)
+    const index = window.findNodeByComId(comId,attributeMap)?.columnsData.findIndex((item) => item.key === key);
+    window.findNodeByComId(comId,attributeMap)?.columnsData.splice(index,1)
     Store.dispatch({type:'change',attributeMap})
   };
 
   const handleSave = (row) => {
-    const newData = [...findNodeByComId(comId)?.columnsData];
+    const newData = [...window.findNodeByComId(comId,attributeMap)?.columnsData];
     const index = newData.findIndex((item) => row.key === item.key);
     const item = newData[index];
     newData.splice(index, 1, {
       ...item,
       ...row,
     });
-    findNodeByComId(comId).columnsData= newData
+    window.findNodeByComId(comId,attributeMap).columnsData= newData
     Store.dispatch({type:'change',attributeMap})
   };
 
@@ -196,7 +181,7 @@ export default function SetColumns(props) {
       dataIndex: `dataIndex${count}`,
       key:`key${count}`
     };
-    findNodeByComId(comId)?.columnsData.push(newData)
+    window.findNodeByComId(comId,attributeMap)?.columnsData.push(newData)
     Store.dispatch({type:'change',attributeMap})
     setCount(count + 1);
   };
@@ -222,7 +207,7 @@ export default function SetColumns(props) {
         </Button>
         <Table
           columns={columns}
-          dataSource={findNodeByComId(comId)?.columnsData}
+          dataSource={window.findNodeByComId(comId,attributeMap)?.columnsData}
           components={components}
           rowClassName={() => 'editable-row'}
           bordered

@@ -38,24 +38,9 @@ export default function XinDatePicker(props) {
     setValue(attributeValue)
   },[attributeValue])
 
-  const findNodeByComId = (id) => {
-    for(let propName in attributeMap){
-      if(propName === id){
-        return attributeMap[propName];
-      }
-      if(attributeMap[propName].childList){
-        for(let _propName in attributeMap[propName].childList){
-          if(_propName === id){
-            return attributeMap[propName].childList[_propName]
-          }
-        }
-      }
-    }
-  }
-
   const onChange = (data,dataString) =>{
     setValue(dataString);
-    findNodeByComId(comId).attributeValue = dataString;
+    window.findNodeByComId(comId,attributeMap).attributeValue = dataString;
     Store.dispatch({type: 'change',attributeMap});
     let changeFun = new Function(actionJs?.change);
     changeFun(data,dataString);

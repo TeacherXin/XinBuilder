@@ -15,6 +15,21 @@ window.proxyAttributeMap = () => {
   window.xinCtx = proxy;
 }
 
+window.findNodeByComId = (id,nodeList) => {
+  let node;
+  const dfs = (id,nodeList) => {
+    for(let propName in nodeList){
+      if(propName === id){
+        node = nodeList[propName];
+      }else if(nodeList[propName].childList){
+        dfs(id, nodeList[propName].childList)
+      }
+    }
+  }
+  dfs(id,nodeList)
+  return node;
+}
+
 const setAttributeProxy = (ctx) => {
   for(let propName in ctx){
     if(typeof ctx[propName] === 'object'){

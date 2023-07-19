@@ -95,8 +95,8 @@ export default function RenderCom(props) {
   },[])
 
   useEffect(() => {
-    setActionJs(findNodeByComId(actionId)?.actionJs)
-    setStyleCss(findNodeByComId(styleId)?.styleCss)
+    setActionJs(window.findNodeByComId(actionId,attributeMap)?.actionJs)
+    setStyleCss(window.findNodeByComId(styleId,attributeMap)?.styleCss)
   },[showAction,showStyle])
 
   const onDrop = (e) => {
@@ -121,7 +121,7 @@ export default function RenderCom(props) {
         zIndex:100
       }
     }
-    let node = findNodeByComId(nowComId)
+    let node = window.findNodeByComId(nowComId,attributeMap)
     if(node){
       node.style = style
     }else{
@@ -229,7 +229,7 @@ export default function RenderCom(props) {
   const submitAction = (flag) => {
     return () => {
       if(flag){
-        let node = findNodeByComId(actionId)
+        let node = window.findNodeByComId(actionId,attributeMap)
         if(node.comType === 'defineCom'){
           node.defineComJs = actionJs?.[actionName];
           Store.dispatch({type: 'change',attributeMap});
@@ -250,7 +250,7 @@ export default function RenderCom(props) {
   const submitStyle = (flag) => {
     return () => {
       if(flag){
-        let node = findNodeByComId(styleId)
+        let node = window.findNodeByComId(styleId,attributeMap)
         node.styleCss = styleCss;
         Store.dispatch({type: 'change',attributeMap})
       }
@@ -289,21 +289,6 @@ export default function RenderCom(props) {
     setShowMouse(false)
     setGroupWidth(mouseUpLeft-mouseDownLeft);
     setGroupHeight(mouseUpTop-mouseDownTop);
-  }
-
-  const findNodeByComId = (id) => {
-    for(let propName in attributeMap){
-      if(propName === id){
-        return attributeMap[propName];
-      }
-      if(attributeMap[propName].childList){
-        for(let _propName in attributeMap[propName].childList){
-          if(_propName === id){
-            return attributeMap[propName].childList[_propName]
-          }
-        }
-      }
-    }
   }
 
   //设置各个组件所展示的属性
@@ -436,7 +421,7 @@ export default function RenderCom(props) {
         <Dropdown menu={{items: getItems(item.comType),onClick: menuOnClick(item.comType,item.comId)}} trigger={['contextMenu']}>
           <div onContextMenu={(e) => {e.stopPropagation()}}>
             <Com
-            {...findNodeByComId(item.comId)}
+            {...window.findNodeByComId(item.comId,attributeMap)}
             >
               {
                 Object.keys(item.childList || {}).map(_item => {

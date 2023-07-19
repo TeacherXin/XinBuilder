@@ -119,30 +119,15 @@ export default function SetTableData(props) {
   ]
 
   useEffect(() => {
-    (findNodeByComId(comId)?.columnsData || []).forEach(element => {
+    (window.findNodeByComId(comId,attributeMap)?.columnsData || []).forEach(element => {
       element.editable = true
     })
-    setColumnsList([...(findNodeByComId(comId)?.columnsData || []),...defaultColumns])
+    setColumnsList([...(window.findNodeByComId(comId,attributeMap)?.columnsData || []),...defaultColumns])
   },[showSetTableData])
 
   subscribe(() => {
     setUpdate({})
   },[])
-
-  const findNodeByComId = (id) => {
-    for(let propName in attributeMap){
-      if(propName === id){
-        return attributeMap[propName];
-      }
-      if(attributeMap[propName].childList){
-        for(let _propName in attributeMap[propName].childList){
-          if(_propName === id){
-            return attributeMap[propName].childList[_propName]
-          }
-        }
-      }
-    }
-  }
 
   const columns = columnsList.map((col) => {
     if (!col.editable) {
@@ -161,34 +146,34 @@ export default function SetTableData(props) {
   });
 
   const handleDelete = (key) => {
-    const index = findNodeByComId(comId)?.tableData.findIndex((item) => item.key === key);
-    findNodeByComId(comId)?.tableData.splice(index,1)
+    const index = window.findNodeByComId(comId,attributeMap)?.tableData.findIndex((item) => item.key === key);
+    window.findNodeByComId(comId,attributeMap)?.tableData.splice(index,1)
     Store.dispatch({type:'change',attributeMap})
   };
 
   const handleSave = (row) => {
-    const newData = [...findNodeByComId(comId)?.tableData];
+    const newData = [...window.findNodeByComId(comId,attributeMap)?.tableData];
     const index = newData.findIndex((item) => row.key === item.key);
     const item = newData[index];
     newData.splice(index, 1, {
       ...item,
       ...row,
     });
-    findNodeByComId(comId).tableData= newData
+    window.findNodeByComId(comId,attributeMap).tableData= newData
     Store.dispatch({type:'change',attributeMap})
   };
 
   const handleAdd = () => {
-    let columnsData = findNodeByComId(comId).columnsData;
+    let columnsData = window.findNodeByComId(comId,attributeMap).columnsData;
     const newData = {};
     for(let i=0;i<columnsData.length;i++){
       newData[columnsData[i].dataIndex] = columnsData[i].dataIndex + count
     }
     newData.key = count;
-    if(findNodeByComId(comId).tableData){
-      findNodeByComId(comId).tableData.push(newData)
+    if(window.findNodeByComId(comId,attributeMap).tableData){
+      window.findNodeByComId(comId,attributeMap).tableData.push(newData)
     }else{
-      findNodeByComId(comId).tableData = [newData]
+      window.findNodeByComId(comId,attributeMap).tableData = [newData]
     }
     Store.dispatch({type:'change',attributeMap})
     setCount(count + 1);
@@ -216,7 +201,7 @@ export default function SetTableData(props) {
         <Table
           scroll={{y: 300}}
           columns={columns}
-          dataSource={findNodeByComId(comId)?.tableData}
+          dataSource={window.findNodeByComId(comId,attributeMap)?.tableData}
           components={components}
           rowClassName={() => 'editable-row'}
           bordered

@@ -49,30 +49,15 @@ export default function XinRadioGroup(props) {
     setUpdate({})
   })
 
-  const findNodeByComId = (id) => {
-    for(let propName in attributeMap){
-      if(propName === id){
-        return attributeMap[propName];
-      }
-      if(attributeMap[propName].childList){
-        for(let _propName in attributeMap[propName].childList){
-          if(_propName === id){
-            return attributeMap[propName].childList[_propName]
-          }
-        }
-      }
-    }
-  }
-
   useEffect(() => {
-    if(findNodeByComId(comId)){
-      findNodeByComId(comId).selectedID = props?.childList?.[props?.children?.[0]?.key]?.comId;
+    if(window.findNodeByComId(comId,attributeMap)){
+      window.findNodeByComId(comId,attributeMap).selectedID = props?.childList?.[props?.children?.[0]?.key]?.comId;
       Store.dispatch({type: 'change',attributeMap})
     }
   },[])
 
   const onChange = (e) => {
-    findNodeByComId(comId).selectedID = e.target.value;
+    window.findNodeByComId(comId,attributeMap).selectedID = e.target.value;
     Store.dispatch({type: 'change',attributeMap})
     const changeFun = new Function(actionJs?.change);
     changeFun(e)

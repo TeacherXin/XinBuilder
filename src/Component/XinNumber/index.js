@@ -11,21 +11,6 @@ export default function XinNumber(props) {
   const {attributeValueNumber,styleCss,actionJs,placeholder,size,prefix,showCount,comId,visible,max,min,step} = props
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
 
-  const findNodeByComId = (id) => {
-    for(let propName in attributeMap){
-      if(propName === id){
-        return attributeMap[propName];
-      }
-      if(attributeMap[propName].childList){
-        for(let _propName in attributeMap[propName].childList){
-          if(_propName === id){
-            return attributeMap[propName].childList[_propName]
-          }
-        }
-      }
-    }
-  }
-
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','') || '{}';
     let style;
@@ -50,7 +35,7 @@ export default function XinNumber(props) {
 
   const onChange = (value) =>{
     setValue(value);
-    findNodeByComId(comId).attributeValue = value;
+    window.findNodeByComId(comId,attributeMap).attributeValue = value;
     Store.dispatch({type: 'change',attributeMap});
     const changeFun = new Function(actionJs?.change);
     changeFun(value)

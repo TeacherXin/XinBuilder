@@ -13,21 +13,6 @@ export default function XinTable(props) {
   const attributeMap = _.cloneDeep(Store.getState().attributeMap);
   const [update,setUpdate] = useState({})
 
-  const findNodeByComId = (id) => {
-    for(let propName in attributeMap){
-      if(propName === id){
-        return attributeMap[propName];
-      }
-      if(attributeMap[propName].childList){
-        for(let _propName in attributeMap[propName].childList){
-          if(_propName === id){
-            return attributeMap[propName].childList[_propName]
-          }
-        }
-      }
-    }
-  }
-
   useEffect((e) => {
     let clickFun = new Function(actionJs?.load);
     clickFun(e)
@@ -38,7 +23,7 @@ export default function XinTable(props) {
   },[])
 
   useEffect(() => {
-    const columnsData = findNodeByComId(comId)?.columnsData || [
+    const columnsData = window.findNodeByComId(comId,attributeMap)?.columnsData || [
       {
         key: '1',
         title: '标题1',
@@ -52,7 +37,7 @@ export default function XinTable(props) {
         dataIndex:'title2'
       },
     ]
-    findNodeByComId(comId).columnsData = columnsData;
+    window.findNodeByComId(comId,attributeMap).columnsData = columnsData;
     Store.dispatch({type:'change',attributeMap})
   },[])
   
@@ -90,8 +75,8 @@ export default function XinTable(props) {
       {contextHolder}
       <Table
         style={{maxWidth:'1285px',...style}}
-        dataSource={findNodeByComId(comId).tableData}
-        columns={findNodeByComId(comId).columnsData}
+        dataSource={window.findNodeByComId(comId,attributeMap).tableData}
+        columns={window.findNodeByComId(comId,attributeMap).columnsData}
         bordered={bordered}
         showHeader={!showHeader}
         size={size}

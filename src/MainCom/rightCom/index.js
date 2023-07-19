@@ -77,21 +77,6 @@ export default function RightCom(props) {
     setUpdate({})
   })
 
-  const findNodeByComId = (id) => {
-    for(let propName in attributeMapRight){
-      if(propName === id){
-        return attributeMapRight[propName];
-      }
-      if(attributeMapRight[propName].childList){
-        for(let _propName in attributeMapRight[propName].childList){
-          if(_propName === id){
-            return attributeMapRight[propName].childList[_propName]
-          }
-        }
-      }
-    }
-  }
-
   const getAttributeValueCom = (item,index) => {
     switch (item) {
       case 'disabled': {
@@ -99,7 +84,7 @@ export default function RightCom(props) {
           style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
-          checked={findNodeByComId(comId)?.[item] || false}
+          checked={window.findNodeByComId(comId,attributeMapRight)?.[item] || false}
         />
       }
       case 'autoplay': {
@@ -107,7 +92,7 @@ export default function RightCom(props) {
           style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
-          checked={findNodeByComId(comId)?.[item] || false}
+          checked={window.findNodeByComId(comId,attributeMapRight)?.[item] || false}
         />
       }
       case 'showHeader': {
@@ -115,7 +100,7 @@ export default function RightCom(props) {
           style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
-          checked={findNodeByComId(comId)?.[item] || false}
+          checked={window.findNodeByComId(comId,attributeMapRight)?.[item] || false}
         />
       }
       case 'bordered': {
@@ -123,7 +108,7 @@ export default function RightCom(props) {
           style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
-          checked={findNodeByComId(comId)?.[item] || false}
+          checked={window.findNodeByComId(comId,attributeMapRight)?.[item] || false}
         />
       }
       case 'allowHalf': {
@@ -131,7 +116,7 @@ export default function RightCom(props) {
           style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
-          checked={findNodeByComId(comId)?.[item] || false}
+          checked={window.findNodeByComId(comId,attributeMapRight)?.[item] || false}
         />
       }
       case 'visible': {
@@ -139,7 +124,7 @@ export default function RightCom(props) {
           style={{ marginRight:'70px'}}
           defaultValue={true}
           onChange={onChange(item)}
-          checked={findNodeByComId(comId)?.[item] || false}
+          checked={window.findNodeByComId(comId,attributeMapRight)?.[item] || false}
         />
       }
       case 'showTime': {
@@ -147,7 +132,7 @@ export default function RightCom(props) {
           style={{ marginRight:'70px'}}
           defaultValue={true}
           onChange={onChange(item)}
-          checked={findNodeByComId(comId)?.[item] || false}
+          checked={window.findNodeByComId(comId,attributeMapRight)?.[item] || false}
         />
       }
       case 'labelAlign': {
@@ -155,7 +140,7 @@ export default function RightCom(props) {
           style={{ width: 120,height: 25 }}
           defaultValue={'right'}
           onChange={onChange(item)}
-          value={findNodeByComId(comId)?.[item] || 'right'}
+          value={window.findNodeByComId(comId,attributeMapRight)?.[item] || 'right'}
           options={
           [
             { label: '左侧', value: 'left' },
@@ -168,7 +153,7 @@ export default function RightCom(props) {
           style={{ width: 120,height: 25 }}
           defaultValue={'default'}
           onChange={onChange(item)}
-          value={findNodeByComId(comId)?.[item] || 'default'}
+          value={window.findNodeByComId(comId,attributeMapRight)?.[item] || 'default'}
           options={
           [
             { label: '默认', value: 'default' },
@@ -181,7 +166,7 @@ export default function RightCom(props) {
           style={{ width: 120,height: 25 }}
           defaultValue={'circle'}
           onChange={onChange(item)}
-          value={findNodeByComId(comId)?.[item] || 'circle'}
+          value={window.findNodeByComId(comId,attributeMapRight)?.[item] || 'circle'}
           options={
           [
             { label: '圆形', value: 'circle' },
@@ -194,7 +179,7 @@ export default function RightCom(props) {
           style={{ width: 120,height: 25 }}
           defaultValue={'outline '}
           onChange={onChange(item)}
-          value={findNodeByComId(comId)?.[item] || 'outline '}
+          value={window.findNodeByComId(comId,attributeMapRight)?.[item] || 'outline '}
           options={
           [
             { label: '虚线', value: 'outline ' },
@@ -207,7 +192,7 @@ export default function RightCom(props) {
           style={{ width: 120,height: 25 }}
           defaultValue={'date'}
           onChange={onChange(item)}
-          value={findNodeByComId(comId)?.[item] || 'date'}
+          value={window.findNodeByComId(comId,attributeMapRight)?.[item] || 'date'}
           options={
           [
             { label: '日期', value: 'date' },
@@ -224,14 +209,14 @@ export default function RightCom(props) {
         style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
-          checked={findNodeByComId(comId)?.[item] || false}
+          checked={window.findNodeByComId(comId,attributeMapRight)?.[item] || false}
         />
       }
       case 'colon': {
         return <Switch 
         style={{ marginRight:'70px'}}
           onChange={onChange(item)}
-          checked={findNodeByComId(comId)?.[item] === undefined ? true : findNodeByComId(comId)?.[item]}
+          checked={window.findNodeByComId(comId,attributeMapRight)?.[item] === undefined ? true : window.findNodeByComId(comId,attributeMapRight)?.[item]}
         />
       }
       case 'danger': {
@@ -239,7 +224,7 @@ export default function RightCom(props) {
           style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
-          checked={findNodeByComId(comId)?.[item] || false}
+          checked={window.findNodeByComId(comId,attributeMapRight)?.[item] || false}
         />
       }
       case 'required': {
@@ -247,7 +232,7 @@ export default function RightCom(props) {
           style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
-          checked={findNodeByComId(comId)?.[item] || false}
+          checked={window.findNodeByComId(comId,attributeMapRight)?.[item] || false}
         />
       }
       case 'ghost': {
@@ -255,7 +240,7 @@ export default function RightCom(props) {
           style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
-          checked={findNodeByComId(comId)?.[item] || false}
+          checked={window.findNodeByComId(comId,attributeMapRight)?.[item] || false}
         />
       }
       case 'allowClear': {
@@ -263,7 +248,7 @@ export default function RightCom(props) {
           style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
-          checked={findNodeByComId(comId)?.[item] || false}
+          checked={window.findNodeByComId(comId,attributeMapRight)?.[item] || false}
         />
       }
       case 'showCount': {
@@ -271,7 +256,7 @@ export default function RightCom(props) {
           style={{ marginRight:'70px'}}
           defaultValue={false}
           onChange={onChange(item)}
-          checked={findNodeByComId(comId)?.[item] || false}
+          checked={window.findNodeByComId(comId,attributeMapRight)?.[item] || false}
         />
       }
       case 'buttonType': {
@@ -279,7 +264,7 @@ export default function RightCom(props) {
           style={{ width: 120,height: 20 }}
           defaultValue='primary'
           onChange={onChange(item)}
-          value={findNodeByComId(comId)?.[item] || 'primary'}
+          value={window.findNodeByComId(comId,attributeMapRight)?.[item] || 'primary'}
           options={
           [
             { label: '默认按钮', value: 'primary' },
@@ -294,7 +279,7 @@ export default function RightCom(props) {
           style={{ width: 120,height: 25 }}
           defaultValue='default'
           onChange={onChange(item)}
-          value={findNodeByComId(comId)?.[item] || 'default'}
+          value={window.findNodeByComId(comId,attributeMapRight)?.[item] || 'default'}
           options={
           [
             { label: '大', value: 'large' },
@@ -307,7 +292,7 @@ export default function RightCom(props) {
         return <Select 
           style={{ width: 120,height: 25 }}
           defaultValue={'horizontal'}
-          value={findNodeByComId(comId)?.[item] || 'horizontal'}
+          value={window.findNodeByComId(comId,attributeMapRight)?.[item] || 'horizontal'}
           onChange={onChange(item)}
           options={
           [
@@ -320,7 +305,7 @@ export default function RightCom(props) {
         return <Select 
           style={{ width: 120,height: 25 }}
           defaultValue={'vertical'}
-          value={findNodeByComId(comId)?.[item] || 'vertical'}
+          value={window.findNodeByComId(comId,attributeMapRight)?.[item] || 'vertical'}
           onChange={onChange(item)}
           options={
           [
@@ -337,47 +322,36 @@ export default function RightCom(props) {
         return <Button onClick={() => {setShowTableData(true)}} style={{width:'130px',position: 'relative',bottom: '5px',left:'20px'}}>设置内容</Button>
       }
       case 'attributeValueNumber': {
-        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={window.findNodeByComId(comId,attributeMapRight)?.[item] || ''}></Input>
       }
       case 'count': {
-        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={window.findNodeByComId(comId,attributeMapRight)?.[item] || ''}></Input>
       }
       case 'step': {
-        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={window.findNodeByComId(comId,attributeMapRight)?.[item] || ''}></Input>
       }
       case 'max': {
-        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={window.findNodeByComId(comId,attributeMapRight)?.[item] || ''}></Input>
       }
       case 'min': {
-        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={window.findNodeByComId(comId,attributeMapRight)?.[item] || ''}></Input>
       }
       case 'rotate': {
-        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={window.findNodeByComId(comId,attributeMapRight)?.[item] || ''}></Input>
       }
       default: {
-        return <Input style={{ width: 120, height: 30 }} key={index} onChange={onChange(item)} value={findNodeByComId(comId)?.[item] || ''}></Input>
+        return <Input style={{ width: 120, height: 30 }} key={index} onChange={onChange(item)} value={window.findNodeByComId(comId,attributeMapRight)?.[item] || ''}></Input>
       }
     }
   }
 
   const onChange = (name) => {
     return (value) => {
-      if(!attributeMapRight[comId]){
-        for(let propName in attributeMapRight){
-          if(attributeMapRight[propName].childList && attributeMapRight[propName].childList[comId]){
-            if(typeof value === 'object'){
-              value = value.target.value
-            }
-            attributeMapRight[propName].childList[comId][name] = value;
-            Store.dispatch({type:'change',attributeMap: attributeMapRight})
-            return;
-          }
-        }
-      }
       if(typeof value === 'object'){
         value = value.target.value
       }
-      attributeMapRight[comId][name] = value;
+      const node = window.findNodeByComId(comId,attributeMapRight,attributeMapRight)
+      node[name] = value;
       Store.dispatch({type:'change',attributeMap: attributeMapRight})
     }
   }

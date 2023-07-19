@@ -39,21 +39,6 @@ export default function MetaRender() {
     setUpdate({})
   })
 
-  const findNodeByComId = (id) => {
-    for(let propName in attributeMap){
-      if(propName === id){
-        return attributeMap[propName];
-      }
-      if(attributeMap[propName].childList){
-        for(let _propName in attributeMap[propName].childList){
-          if(_propName === id){
-            return attributeMap[propName].childList[_propName]
-          }
-        }
-      }
-    }
-  }
-
   const getComponent = (item) => {
     let Com = myComponent[item.comType];
     if(!Com && item.defineComJs){
@@ -65,7 +50,7 @@ export default function MetaRender() {
     }
     return <div id={item.comId} key={item.comId} style={item.style}>
       {<Com
-        {...findNodeByComId(item.comId)}
+        {...window.findNodeByComId(item.comId,attributeMap)}
         >
           {
             Object.keys(item.childList || {}).map(_item => {

@@ -29,23 +29,6 @@ export default function LeftList(props) {
     setUpdate({})
   })
 
-  
-  const findNodeByComId = (id) => {
-    for(let propName in attributeMap){
-      if(propName === id){
-        return attributeMap[propName];
-      }
-      if(attributeMap[propName].childList){
-        for(let _propName in attributeMap[propName].childList){
-          if(_propName === id){
-            return attributeMap[propName].childList[_propName]
-          }
-        }
-      }
-    }
-  }
-
-
   const menuOnClick = (com,parentId) =>{
     return (menuItem) => {
       if(menuItem.key === 'showJson'){
@@ -54,7 +37,7 @@ export default function LeftList(props) {
       }
       if(menuItem.key === 'deleteNode'){
         if(parentId){
-          const node = findNodeByComId(parentId);
+          const node = window.findNodeByComId(parentId,attributeMap);
           let childList = node.childList;
           delete childList[com.comId]
         }else{
