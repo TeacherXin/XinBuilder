@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal, Select } from 'antd'
 import Store from '../../../Store'
 import _ from 'lodash'
@@ -40,7 +40,8 @@ export default function SelectContainer(props) {
   }
 
   const onSelect = (e) => {
-    setContainer(containerOptions.find(item => item.comId === e))
+    const container = containerOptions.find(item => item.comId === e)
+    setContainer({comId: e, ...container})
   }
 
   const onCancel = () => {
@@ -55,7 +56,7 @@ export default function SelectContainer(props) {
         closable={false}
       >
         <span>请选择父容器：</span>
-        <Select onSelect={onSelect} value={container?.comId} defaultValue={options[0]?.value} style={{width: 120}} options={options} />
+        <Select onSelect={onSelect} value={container?.comId} style={{width: 120}} options={options} />
       </Modal>
     </div>
   )
