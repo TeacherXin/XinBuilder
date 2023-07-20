@@ -3,77 +3,8 @@ import './index.css'
 import * as myComponent from '../../Component'
 import LeftList from '../leftList'
 import { Collapse, Tabs } from 'antd';
-import 
-{
-  RightOutlined,
-  LeftOutlined,
-  CreditCardOutlined,
-  FormOutlined,
-  MenuUnfoldOutlined,
-  GroupOutlined,
-  TabletOutlined,
-  CheckSquareOutlined,
-  FieldTimeOutlined,
-  FrownOutlined,
-  DoubleRightOutlined,
-  FileTextOutlined,
-  FieldNumberOutlined,
-  TrademarkCircleOutlined,
-  EditOutlined,
-  CloudDownloadOutlined,
-  TableOutlined,
-  BoxPlotOutlined,
-  LinkedinOutlined,
-  MinusSquareOutlined,
-  UserOutlined
-} from '@ant-design/icons';
-
-const componentIconMap = {
-  XinCard: CreditCardOutlined,
-  XinForm: FormOutlined,
-  XinMenu: MenuUnfoldOutlined,
-  XinRadioGroup: GroupOutlined,
-  XinButton: TabletOutlined,
-  XinCheckBox: CheckSquareOutlined,
-  XinDatePicker: FieldTimeOutlined,
-  XinIcon: FrownOutlined,
-  XinInput: DoubleRightOutlined,
-  XinLable: FileTextOutlined,
-  XinNumber: FieldNumberOutlined,
-  XinRadio: TrademarkCircleOutlined,
-  XinRate: EditOutlined,
-  XinUpload: CloudDownloadOutlined,
-  XinTable: TableOutlined,
-  XinFlex: BoxPlotOutlined,
-  XinLink: LinkedinOutlined,
-  XinDiv: MinusSquareOutlined,
-  XinCarousel: CreditCardOutlined,
-  XinAvatar: UserOutlined
-}
-
-const componentTextMap = {
-  XinCard: '卡片',
-  XinForm: '表单',
-  XinMenu: '菜单',
-  XinRadioGroup: '单选栏',
-  XinButton: '按钮',
-  XinCheckBox: '多选按钮',
-  XinDatePicker: '日期框',
-  XinIcon: '图标',
-  XinInput: '输入框',
-  XinLable: '标签',
-  XinNumber: '数值框',
-  XinRadio: '单选框',
-  XinRate: '评分',
-  XinUpload: '图片上传',
-  XinTable: '表格',
-  XinFlex: 'Flex布局',
-  XinLink: '页面跳转',
-  XinDiv: '空div',
-  XinCarousel: '轮播图',
-  XinAvatar: '头像'
-}
-
+import {componentTextMap, componentIconMap} from './Util/iconList'
+import {  RightOutlined,LeftOutlined} from '@ant-design/icons'
 
 const { Panel } = Collapse;
 
@@ -87,7 +18,7 @@ export default function LeftCom(props) {
 
   useEffect(() => {
     Object.keys(myComponent).forEach(item => {
-      if(['XinForm','XinMenu','XinRadioGroup','XinCard','XinFlex','XinCarousel'].includes(item)){
+      if(['XinForm','XinMenu','XinRadioGroup','XinCard','XinFlex','XinCarousel','XinTabs'].includes(item)){
         containerList.push(item)
       }else if(['XinTable','XinDiv','XinAvatar'].includes(item)){
         showDataList.push(item)

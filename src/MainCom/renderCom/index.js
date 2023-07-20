@@ -9,9 +9,10 @@ import _ from 'lodash'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios';
 import { message,Dropdown } from 'antd';
-import { getItems } from './Util/rightClickMenu';
+import { getItems } from './Util/actionMenu';
+import {COMADAPTER} from './Util/attributeMenu';
 import { CONTAINERCOM } from './Util/globalData'
-import SelectContainer from './Util/selectContainer.js'
+import SelectContainer from './Util/selectContainer.js' 
 
 export default function RenderCom(props) {
 
@@ -57,7 +58,8 @@ export default function RenderCom(props) {
     XinRadioGroup: [250,40],
     XinCard: [300,400],
     XinFlex: [400,400],
-    XinCarousel: [600,200]
+    XinCarousel: [600,200],
+    XinTabs: [400,400]
   }
 
   
@@ -295,83 +297,7 @@ export default function RenderCom(props) {
   const showRightPanel = (code,id,type,actionName) => {
       //属性面板
     if(type === 'attribute'){
-      switch (code) {
-        case 'XinButton': {
-          changeRightPanelById(id,['attributeValue','visible','buttonType','size','disabled','danger','ghost'],'attribute');
-          break;
-        }
-        case 'XinInput': {
-          changeRightPanelById(id,['attributeValue','visible','addonBefore','addonAfter','placeholder','size','prefix','suffix','allowClear','label','required','requiredMessage'],'attribute');
-          break;
-        }
-        case 'XinLable': {
-          changeRightPanelById(id,['attributeValue','visible'],'attribute');
-          break;
-        }
-        case 'XinCheckBox': {
-          changeRightPanelById(id,['attributeValue','visible','disabled','checked','label','required','requiredMessage'],'attribute');
-          break;
-        }
-        case 'XinRadio': {
-          changeRightPanelById(id,['attributeValue','visible','disabled','checked'],'attribute');
-          break;
-        }
-        case 'XinForm': {
-          changeRightPanelById(id,['visible','disabled','size','layout','colon','labelAlign'],'attribute');
-          break;
-        }
-        case 'XinRadioGroup': {
-          changeRightPanelById(id,['visible','disabled','buttonStyle','optionType','size','selectedID'],'attribute');
-          break;
-        }
-        case 'XinIcon': {
-          changeRightPanelById(id,['visible','iconType','twoToneColor','rotate'],'attribute');
-          break;
-        }
-        case 'XinMenu': {
-          changeRightPanelById(id,['visible','mode','selectedKey'],'attribute');
-          break;
-        }
-        case 'XinDatePicker': {
-          changeRightPanelById(id,['attributeValue','visible','picker','showTime','dateFormat','disabled','size','allowClear','label','required','requiredMessage'],'attribute');
-          break;
-        }
-        case 'XinNumber': {
-          changeRightPanelById(id,['attributeValueNumber','visible','placeholder','size','prefix','allowClear','max','min','label','required','requiredMessage','step'],'attribute');
-          break;
-        }
-        case 'XinRate': {
-          changeRightPanelById(id,['allowHalf','count','disabled'],'attribute');
-          break;
-        }
-        case 'XinCard': {
-          changeRightPanelById(id,['bordered','size','title','visible'],'attribute');
-          break;
-        }
-        case 'XinTable': {
-          changeRightPanelById(id,['setColumns','setTableData','bordered','showHeader','size'],'attribute');
-          break;
-        }
-        case 'XinFlex': {
-          changeRightPanelById(id,['visible'],'attribute');
-          break;
-        }
-        case 'XinLink': {
-          changeRightPanelById(id,['visible','attributeValue','pageUrl'],'attribute');
-          break;
-        }
-        case 'XinDiv': {
-          changeRightPanelById(id,['visible'],'attribute');
-          break;
-        }
-        case 'XinCarousel': {
-          changeRightPanelById(id,['visible','autoplay'],'attribute');
-          break;
-        }
-        case 'XinAvatar': {
-          changeRightPanelById(id,['visible','size','iconType','shape','src'],'attribute');
-        }
-      }
+      changeRightPanelById(id,COMADAPTER[code],'attribute');
     //动作弹窗
     }else if(type === 'action'){
       changeRightPanelById(id,['attributeValue'],'action',actionName);

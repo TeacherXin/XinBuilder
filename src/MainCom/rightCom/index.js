@@ -60,7 +60,13 @@ const attributeValueMap = {
   pageUrl: '页面ID',
   autoplay: '自动切换',
   src: '资源地址',
-  shape: '形状'
+  shape: '形状',
+  activeKey: '当前key',
+  animated: '开启动画',
+  centered: '标签居中',
+  tabBarGutter: '页签间隙',
+  tabPosition: '页签位置',
+  tabsType: '页签样式'
 }
 
 
@@ -80,6 +86,22 @@ export default function RightCom(props) {
   const getAttributeValueCom = (item,index) => {
     switch (item) {
       case 'disabled': {
+        return <Switch 
+          style={{ marginRight:'70px'}}
+          defaultValue={false}
+          onChange={onChange(item)}
+          checked={window.findNodeByComId(comId,attributeMapRight)?.[item] || false}
+        />
+      }
+      case 'centered': {
+        return <Switch 
+          style={{ marginRight:'70px'}}
+          defaultValue={false}
+          onChange={onChange(item)}
+          checked={window.findNodeByComId(comId,attributeMapRight)?.[item] || false}
+        />
+      }
+      case 'animated': {
         return <Switch 
           style={{ marginRight:'70px'}}
           defaultValue={false}
@@ -145,6 +167,34 @@ export default function RightCom(props) {
           [
             { label: '左侧', value: 'left' },
             { label: '右侧', value: 'right' }
+          ]
+        } />
+      }
+      case 'tabPosition': {
+        return <Select 
+          style={{ width: 120,height: 25 }}
+          defaultValue={'top'}
+          onChange={onChange(item)}
+          value={window.findNodeByComId(comId,attributeMapRight)?.[item] || 'top'}
+          options={
+          [
+            { label: '左侧', value: 'left' },
+            { label: '右侧', value: 'right' },
+            { label: '头部', value: 'top' },
+            { label: '底部', value: 'bottom' },
+          ]
+        } />
+      }
+      case 'tabsType': {
+        return <Select 
+          style={{ width: 120,height: 25 }}
+          defaultValue={'line'}
+          onChange={onChange(item)}
+          value={window.findNodeByComId(comId,attributeMapRight)?.[item] || 'line'}
+          options={
+          [
+            { label: '线条', value: 'line' },
+            { label: '卡片', value: 'card' }
           ]
         } />
       }
@@ -337,6 +387,9 @@ export default function RightCom(props) {
         return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={window.findNodeByComId(comId,attributeMapRight)?.[item] || ''}></Input>
       }
       case 'rotate': {
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={window.findNodeByComId(comId,attributeMapRight)?.[item] || ''}></Input>
+      }
+      case 'tabBarGutter': {
         return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={window.findNodeByComId(comId,attributeMapRight)?.[item] || ''}></Input>
       }
       default: {

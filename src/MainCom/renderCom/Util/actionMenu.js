@@ -189,6 +189,19 @@ const getItems = (type) => {
       })
       break;
     }
+    case 'XinTabs': {
+      items.push({
+        label: '设置动作',
+        key: 'setAction',
+        children: [
+          {
+            label: 'onChange事件',
+            key: 'setChange'
+          }
+        ]
+      })
+      break;
+    }
   }
   return items
 }
