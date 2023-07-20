@@ -13,7 +13,7 @@ const COMADAPTER = {
   XinRate: ['allowHalf','count','disabled'],
   XinCard: ['bordered','size','title','visible'],
   XinTable: ['setColumns','setTableData','bordered','showHeader','size'],
-  XinFlex: ['visible'],
+  XinFlex: ['visible','attributeValue'],
   XinLink: ['visible','attributeValue','pageUrl'],
   XinDiv: ['visible'],
   XinCarousel: ['visible','autoplay'],

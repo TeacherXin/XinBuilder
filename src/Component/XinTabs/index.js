@@ -1,11 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import './index.css'
+import Store from '../../Store';
 import { Tabs,message } from 'antd';
+import _ from 'lodash'
 
 export default function XinTabs(props) {
   const [style,setStyle] = useState({})
   const [items, setItems] = useState([])
   const [messageApi, contextHolder] = message.useMessage();
+  const attributeMap = _.cloneDeep(Store.getState().attributeMap)
   const {styleCss, actionJs,activeKey,animated,centered,size,tabPosition,tabBarGutter,tabsType} = props
 
   useEffect(() => {
@@ -43,7 +46,7 @@ export default function XinTabs(props) {
     const items = children.map(item => {
       return {
         key: item.key,
-        label: item.key,
+        label: window.findNodeByComId(item.key,attributeMap).attributeValue || item.key,
         children: item
       }
     })
