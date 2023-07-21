@@ -3,10 +3,15 @@ import { List,message } from 'antd';
 import './index.css'
 
 export default function XinList(props) {
-  const {styleCss,children,bordered,size} = props
+  const {styleCss,children,bordered,size,actionJs} = props
   const [messageApi, contextHolder] = message.useMessage();
   const [style, setStyle] = useState({})
   const [data, setData] = useState([])
+
+  useEffect((e) => {
+    let loadFun = new Function(actionJs?.load);
+    loadFun(e)
+  },[])
 
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','') || '{"minWidth":"600px","minHeight":"400px","border":"1px solid blue"}';
@@ -57,7 +62,7 @@ export default function XinList(props) {
       >
         {
           children.map((item, index) => (
-            <List.Item>
+            <List.Item key={index}>
               <List.Item.Meta
                 title={item}
               />

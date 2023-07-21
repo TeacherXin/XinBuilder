@@ -202,6 +202,19 @@ const getItems = (type) => {
       })
       break;
     }
+    case 'XinList': {
+      items.push({
+        label: '设置动作',
+        key: 'setAction',
+        children: [
+          {
+            label: 'onLoad事件',
+            key: 'setLoad'
+          }
+        ]
+      })
+      break;
+    }
   }
   return items
 }
