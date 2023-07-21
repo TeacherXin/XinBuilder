@@ -19,7 +19,9 @@ import
   LinkedinOutlined,
   MinusSquareOutlined,
   UserOutlined,
-  ClusterOutlined
+  ClusterOutlined,
+  UnorderedListOutlined,
+  SmallDashOutlined
 } from '@ant-design/icons';
 
 const componentIconMap = {
@@ -43,7 +45,9 @@ const componentIconMap = {
   XinDiv: MinusSquareOutlined,
   XinCarousel: CreditCardOutlined,
   XinAvatar: UserOutlined,
-  XinTabs: ClusterOutlined
+  XinTabs: ClusterOutlined,
+  XinList: UnorderedListOutlined,
+  XinListItem: SmallDashOutlined
 }
 
 const componentTextMap = {
@@ -67,7 +71,9 @@ const componentTextMap = {
   XinDiv: '空div',
   XinCarousel: '轮播图',
   XinAvatar: '头像',
-  XinTabs: '多页签'
+  XinTabs: '多页签',
+  XinList: '列表',
+  XinListItem: '列表项'
 }
 
 export {

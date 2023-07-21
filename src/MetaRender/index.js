@@ -63,7 +63,7 @@ export default function MetaRender() {
   }
 
   return (
-    <div style={{background:'#f2f2f2',width:'100%',height:'100%'}}>
+    <div>
       {contextHolder}
       {(Object.keys(attributeMap)).map(item => {
         return getComponent(attributeMap[item])

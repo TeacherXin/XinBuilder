@@ -19,6 +19,8 @@ import XinDiv from './XinDiv'
 import XinCarousel from './XinCarousel'
 import XinAvatar from './XinAvatar'
 import XinTabs from './XinTabs'
+import XinList from './XinList'
+import XinListItem from './XinListItem'
 
 export {
   XinButton,
@@ -41,5 +43,7 @@ export {
   XinDiv,
   XinCarousel,
   XinAvatar,
-  XinTabs
+  XinTabs,
+  XinList,
+  XinListItem
 }

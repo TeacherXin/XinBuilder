@@ -66,7 +66,8 @@ const attributeValueMap = {
   centered: '标签居中',
   tabBarGutter: '页签间隙',
   tabPosition: '页签位置',
-  tabsType: '页签样式'
+  tabsType: '页签样式',
+  description: '描述'
 }
 
 

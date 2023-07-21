@@ -59,7 +59,8 @@ export default function RenderCom(props) {
     XinCard: [300,400],
     XinFlex: [400,400],
     XinCarousel: [600,200],
-    XinTabs: [400,400]
+    XinTabs: [400,400],
+    XinList: [600,600]
   }
 
   
@@ -154,7 +155,7 @@ export default function RenderCom(props) {
         parentNode = attributeMap[propName]
       }
     }
-    if(parentNode && parentNode.childList){
+    if(parentNode && (Object.values(parentNode.childList || [])).filter(item => item.groupType === 'container').length > 0){
       const parentNodeList = []
       countParentNode(parentNode,parentNodeList);
       if(parentNodeList.length > 1){

@@ -18,7 +18,9 @@ const COMADAPTER = {
   XinDiv: ['visible'],
   XinCarousel: ['visible','autoplay'],
   XinAvatar: ['visible','size','iconType','shape','src'],
-  XinTabs: ['activeKey','animated','centered','size','tabPosition','tabBarGutter','tabsType']
+  XinTabs: ['activeKey','animated','centered','size','tabPosition','tabBarGutter','tabsType'],
+  XinListItem: ['title','description'],
+  XinList: ['size','bordered','attributeValue']
 }
 
 export {
