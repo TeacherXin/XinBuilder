@@ -20,7 +20,8 @@ const COMADAPTER = {
   XinAvatar: ['visible','size','iconType','shape','src'],
   XinTabs: ['activeKey','animated','centered','size','tabPosition','tabBarGutter','tabsType'],
   XinListItem: ['title','description'],
-  XinList: ['size','bordered','attributeValue']
+  XinList: ['size','bordered','attributeValue'],
+  XinUpload: ['attributeValue']
 }
 
 export {

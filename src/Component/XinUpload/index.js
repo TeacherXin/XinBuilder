@@ -1,6 +1,9 @@
 import React, { memo, useState, useEffect } from "react";
 import { Upload as AntdUpload, message } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import _ from 'lodash';
+import Store from '../../Store';
+
 
 const getBase64 = (img,callback) => {
   const reader = new FileReader();
@@ -26,12 +29,20 @@ export default function XinUpload(props) {
   const [loading, setLoading] = useState(false);
   const [img, setImg] = useState("");
   const [style,setStyle] = useState({})
-  const { styleCss } = props
+  const { styleCss, comId} = props
+  const attributeMap = _.cloneDeep(Store.getState().attributeMap)
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','') || '{"minWidth":"50px","minHeight":"50px"}';
     let style = JSON.parse(styleStr)
     setStyle(style)
   },[styleCss])
+
+  useEffect(() => {
+    const node = window.findNodeByComId(comId,attributeMap);
+    if(node.attributeValue){
+      setImg(`http://${window.location.hostname}:3003/images/` + node.attributeValue);
+    }
+  },[])
 
   const uploadButton = (
       <div>
@@ -48,6 +59,9 @@ export default function XinUpload(props) {
     if (info.file.status === "done") {
       getBase64(info.file.originFileObj, () => {
         setImg(`http://${window.location.hostname}:3003/images/` + info.file.response.filename);
+        const node = window.findNodeByComId(comId,attributeMap);
+        node.attributeValue = info.file.response.filename;
+        Store.dispatch({type:'change',attributeMap})
       });
     }
   };
