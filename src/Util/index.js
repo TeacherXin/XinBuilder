@@ -57,7 +57,14 @@ const setAttributeProxy = (ctx) => {
 }
 
 window.xinComEvent.copyNode = (node) => {
-  return _.cloneDeep(node)
+  const newNode =  _.cloneDeep(node);
+  newNode.comId = newNode.comType + Math.random();
+  if(newNode.childList){
+    Object.keys(newNode.childList).forEach(propName => {
+      newNode[propName] = window.xinComEvent.copyNode(newNode.childList[propName])
+    })
+  }
+  return newNode;
 }
 
 window.xinComEvent.addNode = (node,top,left) => {

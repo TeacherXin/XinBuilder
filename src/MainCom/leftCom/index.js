@@ -31,7 +31,6 @@ export default function LeftCom(props) {
         code: item.code
       })
     }
-    console.log(defineComList);
     setDefineComList(defineComList)
   }
 
