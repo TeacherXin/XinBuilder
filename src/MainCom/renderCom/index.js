@@ -128,15 +128,11 @@ export default function RenderCom(props) {
     if(node){
       node.style = style
     }else{
-      let newCom = {style,comId: NowCom.name + e.clientX,comType: NowCom.name,groupType: NowCom.groupType}
+      let newCom = {style,comId: NowCom.name + e.clientX,comType: NowCom.name,groupType: NowCom.groupType, component: NowCom.component}
       setNewCom(newCom)
       let flag = dragToContainer(e.clientX,e.clientY,newCom);
       if(flag){
         return;
-      }
-      if(newCom.comType === 'defineCom'){
-        setActionId(newCom.comId)
-        setShowAction(true)
       }
       attributeMap[newCom.comId] = newCom
     }
@@ -233,12 +229,6 @@ export default function RenderCom(props) {
     return () => {
       if(flag){
         let node = window.findNodeByComId(actionId,attributeMap)
-        if(node.comType === 'defineCom'){
-          node.defineComJs = actionJs?.[actionName];
-          Store.dispatch({type: 'change',attributeMap});
-          setShowAction(false);
-          return;
-        }
         if(!node.actionJs){
           node.actionJs = {}
         }
@@ -336,8 +326,8 @@ export default function RenderCom(props) {
 
   const getComponent = (item,isChild) => {
     let Com = myComponent[item.comType];
-    if(!Com && item.defineComJs){
-      let fun = new Function(item.defineComJs)
+    if(!Com && item.groupType === 'defineCom'){
+      let fun = new Function('return ' + item.component)
       Com = fun();
     }
     if(!Com){

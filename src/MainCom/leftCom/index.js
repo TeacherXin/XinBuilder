@@ -5,6 +5,7 @@ import LeftList from '../leftList'
 import { Collapse, Tabs } from 'antd';
 import {componentTextMap, componentIconMap} from './Util/iconList'
 import {  RightOutlined,LeftOutlined} from '@ant-design/icons'
+import axios from 'axios'
 
 const { Panel } = Collapse;
 
@@ -15,6 +16,24 @@ export default function LeftCom(props) {
   const [controlList,setControlList] = useState([])
   const [showDataList,setShowDataList] = useState([])
   const [showLeftPanel,setShowLeftPanel] = useState(true)
+  const [defineComList, setDefineComList] = useState([])
+
+  const getDefineComList = async () => {
+    const res = await axios.get(`http://${window.location.hostname}:3000/api/getpackage`)
+    let packageList = res.data.packageList;
+    const defineComList = []
+    for(let i=0;i<packageList.length;i++){
+      const item = packageList[i];
+      const res = await axios.get(`http://${window.location.hostname}:3000/api/getcomFile?fileDirName=${item.fileDirName}`);
+      defineComList.push({
+        Com: res.data.fileConent.fileConent,
+        name: item.name,
+        code: item.code
+      })
+    }
+    console.log(defineComList);
+    setDefineComList(defineComList)
+  }
 
   useEffect(() => {
     Object.keys(myComponent).forEach(item => {
@@ -29,6 +48,10 @@ export default function LeftCom(props) {
     setContanerList([...containerList])
     setControlList([...controlList])
     setShowDataList([...showDataList])
+  },[])
+
+  useEffect(() => {
+    getDefineComList()
   },[])
 
   const onDragStart = (Com,cName,groupType) =>{
@@ -74,9 +97,13 @@ export default function LeftCom(props) {
           })}
         </Panel>
         <Panel header={<span style={{fontWeight:"bold"}}>自定义组件</span>} key="4">
-          <div onDragStart={onDragStart('defineCom','defineCom','defineCom')} className='componentItem'>
-            <div style={{display: 'inline-block'}} draggable>{'defineCom'}</div>
-          </div>
+          {defineComList.map(item => {
+            const Com = item.Com;
+            const Icon = componentIconMap['XinCard']
+            return  <div onDragStart={onDragStart(Com,item.name,'defineCom')} key={'item'} className='componentItem'>
+              <div style={{display: 'inline-block'}} draggable><Icon style={{marginRight:'10px'}} /><span>{item.name}</span></div>
+            </div>
+          })}
         </Panel>
       </Collapse>
       },
