@@ -60,9 +60,12 @@ window.xinComEvent.copyNode = (node) => {
   const newNode =  _.cloneDeep(node);
   newNode.comId = newNode.comType + Math.random();
   if(newNode.childList){
+    const childList = {}
     Object.keys(newNode.childList).forEach(propName => {
-      newNode[propName] = window.xinComEvent.copyNode(newNode.childList[propName])
+      const node = window.xinComEvent.copyNode(newNode.childList[propName]);
+      childList[node.comId] = node
     })
+    newNode.childList = childList
   }
   return newNode;
 }
