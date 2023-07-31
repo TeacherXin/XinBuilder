@@ -285,10 +285,21 @@ export default function RenderCom(props) {
   }
 
   //设置各个组件所展示的属性
-  const showRightPanel = (code,id,type,actionName) => {
+  const showRightPanel = async (code,id,type,actionName) => {
       //属性面板
     if(type === 'attribute'){
-      changeRightPanelById(id,COMADAPTER[code],'attribute');
+      if(COMADAPTER[code]){
+        changeRightPanelById(id,COMADAPTER[code],'attribute');
+      }else{
+        const fileDirNameRes = await axios.get(`http://${window.location.hostname}:3000/api/getpackage?code=${code}`)
+        const fileDirName = fileDirNameRes.data.packageList.fileDirName
+        const res = await axios.get(`http://${window.location.hostname}:3000/api/getpackageConfig?fileDirName=${fileDirName}`);
+        const list = res.data.packageConfig;
+        const packageList = list.map(item => {
+          return item.packageConfig.attributeName
+        })
+        changeRightPanelById(id,packageList,'attribute');
+      }
     //动作弹窗
     }else if(type === 'action'){
       changeRightPanelById(id,['attributeValue'],'action',actionName);

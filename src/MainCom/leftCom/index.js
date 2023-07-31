@@ -99,7 +99,7 @@ export default function LeftCom(props) {
           {defineComList.map(item => {
             const Com = item.Com;
             const Icon = componentIconMap['XinCard']
-            return  <div onDragStart={onDragStart(Com,item.name,'defineCom')} key={'item'} className='componentItem'>
+            return  <div onDragStart={onDragStart(Com,item.code,'defineCom')} key={'item'} className='componentItem'>
               <div style={{display: 'inline-block'}} draggable><Icon style={{marginRight:'10px'}} /><span>{item.name}</span></div>
             </div>
           })}

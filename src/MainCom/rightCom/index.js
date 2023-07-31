@@ -421,7 +421,7 @@ export default function RightCom(props) {
         {
           (rightPanel[comId] || []).map((item,index) => {
             return <div key={index} className='attributeItem'>
-              <label>{attributeValueMap[item]}</label>
+              <label>{attributeValueMap[item] || item}</label>
               <div className='attributeItemValue'>
                 {getAttributeValueCom(item,index)}
               </div>
