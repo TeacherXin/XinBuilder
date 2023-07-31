@@ -5,7 +5,7 @@ import {Avatar,message} from 'antd';
 export default function XinAvatar(props) {
   const [style,setStyle] = useState({})
   const [messageApi, contextHolder] = message.useMessage();
-  const {size,iconType,shape,src,styleCss} = props
+  const {size,iconType,shape,src,styleCss,actionJs} = props
 
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','') || '{}';
@@ -29,12 +29,16 @@ export default function XinAvatar(props) {
     setStyle(style)
   },[styleCss])
 
+  const onClick = (e) => {
+    let clickFun = new Function(actionJs?.click);
+    clickFun(e)
+  }
 
   let Ctor = require('@ant-design/icons')[iconType] ? require('@ant-design/icons')[iconType] : require('@ant-design/icons')['UserOutlined'];
   return (
     <div>
       {contextHolder}
-      <Avatar style={style} shape={shape} size={size} icon={<Ctor />} src={src} />
+      <Avatar onClick={onClick} style={style} shape={shape} size={size} icon={<Ctor />} src={src} />
     </div>
   )
 }
