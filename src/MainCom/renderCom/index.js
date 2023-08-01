@@ -186,6 +186,8 @@ export default function RenderCom(props) {
           });
         }
       }
+    }else if(node.groupType === 'container'){
+      list.push(node)
     }
   }
 

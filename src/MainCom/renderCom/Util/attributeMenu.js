@@ -15,7 +15,7 @@ const COMADAPTER = {
   XinTable: ['setColumns','setTableData','bordered','showHeader','size'],
   XinFlex: ['visible','attributeValue'],
   XinLink: ['visible','attributeValue','pageUrl'],
-  XinDiv: ['visible'],
+  XinDiv: ['visible','src'],
   XinCarousel: ['visible','autoplay'],
   XinAvatar: ['visible','size','iconType','shape','src'],
   XinTabs: ['activeKey','animated','centered','size','tabPosition','tabBarGutter','tabsType'],

@@ -41,8 +41,8 @@ export default function MetaRender() {
 
   const getComponent = (item) => {
     let Com = myComponent[item.comType];
-    if(!Com && item.defineComJs){
-      let fun = new Function(item.defineComJs)
+    if(!Com && item.groupType === 'defineCom'){
+      let fun = new Function('return ' + item.component)
       Com = fun();
     }
     if(!Com){

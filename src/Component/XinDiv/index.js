@@ -4,7 +4,7 @@ import { message } from 'antd';
 export default function XinDiv(props) {
 
   const [style,setStyle] = useState({})
-  const { styleCss,visible,actionJs } = props;
+  const { styleCss,visible,actionJs, src } = props;
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export default function XinDiv(props) {
   return (
     <div style={{display:visible?'none' : 'block'}}>
       {contextHolder}
-      <div onClick={onClick} style={style}>
+      <div onClick={onClick} style={{...style, backgroundImage: `url(${src})`, backgroundSize:'cover'}}>
 
       </div>
     </div>
