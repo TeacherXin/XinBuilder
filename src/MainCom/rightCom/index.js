@@ -5,70 +5,10 @@ import _ from 'lodash'
 import subscribeHook from '../../DefineHook/subscribe';
 import SetColumns from '../../Modal/setColumns';
 import SetTableData from '../../Modal/setTableData';
+import SetIcon from '../../Modal/setIcon';
 import { Select, Input, Switch, Button } from 'antd';
 import {RightOutlined, LeftOutlined} from '@ant-design/icons'
-
-const attributeValueMap = {
-  attributeValue: '属性值',
-  size: '大小',
-  disabled: '是否禁用',
-  addonBefore: '前置标签',
-  addonAfter: '后置标签',
-  placeholder: '默认提示',
-  url: 'URL地址',
-  openType: '新页签打开',
-  listItemNum: '子元素',
-  title: '标题',
-  buttonType: '按钮类型',
-  size: '组件大小',
-  danger: '危险按钮',
-  ghost: '幽灵按钮',
-  prefix: '前缀',
-  suffix: '后缀',
-  allowClear: '允许清除',
-  showCount: '展示字数',
-  checked: '是否选中',
-  label: '标签',
-  layout: '布局',
-  required: '必填',
-  requiredMessage: '必填提示',
-  colon: '标题冒号',
-  labelAlign: '标题对齐方式',
-  iconType: '图标类型',
-  twoToneColor: '主题色',
-  rotate: '旋转角度',
-  mode: '菜单类型',
-  visible: '隐藏',
-  picker: '日期类型',
-  showTime: '展示时间',
-  dateFormat: '日期格式',
-  attributeValueNumber: '属性值',
-  max: '最大值',
-  min: '最小值',
-  step: '步数大小',
-  optionType: '单选类型',
-  buttonStyle: '按钮风格',
-  selectedID: '选中节点ID',
-  allowHalf: '允许半选',
-  count: 'star总数',
-  disabled: '禁用',
-  bordered: '边框',
-  setColumns: '表头字段',
-  setTableData: '表格内容',
-  showHeader: '禁用表头',
-  selectedKey: '选中菜单key',
-  pageUrl: '页面ID',
-  autoplay: '自动切换',
-  src: '资源地址',
-  shape: '形状',
-  activeKey: '当前key',
-  animated: '开启动画',
-  centered: '标签居中',
-  tabBarGutter: '页签间隙',
-  tabPosition: '页签位置',
-  tabsType: '页签样式',
-  description: '描述'
-}
+import attributeValueMap from './Util/attributeValueMap';
 
 
 export default function RightCom(props) {
@@ -76,6 +16,7 @@ export default function RightCom(props) {
   const {rightPanel,comId} = props;
   const [showSetColumns,setShowSetColumns] = useState(false)
   const [showSetTableData,setShowTableData] = useState(false)
+  const [showIcon, setShowIcon] = useState(false)
   const attributeMapRight = _.cloneDeep(Store.getState().attributeMap)
   const [update,setUpdate] = useState({})
   const [showRightPanel,setShowRightPanel] = useState(true)
@@ -370,7 +311,10 @@ export default function RightCom(props) {
         return <Button onClick={() => {setShowSetColumns(true)}} style={{width:'130px',position: 'relative',bottom: '5px',left:'20px'}}>设置表头</Button>
       }
       case 'setTableData': {
-        return <Button onClick={() => {setShowTableData(true)}} style={{width:'130px',position: 'relative',bottom: '5px',left:'20px'}}>设置内容</Button>
+        return <Button onClick={() => {setShowTableData(true)}} style={{width:'130px',position: 'relative',bottom: '5px',left:'0px'}}>设置内容</Button>
+      }
+      case 'setIcon': {
+        return <Button onClick={() => {setShowIcon(true)}} style={{width:'130px',position: 'relative',bottom: '5px',left:'10px'}}>选择图标</Button>
       }
       case 'attributeValueNumber': {
         return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={window.findNodeByComId(comId,attributeMapRight)?.[item] || ''}></Input>
@@ -414,6 +358,7 @@ export default function RightCom(props) {
     showRightPanel? <div className='rightCom'>
       <SetColumns comId={comId} setShowSetColumns={setShowSetColumns} showSetColumns={showSetColumns} />
       <SetTableData comId={comId} setShowTableData={setShowTableData} showSetTableData={showSetTableData} />
+      <SetIcon comId={comId} showIcon={showIcon} setShowIcon={setShowIcon} />
       <div>
         <RightOutlined onClick={() => {setShowRightPanel(false)}} style={{color:'rgb(192, 190, 230)',cursor: 'pointer',marginRight:'10px'}} />
         <div style={{height:'30px'}}><span style={{fontWeight:'bold'}}>{comId}</span></div>

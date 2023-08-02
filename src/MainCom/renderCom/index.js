@@ -13,6 +13,7 @@ import { getItems } from './Util/actionMenu';
 import {COMADAPTER} from './Util/attributeMenu';
 import { CONTAINERCOM } from './Util/globalData'
 import SelectContainer from './Util/selectContainer.js' 
+import SetIcon from '../../Modal/setIcon';
 
 export default function RenderCom(props) {
 
