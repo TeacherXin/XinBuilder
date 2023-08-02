@@ -1,4 +1,3 @@
-/* eslint-disable*/ 
 import {React, useEffect, useState} from 'react'
 import EditAction from '../../Modal/editAction'
 import EditStyle from '../../Modal/editStyle';
@@ -14,7 +13,6 @@ import { getItems } from './Util/actionMenu';
 import {COMADAPTER} from './Util/attributeMenu';
 import { CONTAINERCOM } from './Util/globalData'
 import SelectContainer from './Util/selectContainer.js' 
-import SetIcon from '../../Modal/setIcon';
 
 export default function RenderCom(props) {
 
@@ -32,11 +30,6 @@ export default function RenderCom(props) {
   const [styleId, setStyleId] = useState('')
 
   const [actionName, setActionName] = useState('click')
-  
-  //全选节点的父节点的宽度
-  const [groupWidth,setGroupWidth] = useState()
-  //全选节点的父节点的高度
-  const [groupHeight,setGroupHeight] = useState()
 
   //画布区选中多个节点的框需要的属性
   const [mouseDownLeft,setMouseDownLeft] = useState()
@@ -49,6 +42,7 @@ export default function RenderCom(props) {
   const [containerOptions, setContainerOptions] = useState([])
   const [newCom,setNewCom] = useState({})
   
+  // eslint-disable-next-line no-unused-vars
   const [update,setUpdate] = useState({})
 
   const state = useLocation().state;
@@ -69,7 +63,7 @@ export default function RenderCom(props) {
   let attributeMap = _.cloneDeep(Store.getState().attributeMap);
   const { NowCom , changeRightPanel } = props
   let nowComId = ''
-  let startLeft,startTop,endLeft,endTop,itemLeft,itemTop,itemWidth,itemHeight,clientWidth,clientHeight;
+  let startLeft,startTop,endLeft,endTop,itemLeft,itemTop;
 
   subscribeHook(() => {
     setUpdate({})
@@ -82,6 +76,7 @@ export default function RenderCom(props) {
         pageId: state.pageId
       })
       .then(res => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         attributeMap = res.data.data?.pageJson || {};
         Store.dispatch({type:'change',attributeMap})
       })
@@ -201,8 +196,6 @@ export default function RenderCom(props) {
     startTop = e.clientY;
     itemLeft = e.target.offsetLeft;
     itemTop = e.target.offsetTop;
-    itemWidth = e.target.offsetWidth;
-    itemHeight = e.target.offsetHeight;
   }
 
   const onDragEnter = (e) => {
@@ -291,8 +284,6 @@ export default function RenderCom(props) {
   const mouseUp = (e) => {
     setMousedownFlag(false)
     setShowMouse(false)
-    setGroupWidth(mouseUpLeft-mouseDownLeft);
-    setGroupHeight(mouseUpTop-mouseDownTop);
   }
 
   //设置各个组件所展示的属性
@@ -342,6 +333,9 @@ export default function RenderCom(props) {
           showRightPanel(code,id,'action','load');
           break;
         }
+        default : {
+          break;
+        }
       }
     }
   }
@@ -349,6 +343,7 @@ export default function RenderCom(props) {
   const getComponent = (item,isChild) => {
     let Com = myComponent[item.comType];
     if(!Com && item.groupType === 'defineCom'){
+      // eslint-disable-next-line no-new-func
       let fun = new Function('return ' + item.component)
       Com = fun();
     }
