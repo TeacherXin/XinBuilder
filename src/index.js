@@ -8,7 +8,7 @@ const PageList = lazy(() => import('./PageList'))
 const App = lazy(() => import('./App'))
 const MetaRender = lazy(() => import('./MetaRender'))
 const DataBase = lazy(() => import('./DataBase'))
-
+const Login = lazy(() => import('./LgonIn'))
 window.useState = useState;
 window.useEffect = useEffect;
 window.useRef = useRef;
@@ -22,6 +22,7 @@ root.render(
       <Route path={'/home'} element={<App />}></Route>
       <Route path={'/metaRender'} element={<MetaRender />}></Route>
       <Route path={'/dataBase'} element={<DataBase />}></Route>
+      <Route path={'/login'} element={<Login />}></Route>
     </Routes>
     </Suspense>
   </Router>

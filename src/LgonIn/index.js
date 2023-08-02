@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import './index.css'
 import { Button, Checkbox, Card, Form, Input, message } from 'antd';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 
 const tabList = [
@@ -15,6 +16,7 @@ const tabList = [
 ];
 
 export default function Lgoin(props) {
+  const navigate  = useNavigate();
   const [activeTabKey1, setActiveTabKey1] = useState('tab1');
   const [username,setUserName] = useState('')
   const [password,setPassword] = useState('')
@@ -26,9 +28,9 @@ export default function Lgoin(props) {
       password
     }).then(res => {
       if(res.data.data){
-        props.setLoginStatu(true);
         messageApi.success('登录成功');
         localStorage.setItem('user',JSON.stringify({username: res.data.data.username,password:res.data.data.password}))
+        navigate('/');
       }else{
         messageApi.error('用户名密码不正确')
       }
@@ -86,21 +88,27 @@ export default function Lgoin(props) {
     setActiveTabKey1(key);
   };
   return (
-    <div className='login'>
-      {contextHolder}
-      <div className='leftCard'>
-
+    <div className='mainLogin'>
+      <div className='header'>
+        <div className='title'>XinBulder</div>
+        <div className='discription'>轻量级的低代码平台</div>
       </div>
-      <div className='rightForm'>
-        <Card
-          className='card'
-          tabList={tabList}
-          activeTabKey={activeTabKey1}
-          onTabChange={onTab1Change}
-          headStyle={{height:'80px'}}
-        >
-          {contentList[activeTabKey1]}
-        </Card>
+      {contextHolder}
+      <div className='login'>
+        <div className='leftCard'>
+
+        </div>
+        <div className='rightForm'>
+          <Card
+            className='card'
+            tabList={tabList}
+            activeTabKey={activeTabKey1}
+            onTabChange={onTab1Change}
+            headStyle={{height:'80px'}}
+          >
+            {contentList[activeTabKey1]}
+          </Card>
+        </div>
       </div>
     </div>
   )

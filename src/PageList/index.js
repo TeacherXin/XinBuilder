@@ -5,7 +5,6 @@ import './index.css'
 import axios from 'axios';
 import {DeleteOutlined,DatabaseOutlined} from '@ant-design/icons';
 import Store from '../Store';
-import Lgoin from '../LgonIn';
 const { Search } = Input
 
 export default function PageList() {
@@ -16,7 +15,6 @@ export default function PageList() {
   const [isModalOpen,setIsModalOpen] = useState(false)
   const [pageName,setPageName] = useState('')
   const [searchValue,setSearchValue] = useState('')
-  const [loginStatu,setLoginStatu] = useState(false)
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -26,12 +24,13 @@ export default function PageList() {
         password: user.password
       }).then(res => {
         if(res.data.data){
-          setLoginStatu(true)
           getPageList();
+        }else{
+          navigate('/login');
         }
       })
     }
-  },[loginStatu])
+  },[])
 
 
   const onSearch = (value) => {
@@ -68,12 +67,8 @@ export default function PageList() {
   }
 
   const addNewPage = () => {
-    if(loginStatu){
-      setIsModalOpen(true);
-      setPageName('')
-    }else{
-      messageApi.warning('请先登录')
-    }
+    setIsModalOpen(true);
+    setPageName('')
   }
   
   const handleOk = () => {
@@ -138,7 +133,7 @@ export default function PageList() {
 
   const refeshLogin = () => {
     localStorage.removeItem('user');
-    setLoginStatu(false)
+    navigate('/login')
   }
 
   const toXinBuilderDoc = () => {
@@ -175,7 +170,7 @@ export default function PageList() {
           </div>
         </div>
         <Divider />
-        {loginStatu ? <div className='PageBody'>
+        <div className='PageBody'>
           <Row style={{width:'100%'}} gutter={16}>
             {
               (getSearchList(pageList) || []).map(item => {
@@ -194,7 +189,7 @@ export default function PageList() {
               })
             }
           </Row>
-        </div> : <Lgoin setLoginStatu={setLoginStatu} />}
+        </div>
       </div>
       <Modal title="创建页面" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
           <Input addonBefore="页面名称" value={pageName} onChange={changePageName} />

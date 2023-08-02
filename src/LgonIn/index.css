@@ -2,17 +2,44 @@
   display: flex;
   justify-content: space-between;
 }
-.login .leftCard {
-  width: 500px;
+.mainLogin .leftCard {
+  width: 1000px;
   height: 480px;
   background-image: url('./Login.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  background-position:center;
+  background-position:bottom;
+  margin-top: 20px;
+  margin-left: 20px;
 
 }
-.login .rightForm .card {
+.mainLogin .rightForm .card {
   width: 350px;
   margin-right: 30px;
   padding: 10px;
+  margin-top: 20px;
+}
+
+.mainLogin .header {
+  width: 100%;
+  height:70px;
+  box-shadow: 0 0 4px 4px #e2e2e2;
+}
+
+.mainLogin .title{
+  line-height: 70px;
+  position: absolute;
+  left: 100px;
+  font-size: 36px;
+  color: #837fec;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-style: italic
+}
+
+.mainLogin .discription{
+  line-height: 70px;
+  position: absolute;
+  left: 300px;
+  color: rgb(192, 190, 230);
+  font-size: 18px;
 }
