@@ -1,3 +1,4 @@
+/* eslint-disable*/ 
 import {React, useEffect, useState} from 'react'
 import EditAction from '../../Modal/editAction'
 import EditStyle from '../../Modal/editStyle';
@@ -101,6 +102,7 @@ export default function RenderCom(props) {
   useEffect(() => {
     setActionJs(window.findNodeByComId(actionId,attributeMap)?.actionJs)
     setStyleCss(window.findNodeByComId(styleId,attributeMap)?.styleCss)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[showAction,showStyle])
 
   const onDrop = (e) => {
@@ -254,10 +256,16 @@ export default function RenderCom(props) {
     }
   }
 
-  const changeActionJs = (value) => {
-    const actionJs = {};
-    actionJs[actionName] = value
-    setActionJs(actionJs)
+  const changeActionJs = (delay) => {
+    let timer = null;
+    return (value) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        const actionJs = {};
+        actionJs[actionName] = value
+        setActionJs(actionJs)
+      }, delay);
+    }
   }
 
   const changeStyleCss = (e) => {
@@ -373,7 +381,7 @@ export default function RenderCom(props) {
         return getComponent(attributeMap[item])
       })}
       <div style={{ display:(showMouse?'block':'none'),border:'1px solid blue',width: Math.abs(mouseUpLeft-mouseDownLeft)+'px',height:Math.abs(mouseUpTop-mouseDownTop)+'px',position:'absolute',left:mouseDownLeft<mouseUpLeft?mouseDownLeft:mouseUpLeft+'px',top:mouseDownTop<mouseUpTop?mouseDownTop:mouseUpTop+'px'}}></div>
-      <EditAction actionName={actionName} showAction={showAction} changeActionJs={changeActionJs} actionJs={actionJs} submitAction={submitAction} />
+      <EditAction actionName={actionName} showAction={showAction} changeActionJs={changeActionJs(800)} actionJs={actionJs} submitAction={submitAction} />
       <EditStyle showStyle={showStyle} changeStyleCss={changeStyleCss} styleCss={styleCss} submitStyle={submitStyle} />
       <SelectContainer newCom={newCom} containerOptions={containerOptions} setShowSelectContainer={setShowSelectContainer} showSelectContainer={showSelectContainer}/>
       <div onMouseUp={mouseUp} onMouseMove={mouseMove} onMouseDown={mouseDown} style={{width:'60%',height:'100%',position:'absolute',zIndex:'10'}}></div>
