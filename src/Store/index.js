@@ -19,9 +19,18 @@ const setValue = (attributeMap,id,value) => {
   }
 }
 
+const setAttributeStack = (attributeMap) => {
+  let attributeStack = window.attributeStack || [];
+  attributeStack.push(attributeMap);
+  window.attributeStack = attributeStack;
+  window.stackIndex = window.stackIndex ?  window.stackIndex + 1 : attributeStack.length;
+}
+
 function attributeMapReducer(state = initialState, action) {
   if (action.type === 'change') {
-
+    if(!action.lineFlag){
+      setAttributeStack(action.attributeMap)
+    }
     if(action.comId){
       let attributeMap = _.cloneDeep(state.attributeMap);
       setValue(attributeMap,action.comId,action.attributeMap)
@@ -44,4 +53,10 @@ function attributeMapReducer(state = initialState, action) {
   return state
 }
 
-export default configureStore({ reducer: attributeMapReducer });
+export default configureStore({ 
+  reducer: attributeMapReducer,
+  middleware:getDefaultMiddleware => getDefaultMiddleware({
+    //关闭redux序列化检测
+    serializableCheck:false
+  })
+});

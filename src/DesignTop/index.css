@@ -22,3 +22,21 @@
   color: black;
   font-style: italic;
 }
+
+.designTop .topIcon{
+  float: right;
+  margin-top: 25px;
+  font-size: 20px;
+  margin-right: 20px;
+  color: gray;
+  cursor:not-allowed
+}
+
+.designTop .topIconActive{
+  float: right;
+  margin-top: 25px;
+  font-size: 20px;
+  margin-right: 20px;
+  color: blue;
+  cursor:pointer
+}

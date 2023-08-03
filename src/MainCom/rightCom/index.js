@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import './index.css'
 import Store from '../../Store';
 import _ from 'lodash'
@@ -18,6 +18,7 @@ export default function RightCom(props) {
   const [showSetTableData,setShowTableData] = useState(false)
   const [showIcon, setShowIcon] = useState(false)
   const attributeMapRight = _.cloneDeep(Store.getState().attributeMap)
+  // eslint-disable-next-line no-unused-vars
   const [update,setUpdate] = useState({})
   const [showRightPanel,setShowRightPanel] = useState(true)
 
@@ -314,7 +315,7 @@ export default function RightCom(props) {
         return <Button onClick={() => {setShowTableData(true)}} style={{width:'130px',position: 'relative',bottom: '5px',left:'0px'}}>设置内容</Button>
       }
       case 'setIcon': {
-        return <Button onClick={() => {setShowIcon(true)}} style={{width:'130px',position: 'relative',bottom: '5px',left:'10px'}}>选择图标</Button>
+        return <Button onClick={() => {setShowIcon(true)}} style={{width:'120px',position: 'relative',bottom: '5px'}}>选择图标</Button>
       }
       case 'attributeValueNumber': {
         return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={window.findNodeByComId(comId,attributeMapRight)?.[item] || ''}></Input>
