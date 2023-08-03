@@ -67,6 +67,7 @@ export default function DesignTop(props) {
       <span style={{color:'rgb(192, 190, 230)',position:'relative',left:'100px',fontSize:'28px',top:'15px',fontStyle: 'italic',fontWeight:'bold'}}>XinBuilder</span>
       <Button style={{width: 80,height:30}} type='primary' ghost onClick={savePageInfo}>保存</Button>
       <Button style={{width: 80,height:30}} type='primary' ghost onClick={toMetaRender}>预览</Button>
+      <Button style={{width: 80,height:30}} type='primary' ghost onClick={() => {navigate('/')}}>返回</Button>
       <Popover content={'重做'}>
         <RedoOutlined onClick={redOutlined} className='topIcon'/>
       </Popover>
