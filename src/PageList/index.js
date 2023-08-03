@@ -32,6 +32,11 @@ export default function PageList() {
     }
   },[])
 
+  useEffect(() => {
+    window.stackIndex = 0;
+    window.attributeStack = null;
+  },[])
+
 
   const onSearch = (value) => {
     setSearchValue(value)
