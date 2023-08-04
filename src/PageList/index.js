@@ -3,7 +3,7 @@ import { Card, Col, Row, Button,Input, message, Modal,Divider  } from 'antd';
 import { useNavigate } from "react-router-dom";
 import './index.css'
 import axios from 'axios';
-import {DeleteOutlined,DatabaseOutlined} from '@ant-design/icons';
+import {DeleteOutlined,DatabaseOutlined,FormOutlined} from '@ant-design/icons';
 import Store from '../Store';
 const { Search } = Input
 
@@ -145,8 +145,12 @@ export default function PageList() {
     window.open('http://localhost:9000/#/Xinbuilder/createPage')
   }
 
+  const toXinBuilderCom = () => {
+    window.open('http://localhost:3000/#/')
+  }
+
   const toDataBase = () => {
-    navigate('/dataBase');
+    window.open('http://localhost:3001/#/dataBase')
   }
 
   return (
@@ -158,6 +162,9 @@ export default function PageList() {
         <Divider />
         <Button onClick={toDataBase} size='large' type='link'>构建数据库</Button>
         <DatabaseOutlined />
+        <Divider />
+        <Button onClick={toXinBuilderCom} size='large' type='link'>自定义组件</Button>
+        <FormOutlined />
         <Divider />
       </div>
       <div className='pageRight'>
