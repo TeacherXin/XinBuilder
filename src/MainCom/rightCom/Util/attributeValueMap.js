@@ -58,7 +58,8 @@ const attributeValueMap = {
   tabPosition: '页签位置',
   tabsType: '页签样式',
   description: '描述',
-  setIcon: '选择图标'
+  setIcon: '选择图标',
+  inputType: '类型'
 }
 
 export default attributeValueMap

@@ -8,7 +8,8 @@ export default function XinInput(props) {
   const [value,setValue] = useState('');
   const [style,setSyle] = useState({})
   const [messageApi, contextHolder] = message.useMessage();
-  const {attributeValue,styleCss,actionJs,addonBefore,addonAfter,placeholder,size,prefix,suffix,allowClear,showCount,comId,visible} = props
+  const [InputComponent, setInputComponent] = useState(Input)
+  const {attributeValue,styleCss,actionJs,addonBefore,addonAfter,placeholder,size,prefix,suffix,allowClear,showCount,comId,visible,inputType} = props
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
 
   useEffect(() => {
@@ -33,6 +34,18 @@ export default function XinInput(props) {
     setSyle(style)
   },[styleCss])
 
+  useEffect(() => {
+    if(props.inputType === 'text'){
+      setInputComponent(Input)
+    }else if(props.inputType === 'Search'){
+      setInputComponent(Input.Search)
+    }else if(props.inputType === 'Password'){
+      setInputComponent(Input.Password)
+    }else if(props.inputType === 'TextArea'){
+      setInputComponent(Input.TextArea)
+    }
+  },[props.inputType])
+
   const onChange = (e) =>{
     setValue(e.target.value);
     window.findNodeByComId(comId,attributeMap).attributeValue = e.target.value;
@@ -54,7 +67,7 @@ export default function XinInput(props) {
   return (
     <div style={{display: visible ? 'none':'block'}} className='componentInput'>
       {contextHolder}
-      <Input
+      <InputComponent
         size={size}
         prefix={prefix}
         suffix={suffix}

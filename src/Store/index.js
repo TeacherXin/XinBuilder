@@ -20,6 +20,9 @@ const setValue = (attributeMap,id,value) => {
 }
 
 const setAttributeStack = (attributeMap) => {
+  if(Object.keys(attributeMap) == 0) {
+    return;
+  }
   let attributeStack = window.attributeStack || [];
   attributeStack.push(attributeMap);
   window.attributeStack = attributeStack;

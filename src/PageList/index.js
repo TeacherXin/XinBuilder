@@ -34,7 +34,7 @@ export default function PageList() {
 
   useEffect(() => {
     window.stackIndex = 0;
-    window.attributeStack = null;
+    window.attributeStack = [];
   },[])
 
 

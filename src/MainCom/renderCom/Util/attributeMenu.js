@@ -1,6 +1,6 @@
 const COMADAPTER = {
   XinButton: ['attributeValue','visible','buttonType','size','disabled','danger','ghost'],
-  XinInput: ['attributeValue','visible','addonBefore','addonAfter','placeholder','size','prefix','suffix','allowClear','label','required','requiredMessage'],
+  XinInput: ['attributeValue','visible','inputType','addonBefore','addonAfter','placeholder','size','prefix','suffix','allowClear','label','required','requiredMessage'],
   XinLable: ['attributeValue','visible'],
   XinCheckBox: ['attributeValue','visible','disabled','checked','label','required','requiredMessage'],
   XinRadio: ['attributeValue','visible','disabled','checked'],

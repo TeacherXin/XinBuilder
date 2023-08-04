@@ -308,6 +308,21 @@ export default function RightCom(props) {
           ]
         } />
       }
+      case 'inputType': {
+        return <Select 
+          style={{ width: 120,height: 25 }}
+          defaultValue={'text'}
+          value={window.findNodeByComId(comId,attributeMapRight)?.[item] || 'text'}
+          onChange={onChange(item)}
+          options={
+          [
+            { label: '文本框', value: 'text' },
+            { label: '搜索框', value: 'Search' },
+            { label: '密码框', value: 'Password' },
+            { label: '大文本框', value: 'TextArea'}
+          ]
+        } />
+      }
       case 'setColumns': {
         return <Button onClick={() => {setShowSetColumns(true)}} style={{width:'130px',position: 'relative',bottom: '5px',left:'20px'}}>设置表头</Button>
       }
