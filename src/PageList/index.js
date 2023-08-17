@@ -150,7 +150,7 @@ export default function PageList() {
   }
 
   const toDataBase = () => {
-    window.open(`http://${window.location.hostname}/#/dataBase`)
+    window.open(`http://${window.location.hostname}:3003/#/dataBase`)
   }
 
   return (
