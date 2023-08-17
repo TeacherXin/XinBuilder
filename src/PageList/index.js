@@ -142,15 +142,15 @@ export default function PageList() {
   }
 
   const toXinBuilderDoc = () => {
-    window.open('http://localhost:9000/#/Xinbuilder/createPage')
+    window.open(`http://${window.location.hostname}:9000/#/Xinbuilder/createPage`)
   }
 
   const toXinBuilderCom = () => {
-    window.open('http://localhost:3000/#/')
+    window.open(`http://${window.location.hostname}:3000/#/`)
   }
 
   const toDataBase = () => {
-    window.open('http://localhost:3001/#/dataBase')
+    window.open(`http://${window.location.hostname}/#/dataBase`)
   }
 
   return (
