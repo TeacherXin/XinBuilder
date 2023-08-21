@@ -95,9 +95,6 @@ export default function Lgoin(props) {
       </div>
       {contextHolder}
       <div className='login'>
-        <div className='leftCard'>
-
-        </div>
         <div className='rightForm'>
           <Card
             className='card'

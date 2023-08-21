@@ -2,20 +2,12 @@
   display: flex;
   justify-content: space-between;
 }
-.mainLogin .leftCard {
-  width: 1000px;
-  height: 480px;
-  background-image: url('./Login.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position:bottom;
-  margin-top: 20px;
-  margin-left: 20px;
 
-}
 .mainLogin .rightForm .card {
-  width: 350px;
-  margin-right: 30px;
+  position: absolute;
+  left: calc(50% - 200px);
+  width: 400px;
+  height: 400px;
   padding: 10px;
   margin-top: 20px;
 }
