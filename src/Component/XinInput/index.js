@@ -9,7 +9,7 @@ export default function XinInput(props) {
   const [style,setSyle] = useState({})
   const [messageApi, contextHolder] = message.useMessage();
   const [InputComponent, setInputComponent] = useState(Input)
-  const {attributeValue,styleCss,actionJs,addonBefore,addonAfter,placeholder,size,prefix,suffix,allowClear,showCount,comId,visible,inputType} = props
+  const {attributeValue,styleCss,actionJs,addonBefore,addonAfter,requiredMessage,size,prefix,suffix,allowClear,showCount,comId,visible,inputType} = props
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
 
   useEffect(() => {
@@ -77,7 +77,7 @@ export default function XinInput(props) {
         showCount={showCount}
         value={value || ''}
         onChange={onChange}
-        placeholder={placeholder}
+        placeholder={requiredMessage}
         style={style}
       />
     </div>

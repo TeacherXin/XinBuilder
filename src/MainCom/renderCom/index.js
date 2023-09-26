@@ -72,7 +72,7 @@ export default function RenderCom(props) {
   //在预览状态返回的时候，保持信息
   useEffect(() => {
     if(state?.pageId){
-      axios.post(`http://${window.location.hostname}:3003/pageJson/findPageByID`,{
+      axios.post(`http://${window.location.hostname}:80/pageJson/findPageByID`,{
         pageId: state.pageId
       })
       .then(res => {

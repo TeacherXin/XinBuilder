@@ -88,7 +88,7 @@ window.xinComEvent.toPageById = (pageId) => {
 
 window.xinComEvent.sendAjax = (type,entityCode,params,resCallBack,errCallBack) => {
   if(type === 'create'){
-    axios.post(`http://${window.location.hostname}:3003/entity/addEntityItem`,{entityParam: params,entityCode})
+    axios.post(`http://${window.location.hostname}:80/entity/addEntityItem`,{entityParam: params,entityCode})
     .then(res => {
       resCallBack(res)
     })
@@ -96,7 +96,7 @@ window.xinComEvent.sendAjax = (type,entityCode,params,resCallBack,errCallBack) =
       errCallBack(err)
     })
   }else if(type === 'find'){
-    axios.post(`http://${window.location.hostname}:3003/entity/getEntityItem`,{entityParam: params,entityCode})
+    axios.post(`http://${window.location.hostname}:80/entity/getEntityItem`,{entityParam: params,entityCode})
     .then(res => {
       resCallBack(res)
     })

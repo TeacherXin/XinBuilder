@@ -40,7 +40,7 @@ export default function DataBase() {
 
 
   const getEntityList = async () => {
-    const res = await axios.post(`http://${window.location.hostname}:3003/entity/getEntityList`,{
+    const res = await axios.post(`http://${window.location.hostname}:80/entity/getEntityList`,{
       username: JSON.parse(localStorage.getItem('user')).username
     })
     if(res.data.data){
@@ -98,7 +98,7 @@ export default function DataBase() {
   }
 
   const schemaHandleOk = async () => {
-    const res = await axios.post(`http://${window.location.hostname}:3003/entity/addEntity`,{
+    const res = await axios.post(`http://${window.location.hostname}:80/entity/addEntity`,{
       entityName: entityName,
       entityCode: entityCode,
       entitySchema: JSON.parse(schema?.replaceAll('\n','') || '{}'),
@@ -125,7 +125,7 @@ export default function DataBase() {
   }
 
   const onSelect = async (data) => {
-    const res = await axios.post(`http://${window.location.hostname}:3003/entity/getEntityItem`,{
+    const res = await axios.post(`http://${window.location.hostname}:80/entity/getEntityItem`,{
       entityCode: data[0]
     });
     const columns = new Set();
@@ -157,7 +157,7 @@ export default function DataBase() {
     return (menuItem,e) => {
       switch (menuItem.key){
         case 'del' : {
-          axios.post(`http://${window.location.hostname}:3003/entity/delEntityItem`,{
+          axios.post(`http://${window.location.hostname}:80/entity/delEntityItem`,{
             entityCode
           })
           .then(res => {

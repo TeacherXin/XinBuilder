@@ -8,7 +8,7 @@ export default function XinNumber(props) {
   const [value,setValue] = useState('');
   const [style,setSyle] = useState({});
   const [messageApi, contextHolder] = message.useMessage();
-  const {attributeValueNumber,styleCss,actionJs,placeholder,size,prefix,showCount,comId,visible,max,min,step} = props
+  const {attributeValueNumber,styleCss,actionJs,requiredMessage,size,prefix,showCount,comId,visible,max,min,step} = props
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function XinNumber(props) {
         showCount={showCount}
         value={value || ''}
         onChange={onChange}
-        placeholder={placeholder}
+        placeholder={requiredMessage}
         style={style}
         max={max}
         min={min}

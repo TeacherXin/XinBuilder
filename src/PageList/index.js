@@ -19,7 +19,7 @@ export default function PageList() {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     if(user){
-      axios.post(`http://${window.location.hostname}:3003/login/getUser`,{
+      axios.post(`http://${window.location.hostname}:80/login/getUser`,{
         username: user.username,
         password: user.password
       }).then(res => {
@@ -44,7 +44,7 @@ export default function PageList() {
 
   const getPageList = () => {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    axios.post(`http://${window.location.hostname}:3003/pageJson/findAllPage`,{
+    axios.post(`http://${window.location.hostname}:80/pageJson/findAllPage`,{
       username: user.username
     })
     .then(res => {
@@ -78,7 +78,7 @@ export default function PageList() {
   
   const handleOk = () => {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    axios.post(`http://${window.location.hostname}:3003/pageJson/addPage`,{
+    axios.post(`http://${window.location.hostname}:80/pageJson/addPage`,{
       pageName: pageName,
       pageId:'pageInfo_' + new Date().getTime(),
       pageJson: {},
@@ -111,7 +111,7 @@ export default function PageList() {
 
   const deletePage = (pageId) => {
     return () => {
-      axios.post(`http://${window.location.hostname}:3003/pageJson/deletePage`,{
+      axios.post(`http://${window.location.hostname}:80/pageJson/deletePage`,{
         pageId
       })
       .then(res => {
@@ -150,7 +150,7 @@ export default function PageList() {
   }
 
   const toDataBase = () => {
-    window.open(`http://${window.location.hostname}:3003/#/dataBase`)
+    window.open(`http://${window.location.hostname}:80/#/dataBase`)
   }
 
   return (

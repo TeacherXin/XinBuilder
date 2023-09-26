@@ -40,7 +40,7 @@ export default function XinUpload(props) {
   useEffect(() => {
     const node = window.findNodeByComId(comId,attributeMap);
     if(node.attributeValue){
-      setImg(`http://${window.location.hostname}:3003/images/` + node.attributeValue);
+      setImg(`http://${window.location.hostname}:80/images/` + node.attributeValue);
     }
   },[])
 
@@ -58,7 +58,7 @@ export default function XinUpload(props) {
     }
     if (info.file.status === "done") {
       getBase64(info.file.originFileObj, () => {
-        setImg(`http://${window.location.hostname}:3003/images/` + info.file.response.filename);
+        setImg(`http://${window.location.hostname}:80/images/` + info.file.response.filename);
         const node = window.findNodeByComId(comId,attributeMap);
         node.attributeValue = info.file.response.filename;
         Store.dispatch({type:'change',attributeMap})
@@ -72,7 +72,7 @@ export default function XinUpload(props) {
       name="file"
       listType="picture-card"
       showUploadList={false}
-      action={`http://${window.location.hostname}:3003/upload/album`}
+      action={`http://${window.location.hostname}:80/upload/album`}
       beforeUpload={beforeUpload}
       onChange={handleChange}
     >
