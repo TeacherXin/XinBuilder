@@ -44,13 +44,13 @@ export default function Lgoin(props) {
           label="账号"
           name="username"
         >
-          <Input onChange={(e) => {setUserName(e.target.value)}} value={username} />
+          <Input placeholder='admin' onChange={(e) => {setUserName(e.target.value)}} value={username} />
         </Form.Item>
         <Form.Item
           label="密码"
           name="psw"
         >
-          <Input.Password onChange={(e) => {setPassword(e.target.value)}} value={password} />
+          <Input.Password placeholder='666666' onChange={(e) => {setPassword(e.target.value)}} value={password} />
         </Form.Item>
         <Form.Item>
           <Checkbox>记住账号</Checkbox>
