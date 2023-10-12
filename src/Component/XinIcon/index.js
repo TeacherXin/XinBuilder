@@ -4,8 +4,13 @@ export default function XinIcon(props) {
 
   const {styleCss,iconType,twoToneColor,rotate,visible,actionJs } = props
   const [messageApi, contextHolder] = message.useMessage();
+  // Icon组件的样式
   const [style,setStyle] = useState({})
 
+  /**
+   * 当配置好样式后，更新Icon组件的style
+   * @level 3
+   */
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','') || '{}';
     let style;
@@ -28,6 +33,10 @@ export default function XinIcon(props) {
     setStyle(style)
   },[styleCss])
 
+  /**
+   * Icon组件的点击事件
+   * @param {*} e 事件对象
+   */
   const onClick = (e) => {
     let clickFun = new Function(actionJs?.click);
     clickFun(e)

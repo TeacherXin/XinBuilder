@@ -5,14 +5,24 @@ import './index.css'
 export default function XinList(props) {
   const {styleCss,children,bordered,size,actionJs} = props
   const [messageApi, contextHolder] = message.useMessage();
+  // list组件的样式
   const [style, setStyle] = useState({})
+  // list组件的data
   const [data, setData] = useState([])
 
+  /**
+   * 初始化列表数据，调用list的onload事件。一般指的是从接口获取数据
+   * @level 3
+   */
   useEffect((e) => {
     let loadFun = new Function(actionJs?.load);
     loadFun(e)
   },[])
 
+  /**
+   * 初始化list的样式，当配置好样式后，更新list组件的style
+   * @level 3
+   */
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','') || '{"minWidth":"600px","minHeight":"400px","border":"1px solid blue"}';
     let style;
@@ -41,6 +51,10 @@ export default function XinList(props) {
     setStyle(style)
   },[styleCss])
 
+  /**
+   * 当向list组件中，拖入listItem后，更新list的data。
+   * @level 3
+   */
   useEffect(() => {
     const data = props.children.map(item => {
       return {

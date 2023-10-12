@@ -3,10 +3,15 @@ import './index.css'
 import {Avatar,message} from 'antd';
 
 export default function XinAvatar(props) {
+  //头像组件的样式
   const [style,setStyle] = useState({})
   const [messageApi, contextHolder] = message.useMessage();
   const {size,iconType,shape,src,styleCss,actionJs} = props
 
+  /**
+   * 当styleCss变化时，更新组件的style
+   * @level 3
+   */
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','') || '{}';
     let style;
@@ -29,6 +34,11 @@ export default function XinAvatar(props) {
     setStyle(style)
   },[styleCss])
 
+  /**
+   * 按钮的点击事件
+   * @param {*} e 事件对象
+   * @level 3
+   */
   const onClick = (e) => {
     let clickFun = new Function(actionJs?.click);
     clickFun(e)

@@ -6,9 +6,14 @@ import _ from 'lodash'
 export default function XinButton(props) {
 
   const {attributeValue,actionJs,styleCss,buttonType,size,disabled,danger,ghost,visible} = props
+  // 按钮组件的样式
   const [style,setStyle] = useState({})
   const [messageApi, contextHolder] = message.useMessage();
 
+  /**
+   * 当styleCss变化时，更新组件的style
+   * @level 3
+   */
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','') || '{}';
     let style;
@@ -31,6 +36,11 @@ export default function XinButton(props) {
     setStyle(style)
   },[styleCss])
 
+  /**
+   * 按钮的点击事件
+   * @param {*} e 事件对象
+   * @level 3
+   */
   const onClick = (e) => {
     let clickFun = new Function(actionJs?.click);
     clickFun(e)

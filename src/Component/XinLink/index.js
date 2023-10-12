@@ -6,8 +6,13 @@ export default function XinLink(props) {
   const navigate  = useNavigate();
   const {pageUrl,attributeValue,styleCss,visible} = props; 
   const [messageApi, contextHolder] = message.useMessage();
+  // link组件的样式
   const [style,setStyle] = useState({})
 
+  /**
+   * 当样式配置好后，更新link组件的style值
+   * @level 3
+   */
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','') || '{}';
     let style;
@@ -30,6 +35,10 @@ export default function XinLink(props) {
     setStyle(style)
   },[styleCss])
 
+  /**
+   * 跳转到对应pageId的页面
+   * @level 3
+   */
   const toShowPage = () => {
     navigate('/metaRender',{state: {pageId:pageUrl}});
   }

@@ -5,10 +5,15 @@ import _ from 'lodash'
 
 export default function XinCheckBox(props) {
   const {attributeValue,actionJs,styleCss,disabled,checked,comId,visible} = props
+  //checkbox组件的样式
   const [style,setStyle] = useState({})
   const [messageApi, contextHolder] = message.useMessage();
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
 
+  /**
+   * 当styleCss变化时，更新组件的style
+   * @level 3
+   */
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','') || '{}';
     let style;
@@ -30,6 +35,11 @@ export default function XinCheckBox(props) {
     }
   },[styleCss])
 
+  /**
+   * checkbox的点击事件，除了触发事件，要将对应的组件状态改变
+   * @param {*} e 事件对象
+   * @level 3
+   */
   const onChange = (e) =>{
     window.findNodeByComId(comId,attributeMap).checked = !window.findNodeByComId(comId,attributeMap)?.checked;
     Store.dispatch({type: 'change',attributeMap});

@@ -4,10 +4,15 @@ import './index.css'
 
 export default function Label(props) {
 
+  //label组件的样式
   const [style,setStyle] = useState({})
   const [messageApi, contextHolder] = message.useMessage();
   const {attributeValue,className,actionJs,styleCss,visible} = props
 
+  /**
+   * 当样式配置好后，更新label组件的style值
+   * @level 3
+   */
   useEffect(() => {
     let styleStr = styleCss?.replaceAll('\n','') || '{}';
     let style;
@@ -30,6 +35,11 @@ export default function Label(props) {
     setStyle(style)
   },[styleCss])
 
+  /**
+   * lable组件的点击事件
+   * @param {*} e 事件对象
+   * @level 3
+   */
   const onClick = (e) => {
     let clickFun = new Function(actionJs?.click);
     clickFun(e)
