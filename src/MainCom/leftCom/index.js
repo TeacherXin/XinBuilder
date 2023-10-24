@@ -10,14 +10,22 @@ import axios from 'axios'
 const { Panel } = Collapse;
 
 export default function LeftCom(props) {
-
   const {changeTopCom} = props
+  // 容器类型控件
   const [containerList,setContanerList] = useState([])
+  // 数据录入类型控件
   const [controlList,setControlList] = useState([])
+  // 数据展示类型控件
   const [showDataList,setShowDataList] = useState([])
+  // 是否展示左侧组件区域
   const [showLeftPanel,setShowLeftPanel] = useState(true)
+  // 自定义组件列表
   const [defineComList, setDefineComList] = useState([])
 
+  /**
+   * 获取自定义组件列表，在左侧组件列表进行展示
+   * @level 3
+   */
   const getDefineComList = async () => {
     const res = await axios.get(`http://${window.location.hostname}:3000/api/getpackage`)
     let packageList = res.data.packageList;
@@ -34,6 +42,10 @@ export default function LeftCom(props) {
     setDefineComList(defineComList)
   }
 
+  /**
+   * 遍历所有组件，判断组件类型，放到不同的分组里面
+   * @level 3
+   */
   useEffect(() => {
     Object.keys(myComponent).forEach(item => {
       if(['XinForm','XinMenu','XinRadioGroup','XinCard','XinFlex','XinCarousel','XinTabs','XinList'].includes(item)){
@@ -53,6 +65,14 @@ export default function LeftCom(props) {
     getDefineComList()
   },[])
 
+  /**
+   * 从左侧拖拽节点的时候触发，拿到对应组件的数据结构，并且change当前拖拽的节点
+   * @param {xinNode} Com 从左侧拖拽的组件
+   * @param {string} cName 组件的基础类型，button，input
+   * @param {string} groupType 组件的分组类型，容器，数据录入
+   * @returns {function} changeTopCom，更改当前拖拽的节点
+   * @level 4
+   */
   const onDragStart = (Com,cName,groupType) =>{
     return () => {
       changeTopCom({component: Com, name: cName,groupType})

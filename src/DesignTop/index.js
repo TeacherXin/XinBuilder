@@ -11,8 +11,9 @@ import {UpOutlined,DownOutlined, UndoOutlined, RedoOutlined} from '@ant-design/i
 
 export default function DesignTop(props) {
 
-  // eslint-disable-next-line no-unused-vars
+  // 用于redux状态更新时，更新组件
   const [update,setUpdate] = useState({})
+  // 是否展示顶部栏
   const [showTop,setShowTop] = useState(true)
   const state = useLocation().state;
   const [messageApi, contextHolder] = message.useMessage();
@@ -24,10 +25,18 @@ export default function DesignTop(props) {
   const navigate  = useNavigate();
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
 
+  /**
+   * 跳转到运行时
+   * @level 3
+   */
   const toMetaRender = () => {
     navigate('/metaRender',{state: {pageId:state.pageId}});
   }
 
+  /**
+   * 保存逻辑，调用接口将json保存进数据库
+   * @level 3
+   */
   const savePageInfo = () => {
     axios.post(`http://${window.location.hostname}:80/pageJson/updatePage`,{
       pageId:state.pageId,
@@ -51,6 +60,10 @@ export default function DesignTop(props) {
 
   }
 
+  /**
+   * 撤销逻辑，在window上挂载一个stack，用于保存操作的JSON记录，点击回退的时候，往回走一个。同时更新redux
+   * @level 3
+   */
   const undoOutlined = () => {
     if(window.stackIndex > 1){
       const attributeStack = window.attributeStack;

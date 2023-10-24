@@ -17,11 +17,18 @@ const tabList = [
 
 export default function Lgoin(props) {
   const navigate  = useNavigate();
+  // 用来表示登录的tab页签
   const [activeTabKey1, setActiveTabKey1] = useState('tab1');
+  // 登录的账号
   const [username,setUserName] = useState('')
+  // 登录的密码
   const [password,setPassword] = useState('')
   const [messageApi, contextHolder] = message.useMessage();
 
+  /**
+   * 登录方法，调用接口，查询数据库，返回结果
+   * @level 3
+   */
   const login = async () => {
     axios.post(`http://${window.location.hostname}:80/login/getUser`,{
       username,
@@ -84,9 +91,15 @@ export default function Lgoin(props) {
   </div>,
   };
 
+  /**
+   * 切换tab页签的时候触发
+   * @param {string} key tab页签的key
+   * @level 3
+   */
   const onTab1Change = (key) => {
     setActiveTabKey1(key);
   };
+  
   return (
     <div className='mainLogin'>
       <div className='header'>

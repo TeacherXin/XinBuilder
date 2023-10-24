@@ -28,21 +28,30 @@ export default function RenderCom(props) {
   const [styleCss,setStyleCss] = useState('')
   //确定当前样式的节点
   const [styleId, setStyleId] = useState('')
-
+  //当前的事件类型
   const [actionName, setActionName] = useState('click')
 
   //画布区选中多个节点的框需要的属性
   const [mouseDownLeft,setMouseDownLeft] = useState()
+  //画布区选中多个节点的框需要的属性
   const [mouseDownTop,setMouseDownTop] = useState()
+  //画布区选中多个节点的框需要的属性
   const [mouseUpLeft,setMouseUpLeft] = useState()
+  //画布区选中多个节点的框需要的属性
   const [mouseUpTop,setMouseUpTop] = useState()
+  //画布区选中多个节点的框需要的属性
   const [mousedownFlag,setMousedownFlag] = useState(false)
+  //画布区选中多个节点的框需要的属性
   const [showMouse,setShowMouse] = useState(false)
+
+  // 展示选择容器的弹窗
   const [showSelectContainer,setShowSelectContainer] = useState(false)
+  // 备选的所有容器
   const [containerOptions, setContainerOptions] = useState([])
+  // 拖拽创建的节点
   const [newCom,setNewCom] = useState({})
   
-  // eslint-disable-next-line no-unused-vars
+  // redux更新时需要更新当前组件
   const [update,setUpdate] = useState({})
 
   const state = useLocation().state;
@@ -69,7 +78,10 @@ export default function RenderCom(props) {
     setUpdate({})
   })
 
-  //在预览状态返回的时候，保持信息
+  /**
+   * 在预览状态返回的时候，保持信息
+   * @level 4
+   */
   useEffect(() => {
     if(state?.pageId){
       axios.post(`http://${window.location.hostname}:80/pageJson/findPageByID`,{
@@ -100,6 +112,11 @@ export default function RenderCom(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[showAction,showStyle])
 
+  /**
+   * 拖拽到画布区的节点，添加到全局的业务模型中
+   * @param {Event} e 事件对象
+   * @level 4
+   */
   const onDrop = (e) => {
     //用来确定拖拽的节点的位置
 
@@ -137,6 +154,13 @@ export default function RenderCom(props) {
     Store.dispatch({type: 'change',attributeMap})
   }
 
+  /**
+   * 当拖拽的节点位置，处在某个容器节点中触发
+   * @param {number} clientX 拖拽节点的x轴位置
+   * @param {number} clientY 拖拽节点的y轴位置
+   * @param {xinNode} newCom 拖拽的节点
+   * @level 4
+   */
   const dragToContainer = (clientX,clientY,newCom) => {
     let parentNode;
     for(let propName in attributeMap){
@@ -170,6 +194,12 @@ export default function RenderCom(props) {
     }
   }
 
+  /**
+   * 向list中添加容器节点，如果容器节点下有容器，继续添加
+   * @param {xinNode} node 容器节点
+   * @param {Array} list 存储容器的list
+   * @level 4
+   */
   const countParentNode = (node,list) =>{
     if(node.childList){
       list.push(node)
@@ -189,7 +219,11 @@ export default function RenderCom(props) {
     }
   }
 
-
+  /**
+   * 在画布区中拖拽时，更新节点的style属性
+   * @param {Event} e 事件对象
+   * @level 4
+   */
   const onDragStart = (e) => {
     nowComId = e.target.id
     startLeft = e.clientX;
@@ -206,7 +240,14 @@ export default function RenderCom(props) {
     e.preventDefault()
   }
 
-  //根据组件的id来更改右侧属性面板
+  /**
+   * 根据组件的id来更改右侧属性面板
+   * @param {string} id 节点的id
+   * @param {Array} list 要更新的属性列表
+   * @param {string} type 更新的类型，属性，样式，动作
+   * @param {string} actionName 动作的类型，click，change
+   * @level 3
+   */
   const changeRightPanelById = (id,list,type,actionName) => {
     if(type === 'attribute'){
       changeRightPanel(list,id)
@@ -222,7 +263,11 @@ export default function RenderCom(props) {
     }
   }
 
-  //给组件绑定事件
+  /**
+   * 给组件绑定事件
+   * @param {*} flag 点击确定还是取消
+   * @level 3
+   */
   const submitAction = (flag) => {
     return () => {
       if(flag){
@@ -237,7 +282,11 @@ export default function RenderCom(props) {
     }
   }
 
-  //给组件绑定样式
+  /**
+   * 给组件绑定样式
+   * @param {*} flag 点击确定还是取消
+   * @level 3
+   */
   const submitStyle = (flag) => {
     return () => {
       if(flag){
@@ -249,6 +298,11 @@ export default function RenderCom(props) {
     }
   }
 
+  /**
+   * 更改actionJs
+   * @param {string} delay 用来表示节流的时间
+   * @level 3
+   */
   const changeActionJs = (delay) => {
     let timer = null;
     return (value) => {
@@ -260,12 +314,21 @@ export default function RenderCom(props) {
       }, delay);
     }
   }
-
+  
+  /**
+   * 更改styleCss
+   * @param {Event} e 事件对象
+   * @level 3
+   */
   const changeStyleCss = (e) => {
     setStyleCss(e.target.value)
   }
 
-  //通过鼠标开始和结束的位置算显示选中的蓝色div
+  /**
+   * 通过鼠标开始和结束的位置算显示选中的蓝色div
+   * @param {Event} e 事件对象
+   * @level 3
+   */
   const mouseDown = (e) => {
     setMouseDownLeft(e.clientX)
     setMouseDownTop(e.clientY)
@@ -273,6 +336,11 @@ export default function RenderCom(props) {
     setShowMouse(false)
   }
 
+  /**
+   * 通过鼠标开始和结束的位置算显示选中的蓝色div
+   * @param {Event} e 事件对象
+   * @level 3
+   */
   const mouseMove = (e) => {
     if(mousedownFlag){
       setMouseUpLeft(e.clientX)
@@ -281,12 +349,24 @@ export default function RenderCom(props) {
     }
   }
 
+  /**
+   * 通过鼠标开始和结束的位置算显示选中的蓝色div
+   * @param {Event} e 事件对象
+   * @level 3
+   */
   const mouseUp = (e) => {
     setMousedownFlag(false)
     setShowMouse(false)
   }
 
-  //设置各个组件所展示的属性
+  /**
+   * 设置各个组件所展示的属性
+   * @param {string} code 组件的编码。button，input
+   * @param {string} id 组件的id
+   * @param {string} type 属性的类型，action，style
+   * @param {string} actionName 动作的类型
+   * @level 3
+   */
   const showRightPanel = async (code,id,type,actionName) => {
       //属性面板
     if(type === 'attribute'){
@@ -310,6 +390,12 @@ export default function RenderCom(props) {
     }
   }
 
+  /**
+   * 组件右键点击的菜单，可以设置属性，样式，动作
+   * @param {string} code 组件的编码
+   * @param {string} id 组件的id
+   * @level 3
+   */
   const menuOnClick = (code,id) => {
     return (menuItem) => {
       switch (menuItem.key) {

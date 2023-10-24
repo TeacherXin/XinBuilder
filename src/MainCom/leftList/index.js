@@ -21,14 +21,23 @@ const items = [
 export default function LeftList(props) {
 
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
+  // redux更新时，更新当前组件
   const [update,setUpdate] = useState({})
+  // 拿到当前选中的节点，传给EditJson组件
   const [nowCom,setNowCom] = useState({})
+  // 是否展示Json展示弹窗
   const [showJson, setShowJson] = useState(false)
 
   subscribeHook(() => {
     setUpdate({})
   })
 
+  /**
+   * 右键Item的菜单点击事件，可以查看JSON，可以删除节点
+   * @param {xinNode} com 当前选中的节点
+   * @param {string} parentId 当前选中节点的父节点Id，用于删除节点使用
+   * @level 3
+   */
   const menuOnClick = (com,parentId) =>{
     return (menuItem) => {
       if(menuItem.key === 'showJson'){
@@ -48,6 +57,12 @@ export default function LeftList(props) {
     }
   }
 
+  /**
+   * 通过xinCtx，构建左侧TreeList
+   * @param {Object} attributeMap 表示同级的元素列表
+   * @param {string} parentId 所有同级元素的父节点
+   * @level 3
+   */
   const getTreeData = (attributeMap,parentId) => {
     let treeData = []
     for(let propName in attributeMap){
