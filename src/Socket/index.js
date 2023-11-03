@@ -17,7 +17,7 @@ export default function Socket() {
 
   // 请求websocket连接
   useEffect(() => {
-    var ws = new WebSocket(`http://${window.location.hostname}:3004`);
+    var ws = new WebSocket(`ws://${window.location.hostname}:3004`);
     ws.onopen = function () {
       ws.send(JSON.stringify({message: 'start', name: JSON.parse(localStorage.getItem('user')).username}));
     }
