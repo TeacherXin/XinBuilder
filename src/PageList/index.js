@@ -3,7 +3,7 @@ import { Card, Col, Row, Button,Input, message, Modal,Divider  } from 'antd';
 import { useNavigate } from "react-router-dom";
 import './index.css'
 import axios from 'axios';
-import {DeleteOutlined,DatabaseOutlined,FormOutlined} from '@ant-design/icons';
+import {DeleteOutlined,DatabaseOutlined,FormOutlined,InsertRowBelowOutlined,UsergroupDeleteOutlined} from '@ant-design/icons';
 import Store from '../Store';
 const { Search } = Input
 
@@ -150,7 +150,36 @@ export default function PageList() {
   }
 
   const toDataBase = () => {
-    window.open(`http://${window.location.hostname}:80/#/dataBase`)
+    window.open(`/#/dataBase`)
+  }
+
+  const toSquare = () => {
+    window.open(`/#/square`)
+  }
+
+  const toSocket = () => {
+    window.open(`/#/socket`)
+  }
+
+  const releasePage = (pageId) => {
+    return () => {
+      axios.post(`http://${window.location.hostname}:80/pageJson/releasePage`, {
+        pageId
+      })
+      .then(res => {
+        messageApi.open({
+          type: 'success',
+          content: '发布成功',
+        });
+        getPageList()
+      })
+      .catch(err => {
+        messageApi.open({
+          type: 'error',
+          content: '发布失败',
+        });
+      })
+    }
   }
 
   return (
@@ -166,6 +195,12 @@ export default function PageList() {
         <Button onClick={toXinBuilderCom} size='large' type='link'>自定义组件</Button>
         <FormOutlined />
         <Divider />
+        <Button onClick={toSquare} size='large' type='link'>前往大广场</Button>
+        <InsertRowBelowOutlined />
+        <Divider />
+        <Button onClick={toSocket} size='large' type='link'>消息通讯录</Button>
+        <UsergroupDeleteOutlined />
+        <Divider />
       </div>
       <div className='pageRight'>
         <div className='PageHeader'>
@@ -177,7 +212,7 @@ export default function PageList() {
           <div style={{display:'flex',float:'right'}}>
             <Button onClick={toXinBuilderDoc} type='link'>使用文档</Button>
             <Button type='link'>API参考</Button>
-            <Button type='link'>生态系统</Button>
+            <Button type='link'>管理控制台</Button>
             <Button onClick={refeshLogin} type='link'>退出登录</Button>
           </div>
         </div>
@@ -195,6 +230,10 @@ export default function PageList() {
                     <div style={{height:'50px'}}>
                       <Button type='text' onClick={toBuilderPage(item.pageId)}>编辑页面</Button>
                       <Button type='text' onClick={toShowPage(item.pageId)}>预览页面</Button>
+                      {
+                        item.isRelease ? <Button disabled type='text'>已发布</Button>:
+                        <Button type='text' onClick={releasePage(item.pageId)}>发布页面</Button>
+                      }
                     </div>
                   </Card>
                 </Col>

@@ -8,7 +8,8 @@ import App from './App'
 import MetaRender from './MetaRender'
 import DataBase from './DataBase'
 import Login from './LgonIn'
-
+import Square from './Square'
+import Socket from './Socket'
 // const PageList = lazy(() => import('./PageList'))
 // const App = lazy(() => import('./App'))
 // const MetaRender = lazy(() => import('./MetaRender'))
@@ -27,6 +28,8 @@ root.render(
       <Route path={'/home'} element={<App />}></Route>
       <Route path={'/metaRender'} element={<MetaRender />}></Route>
       <Route path={'/dataBase'} element={<DataBase />}></Route>
+      <Route path={'/square'} element={<Square />}></Route>
+      <Route path={'/socket'} element={<Socket />}></Route>
       <Route path={'/login'} element={<Login />}></Route>
     </Routes>
     </Suspense>

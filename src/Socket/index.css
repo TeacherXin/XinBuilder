@@ -1,0 +1,62 @@
+.chatBox {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #000;
+}
+
+.socket .content {
+  margin-top: 20px;
+  padding: 30px;
+  height: 400px;
+}
+
+.socket .ant-menu-item-only-child {
+  height: 80px
+}
+
+.socket .ant-menu-title-content {
+  height: 100%;
+}
+
+.socket .menu {
+  height: 100%;
+}
+
+.socket .menu .title {
+  font-size: 12px;
+  font-weight: bold;
+  height: 14px;
+}
+
+.socket .menu .content {
+  font-size: 14px;
+  height: 16px;
+  padding: 0;
+}
+
+.socket .content .ant-card-body {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+
+.socket .provider {
+  width: 300px;
+  height: 40px;
+  background-color: rgb(194, 245, 245);
+  line-height: 35px;
+  border-radius: 20px 0 20px 20px;
+  margin-top: 6px;
+}
+
+.socket .providerOwn {
+  width: 300px;
+  height: 40px;
+  background-color: rgb(245, 194, 233);
+  line-height: 35px;
+  border-radius: 20px 0 20px 20px;
+  position: relative;
+  left: 650px;
+  margin-top: 6px;
+}
+
