@@ -1,5 +1,5 @@
 import React, { useEffect, useState,useRef } from 'react'
-import { Button, Input, Card, Menu } from 'antd';
+import { Button, Input, Card, Menu, Avatar } from 'antd';
 import {UnorderedListOutlined} from '@ant-design/icons';
 import { useLocation } from 'react-router-dom'
 import './index.css'
@@ -53,7 +53,7 @@ export default function Socket() {
   useEffect(() => {
     const items = (peopleList || []).map(item => {
       return {
-        label: <div className='menu'><p className='title'>{item}</p><p style={{color:'black'}} className='content'>{messageList[messageList.length - 1]?.message || '暂无消息'}</p></div>,
+        label: <div className='menu'><p className='title'>{item}</p><p style={{color:'black'}} className='content'>{sendName === item ? messageList[messageList.length - 1]?.message : '暂无消息'}</p></div>,
         key: item
       }
     })
@@ -101,7 +101,10 @@ export default function Socket() {
   }
 
   const sendMessage = async () => {
-    if(ws && ws.send) {
+    if(value === '' || sendName === '') {
+      return
+    }
+    if(ws && ws.send && ws.readyState !== 3) {
       ws.send(JSON.stringify({message: value, fromName: JSON.parse(localStorage.getItem('user')).username,toName: sendName}));
       const username = JSON.parse(localStorage.getItem('user')).username;
       setMessageList([...messageList,{message: value, name: username}])
@@ -142,12 +145,13 @@ export default function Socket() {
               {
                 messageList.map((item,index) => {
                   return <div key={index} className={sendName === item.name ? 'provider' : 'providerOwn'}>
+                  <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
                   <span style={{marginLeft:'20px'}}>{item.message}</span>
                 </div>
                 })
               }
             </div>
-            <Input.TextArea value={value} onChange={onChange} style={{height:'160px'}} />
+            <Input.TextArea onPressEnter={sendMessage} value={value} onChange={onChange} style={{height:'160px'}} />
             <Button onClick={sendMessage} style={{float:'right', marginTop:'10px'}}>发送</Button>
           </div>
         </Card>
