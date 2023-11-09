@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import _ from 'lodash'
-import '../Util/index.js'
+import '../util/index.js'
 
 const initialState  = { attributeMap: {} }
 

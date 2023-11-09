@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { HashRouter as Router, Routes , Route} from "react-router-dom";
 import { useState, useEffect, useRef } from 'react';
-import PageList from './PageList'
+import PageList from './pages/appList'
 import App from './App'
-import MetaRender from './MetaRender'
-import DataBase from './DataBase'
-import Login from './LgonIn'
-import Square from './Square'
-import Socket from './Socket'
+import MetaRender from './metaRender'
+import DataBase from './pages/dataBase'
+import Login from './pages/lgonIn'
+import Square from './pages/square'
+import Socket from './pages/socket'
 // const PageList = lazy(() => import('./PageList'))
 // const App = lazy(() => import('./App'))
 // const MetaRender = lazy(() => import('./MetaRender'))

@@ -1,14 +1,14 @@
 import React, {  useState } from 'react'
 import './index.css'
-import Store from '../../Store';
+import Store from '../../../store';
 import _ from 'lodash'
-import subscribeHook from '../../DefineHook/subscribe';
-import SetColumns from '../../Modal/setColumns';
-import SetTableData from '../../Modal/setTableData';
-import SetIcon from '../../Modal/setIcon';
+import subscribeHook from '../../../component/subscribe';
+import SetColumns from '../../../modal/setColumns';
+import SetTableData from '../../../modal/setTableData';
+import SetIcon from '../../../modal/setIcon';
 import { Select, Input, Switch, Button } from 'antd';
 import {RightOutlined, LeftOutlined} from '@ant-design/icons'
-import attributeValueMap from './Util/attributeValueMap';
+import attributeValueMap from './util/attributeValueMap';
 
 
 export default function RightCom(props) {

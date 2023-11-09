@@ -1,8 +1,8 @@
 import React,{useEffect, useState} from 'react'
 import { Table,message } from 'antd';
-import Store from '../../Store';
+import Store from '../../store';
 import _ from 'lodash'
-import subscribe from '../../DefineHook/subscribe';
+import subscribe from '../subscribe';
 
 
 export default function XinTable(props) {

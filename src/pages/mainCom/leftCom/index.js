@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import './index.css'
-import * as myComponent from '../../Component'
+import * as myComponent from '../../../component'
 import LeftList from '../leftList'
 import { Collapse, Tabs } from 'antd';
-import {componentTextMap, componentIconMap} from './Util/iconList'
+import {componentTextMap, componentIconMap} from './util/iconList'
 import {  RightOutlined,LeftOutlined} from '@ant-design/icons'
 import axios from 'axios'
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { InputNumber,message } from 'antd'
-import Store from '../../Store';
+import Store from '../../store';
 import _ from 'lodash'
 
 export default function XinNumber(props) {

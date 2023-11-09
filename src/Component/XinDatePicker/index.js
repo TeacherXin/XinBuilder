@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { DatePicker, message } from 'antd';
 import dayjs from 'dayjs';
-import Store from '../../Store';
+import Store from '../../store';
 import _ from 'lodash'
 
 export default function XinDatePicker(props) {

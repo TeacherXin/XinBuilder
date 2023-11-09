@@ -1,4 +1,4 @@
-import Store from "../Store";
+import Store from "../store";
 import { useEffect } from "react";
 
 export default function(callback){

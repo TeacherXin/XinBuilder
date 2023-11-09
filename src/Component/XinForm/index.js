@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react'
 import {Form, message } from 'antd';
-import subscribe from '../../DefineHook/subscribe';
+import subscribe from '../subscribe';
 import _ from 'lodash'
 
 export default function XinForm(props) {

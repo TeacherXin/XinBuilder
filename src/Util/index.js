@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Store from '../Store'
+import Store from '../store'
 import axios from 'axios'
 import { createHashHistory } from 'history'
 

@@ -1,8 +1,8 @@
 import './App.css';
-import LeftCom from './MainCom/leftCom';
-import RightCom from './MainCom/rightCom';
-import RenderCom from './MainCom/renderCom';
-import DesignTop from './DesignTop';
+import LeftCom from './pages/mainCom/leftCom';
+import RightCom from './pages/mainCom/rightCom';
+import RenderCom from './pages/mainCom/renderCom';
+import DesignTop from './pages/mainCom/designTop';
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';

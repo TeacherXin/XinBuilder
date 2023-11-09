@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react'
 import { Radio,message } from 'antd'
-import Store from '../../Store';
+import Store from '../../store';
 import _ from 'lodash'
 
 export default function XinRadio(props) {

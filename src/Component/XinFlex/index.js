@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react'
-import subscribe from '../../DefineHook/subscribe';
+import subscribe from '../subscribe';
 import { message } from 'antd';
 
 export default function XinFlex(props) {

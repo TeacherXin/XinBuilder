@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import './index.css'
 import axios from 'axios';
 import {DeleteOutlined,DatabaseOutlined,FormOutlined,InsertRowBelowOutlined,UsergroupDeleteOutlined} from '@ant-design/icons';
-import Store from '../Store';
+import Store from '../../store';
 const { Search } = Input
 
 export default function PageList() {

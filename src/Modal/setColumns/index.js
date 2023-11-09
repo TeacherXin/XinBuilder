@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Button, Form, Input, Popconfirm, Table, Modal } from 'antd';
-import Store from '../../Store'
+import Store from '../../store'
 import _ from 'lodash'
-import subscribe from '../../DefineHook/subscribe'
+import subscribe from '../../component/subscribe'
 import './index.css'
 const EditableContext = React.createContext(null);
 

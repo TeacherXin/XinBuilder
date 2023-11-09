@@ -1,0 +1,52 @@
+.PageHeader{
+  height: 60px;
+  width: 95%;
+  position: relative;
+  top: 20px;
+}
+.PageList{
+  background-color: #e0e5ec;
+  height: 100%;
+  display: flex;
+}
+.pageLeft{
+  width: 20%;
+  background-color:white;
+  height: 100%;
+}
+.pageRight{
+  width: 80%;
+  overflow: scroll;
+  margin-left: 20px;
+  width: 80%;
+}
+.leftHeader{
+  font-size: 30px;
+  color: rgb(131, 127, 236);
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin-top: 10px;
+  font-style: italic;
+}
+.leftDiscribe{
+  font-size: 20px;
+  color: rgb(192, 190, 230);
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+::-webkit-scrollbar {
+  /* 对应纵向滚动条的宽度 */
+  width: 5px;
+  /* 对应横向滚动条的宽度 */
+  height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(219, 214, 214);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}

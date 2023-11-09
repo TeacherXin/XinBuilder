@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Modal, Select } from 'antd'
-import Store from '../../../Store'
+import Store from '../../../../store'
 import _ from 'lodash'
 
 export default function SelectContainer(props) {

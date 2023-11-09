@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react'
 import { Card, message } from 'antd';
-import subscribe from '../../DefineHook/subscribe';
+import subscribe from '../subscribe';
 
 export default function XinCard(props) {
 

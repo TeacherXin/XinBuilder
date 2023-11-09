@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import './index.css'
 import { useNavigate } from "react-router-dom";
-import Store from '../Store';
-import subscribeHook from '../DefineHook/subscribe';
+import Store from '../../../store';
+import subscribeHook from '../../../component/subscribe';
 import { Button,message,Popover } from 'antd';
 import _ from 'lodash'
 import axios from 'axios'

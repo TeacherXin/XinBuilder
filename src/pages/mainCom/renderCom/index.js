@@ -1,18 +1,18 @@
 import {React, useEffect, useState} from 'react'
-import EditAction from '../../Modal/editAction'
-import EditStyle from '../../Modal/editStyle';
-import subscribeHook from '../../DefineHook/subscribe';
-import * as myComponent from '../../Component'
+import EditAction from '../../../modal/editAction'
+import EditStyle from '../../../modal/editStyle';
+import subscribeHook from '../../../component/subscribe';
+import * as myComponent from '../../../component'
 import './index.css'
-import Store from '../../Store';
+import Store from '../../../store';
 import _ from 'lodash'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios';
 import { message,Dropdown } from 'antd';
-import { getItems } from './Util/actionMenu';
-import {COMADAPTER} from './Util/attributeMenu';
-import { CONTAINERCOM } from './Util/globalData'
-import SelectContainer from './Util/selectContainer.js' 
+import { getItems } from './util/actionMenu';
+import {COMADAPTER} from './util/attributeMenu';
+import { CONTAINERCOM } from './util/globalData'
+import SelectContainer from './util/selectContainer.js' 
 
 export default function RenderCom(props) {
 

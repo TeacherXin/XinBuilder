@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import './index.css'
-import Store from '../../Store';
+import Store from '../../store';
 import { Tabs,message } from 'antd';
 import _ from 'lodash'
 

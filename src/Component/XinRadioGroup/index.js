@@ -1,7 +1,7 @@
 import React, {useEffect,useState} from 'react'
 import { Radio,message } from 'antd';
-import subscribe from '../../DefineHook/subscribe';
-import Store from '../../Store';
+import subscribe from '../subscribe';
+import Store from '../../store';
 import _ from 'lodash'
 
 export default function XinRadioGroup(props) {

@@ -2,7 +2,7 @@ import React, { memo, useState, useEffect } from "react";
 import { Upload as AntdUpload, message } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import _ from 'lodash';
-import Store from '../../Store';
+import Store from '../../store';
 
 
 const getBase64 = (img,callback) => {

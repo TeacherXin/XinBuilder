@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './index.css'
 import {Modal} from 'antd'
 import iconList from './antdIcon'
-import Store from '../../Store'
+import Store from '../../store'
 import _ from 'lodash'
 
 export default function SetIcon(props) {
