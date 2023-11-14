@@ -53,7 +53,7 @@ export default function Socket() {
   useEffect(() => {
     const items = (peopleList || []).map(item => {
       return {
-        label: <div className='menu'><p className='title'>{item}</p><p style={{color:'black'}} className='content'>{sendName === item ? messageList[messageList.length - 1]?.message : '暂无消息'}</p></div>,
+        label: <div className='menu'><Avatar style={{marginTop:'10px', marginRight:'10px'}} src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" /><p className='title'>{item}</p></div>,
         key: item
       }
     })
@@ -65,7 +65,8 @@ export default function Socket() {
     const result = await axios.post(`http://${window.location.hostname}:80/talk-record/findAllTalkRecord`, {
       fromName: username
     })
-    setPeopleList(result?.data?.data || [])
+    setPeopleList(result?.data?.data || []);
+    setSendName(result?.data?.data[0])
   }
 
   const getMessageList = async (fromName, toName) => {

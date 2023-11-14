@@ -242,8 +242,8 @@ export default function PageList() {
           </Row>
         </div>
       </div>
-      <Modal title="创建页面" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-          <Input addonBefore="页面名称" value={pageName} onChange={changePageName} />
+      <Modal title="创建页面" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText='创建' cancelText='取消'>
+          <Input onPressEnter={handleOk} addonBefore="页面名称" value={pageName} onChange={changePageName} />
       </Modal>
     </div>
   )
