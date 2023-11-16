@@ -327,7 +327,7 @@ export default function RightCom(props) {
         return <Button onClick={() => {setShowSetColumns(true)}} style={{width:'130px',position: 'relative',bottom: '5px',left:'20px'}}>设置表头</Button>
       }
       case 'setTableData': {
-        return <Button onClick={() => {setShowTableData(true)}} style={{width:'130px',position: 'relative',bottom: '5px',left:'0px'}}>设置内容</Button>
+        return <Button onClick={() => {setShowTableData(true)}} style={{width:'130px',position: 'relative',bottom: '5px',left:'20px'}}>设置内容</Button>
       }
       case 'setIcon': {
         return <Button onClick={() => {setShowIcon(true)}} style={{width:'120px',position: 'relative',bottom: '5px'}}>选择图标</Button>
@@ -353,20 +353,72 @@ export default function RightCom(props) {
       case 'tabBarGutter': {
         return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={window.findNodeByComId(comId,attributeMapRight)?.[item] || ''}></Input>
       }
+      //样式相关的组件
+      case 'fontSize': {
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss)?.[item]) || ''}></Input>
+      }
+      case 'width': {
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss)?.[item]) || ''}></Input>
+      }
+      case 'height': {
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss)?.[item]) || ''}></Input>
+      }
+      case 'maxWidth': {
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss)?.[item]) || ''}></Input>
+      }
+      case 'maxHeight': {
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss)?.[item]) || ''}></Input>
+      }
+      case 'marginLeft': {
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss)?.[item]) || ''}></Input>
+      }
+      case 'marginTop': {
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss)?.[item]) || ''}></Input>
+      }
+      case 'color': {
+        return <Input style={{ width: 120, height: 30 }} key={index} onChange={onChange(item, true)} value={JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss)?.[item] || ''}></Input>
+      }
+      case 'backgroundColor': {
+        return <Input style={{ width: 120, height: 30 }} key={index} onChange={onChange(item, true)} value={JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss)?.[item] || ''}></Input>
+      }
       default: {
         return <Input style={{ width: 120, height: 30 }} key={index} onChange={onChange(item)} value={window.findNodeByComId(comId,attributeMapRight)?.[item] || ''}></Input>
       }
     }
   }
 
-  const onChange = (name) => {
+  const onChange = (name, isStyle) => {
     return (value) => {
       if(typeof value === 'object'){
         value = value.target.value
       }
       const node = window.findNodeByComId(comId,attributeMapRight,attributeMapRight)
-      node[name] = value;
+      if(isStyle) {
+        changeStyle(node, name, value)
+      }else {
+        node[name] = value;
+      }
       Store.dispatch({type:'change',attributeMap: attributeMapRight})
+    }
+  }
+
+  const changeStyle = (node, name, value) => {
+    if(['fontSize', 'width', 'height','marginLeft','marginTop'].includes(name)) {
+      if(!node.styleCss) {
+        node.styleCss = {}
+      }else{
+        node.styleCss = JSON.parse(node.styleCss)
+      }
+      node.styleCss[name] = value + 'px';
+      node.styleCss = JSON.stringify(node.styleCss)
+    }else {
+      if(!node.styleCss) {
+        node.styleCss = {}
+      }else{
+        node.styleCss = JSON.parse(node.styleCss)
+      }
+      node.styleCss[name] = value;
+      node.styleCss = JSON.stringify(node.styleCss)
     }
   }
 

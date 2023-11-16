@@ -10,7 +10,7 @@ import { useLocation } from 'react-router-dom'
 import axios from 'axios';
 import { message,Dropdown } from 'antd';
 import { getItems } from './util/actionMenu';
-import {COMADAPTER} from './util/attributeMenu';
+import {COMADAPTER, COMADAPTERSTYLE} from './util/attributeMenu';
 import { CONTAINERCOM } from './util/globalData'
 import SelectContainer from './util/selectContainer.js' 
 
@@ -260,6 +260,7 @@ export default function RenderCom(props) {
       setStyleId(id)
       setStyleCss('')
       setShowStyle(true)
+      changeRightPanel(list,id)
     }
   }
 
@@ -386,7 +387,7 @@ export default function RenderCom(props) {
     }else if(type === 'action'){
       changeRightPanelById(id,['attributeValue'],'action',actionName);
     }else if(type === 'style'){
-      changeRightPanelById(id,['attributeValue'],'style');
+      changeRightPanelById(id,COMADAPTERSTYLE[code],'style');
     }
   }
 

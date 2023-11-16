@@ -59,7 +59,17 @@ const attributeValueMap = {
   tabsType: '页签样式',
   description: '描述',
   setIcon: '选择图标',
-  inputType: '类型'
+  inputType: '类型',
+  //样式类型
+  fontSize:'字体大小',
+  width:'宽度',
+  height: '高度',
+  maxWidth: '最大宽度',
+  maxHeight: '最大高度',
+  color: '字体颜色',
+  backgroundColor: '背景颜色',
+  marginLeft: '左边距',
+  marginTop: '上边距'
 }
 
 export default attributeValueMap

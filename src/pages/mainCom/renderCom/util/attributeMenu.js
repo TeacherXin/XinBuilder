@@ -24,6 +24,11 @@ const COMADAPTER = {
   XinUpload: ['attributeValue']
 }
 
+const COMADAPTERSTYLE = {
+  XinButton: ['fontSize','width','height','color','backgroundColor','marginLeft','marginTop']
+}
+
 export {
-  COMADAPTER
+  COMADAPTER,
+  COMADAPTERSTYLE
 }
