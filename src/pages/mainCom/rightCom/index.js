@@ -355,31 +355,31 @@ export default function RightCom(props) {
       }
       //样式相关的组件
       case 'fontSize': {
-        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss)?.[item]) || ''}></Input>
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss || '{}')?.[item]) || ''}></Input>
       }
       case 'width': {
-        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss)?.[item]) || ''}></Input>
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss || '{}')?.[item]) || ''}></Input>
       }
       case 'height': {
-        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss)?.[item]) || ''}></Input>
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss || '{}')?.[item]) || ''}></Input>
       }
       case 'maxWidth': {
-        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss)?.[item]) || ''}></Input>
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss || '{}')?.[item]) || ''}></Input>
       }
       case 'maxHeight': {
-        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss)?.[item]) || ''}></Input>
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss || '{}')?.[item]) || ''}></Input>
       }
       case 'marginLeft': {
-        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss)?.[item]) || ''}></Input>
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss || '{}')?.[item]) || ''}></Input>
       }
       case 'marginTop': {
-        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss)?.[item]) || ''}></Input>
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss || '{}')?.[item]) || ''}></Input>
       }
       case 'color': {
-        return <Input style={{ width: 120, height: 30 }} key={index} onChange={onChange(item, true)} value={JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss)?.[item] || ''}></Input>
+        return <Input style={{ width: 120, height: 30 }} key={index} onChange={onChange(item, true)} value={JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss || '{}')?.[item] || ''}></Input>
       }
       case 'backgroundColor': {
-        return <Input style={{ width: 120, height: 30 }} key={index} onChange={onChange(item, true)} value={JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss)?.[item] || ''}></Input>
+        return <Input style={{ width: 120, height: 30 }} key={index} onChange={onChange(item, true)} value={JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss || '{}')?.[item] || ''}></Input>
       }
       default: {
         return <Input style={{ width: 120, height: 30 }} key={index} onChange={onChange(item)} value={window.findNodeByComId(comId,attributeMapRight)?.[item] || ''}></Input>
