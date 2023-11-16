@@ -14,9 +14,10 @@ export default function MetaRender() {
   let attributeMap = _.cloneDeep(Store.getState().attributeMap);
 
   useEffect(() => {
-    if(state?.pageId){
+    const pageId = state?.pageId || window.location.hash.replace('#/metaRender?pageId=','')
+    if(pageId){
       axios.post(`http://${window.location.hostname}:80/pageJson/findPageByID`,{
-        pageId: state.pageId
+        pageId
       })
       .then(res => {
         Store.dispatch({type:'change',attributeMap:res.data.data.pageJson})
