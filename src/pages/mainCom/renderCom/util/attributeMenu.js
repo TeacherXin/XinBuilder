@@ -25,7 +25,26 @@ const COMADAPTER = {
 }
 
 const COMADAPTERSTYLE = {
-  XinButton: ['fontSize','width','height','color','backgroundColor','marginLeft','marginTop']
+  XinButton: ['fontSize','width','height','color','backgroundColor','marginLeft','marginTop','lineHeight'],
+  XinInput: ['fontSize','width','height','color','backgroundColor','marginLeft','marginTop','lineHeight'],
+  XinIcon: ['fontSize','width','height','color','backgroundColor','marginLeft','marginTop','lineHeight'],
+  XinLable: ['fontSize','width','height','color','backgroundColor','marginLeft','marginTop','lineHeight'],
+  XinDatePicker: ['fontSize','width','height','backgroundColor','marginLeft','marginTop'],
+  XinLink: ['fontSize','width','height','color','backgroundColor','marginLeft','marginTop','lineHeight'],
+  XinNumber: ['fontSize','width','height','backgroundColor','marginLeft','marginTop'],
+  XinRadio: ['fontSize','width','height','color','backgroundColor','marginLeft','marginTop','lineHeight'],
+  XinCard: ['width','height','backgroundColor','marginLeft','marginTop'],
+  XinCarousel: ['width','height','backgroundColor','marginLeft','marginTop'],
+  XinFlex: ['width','height','backgroundColor','marginLeft','marginTop'],
+  XinList: ['width','height','backgroundColor','marginLeft','marginTop'],
+  XinMenu: ['width','height','backgroundColor','marginLeft','marginTop'],
+  XinRadioGroup: ['width','height','backgroundColor','marginLeft','marginTop'],
+  XinTabs:['width','height','backgroundColor','marginLeft','marginTop'],
+  XinForm:['width','height','backgroundColor','marginLeft','marginTop'],
+  XinDiv:['width','height','backgroundColor','marginLeft','marginTop'],
+  XinTable:['width','height','backgroundColor','marginLeft','marginTop'],
+  XinListItem:['width','height','backgroundColor','marginLeft','marginTop'],
+  XinAvatar: ['fontSize','width','height','backgroundColor','marginLeft','marginTop'],
 }
 
 export {

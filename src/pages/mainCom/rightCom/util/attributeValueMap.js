@@ -69,7 +69,8 @@ const attributeValueMap = {
   color: '字体颜色',
   backgroundColor: '背景颜色',
   marginLeft: '左边距',
-  marginTop: '上边距'
+  marginTop: '上边距',
+  lineHeight: '行高'
 }
 
 export default attributeValueMap

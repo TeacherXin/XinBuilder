@@ -375,6 +375,9 @@ export default function RightCom(props) {
       case 'marginTop': {
         return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss || '{}')?.[item]) || ''}></Input>
       }
+      case 'lineHeight': {
+        return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item,true)} value={parseInt(JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss || '{}')?.[item]) || ''}></Input>
+      }
       case 'color': {
         return <Input style={{ width: 120, height: 30 }} key={index} onChange={onChange(item, true)} value={JSON.parse(window.findNodeByComId(comId,attributeMapRight)?.styleCss || '{}')?.[item] || ''}></Input>
       }
