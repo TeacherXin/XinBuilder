@@ -27,6 +27,10 @@ export default function RightCom(props) {
   })
 
   const getAttributeValueCom = (item,index) => {
+    // 处理扩展组件
+    if(Array.isArray(item)) {
+      item = item[0]
+    }
     switch (item) {
       case 'disabled': {
         return <Switch 
@@ -437,7 +441,7 @@ export default function RightCom(props) {
         {
           (rightPanel[comId] || []).map((item,index) => {
             return <div key={index} className='attributeItem'>
-              <label>{attributeValueMap[item] || item}</label>
+              <label>{attributeValueMap[item] || item[1]}</label>
               <div className='attributeItemValue'>
                 {getAttributeValueCom(item,index)}
               </div>

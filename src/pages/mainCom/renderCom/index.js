@@ -379,7 +379,7 @@ export default function RenderCom(props) {
         const res = await axios.get(`http://${window.location.hostname}:3000/api/getpackageConfig?fileDirName=${fileDirName}`);
         const list = res.data.packageConfig;
         const packageList = list.map(item => {
-          return item.packageConfig.attributeName
+          return [item.packageConfig.attributeCode,item.packageConfig.attributeName]
         })
         changeRightPanelById(id,packageList,'attribute');
       }
