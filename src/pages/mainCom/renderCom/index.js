@@ -54,6 +54,8 @@ export default function RenderCom(props) {
   // redux更新时需要更新当前组件
   const [update,setUpdate] = useState({})
 
+  const [isMobile, setIsMobile] = useState(false)
+
   const state = useLocation().state;
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -90,6 +92,7 @@ export default function RenderCom(props) {
       .then(res => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         attributeMap = res.data.data?.pageJson || {};
+        setIsMobile(res.data.data?.isMobile)
         Store.dispatch({type:'change',attributeMap})
       })
       .catch(err => {
@@ -456,12 +459,41 @@ export default function RenderCom(props) {
     </div>
   }
 
+  const getMobileComponent = (item,isChild) => {
+    let Com = myComponent[item.comType];
+    if(!Com && item.groupType === 'defineCom'){
+      // eslint-disable-next-line no-new-func
+      let fun = new Function('return ' + item.component)
+      Com = fun();
+    }
+    if(!Com){
+      return <></>
+    }
+    return <div id={item.comId} key={item.comId} onDragStart={onDragStart} draggable={!isChild} style={item.style}>
+      {
+        <Dropdown menu={{items: getItems(item.comType),onClick: menuOnClick(item.comType,item.comId)}} trigger={['contextMenu']}>
+          <div onContextMenu={(e) => {e.stopPropagation()}}>
+            <Com
+            {...window.findNodeByComId(item.comId,attributeMap)}
+            >
+              {
+                Object.keys(item.childList || {}).map(_item => {
+                  return getComponent(item.childList[_item],true)
+                })
+              }
+            </Com>
+          </div>
+        </Dropdown>
+      }
+    </div>
+  }
+
   return (
-    <div onDrop={onDrop} onDragOver={onDragOver} onDragEnter={onDragEnter} className='renderCom'>
+    <div className={isMobile ? 'isMobile':'renderCom'} onDrop={onDrop} onDragOver={onDragOver} onDragEnter={onDragEnter}>
       {contextHolder}
       {(Object.keys(attributeMap)).map(item => {
-        return getComponent(attributeMap[item])
-      })}
+          return isMobile ? getMobileComponent(attributeMap[item]) :  getComponent(attributeMap[item])
+        })}
       <div style={{ display:(showMouse?'block':'none'),border:'1px solid blue',width: Math.abs(mouseUpLeft-mouseDownLeft)+'px',height:Math.abs(mouseUpTop-mouseDownTop)+'px',position:'absolute',left:mouseDownLeft<mouseUpLeft?mouseDownLeft:mouseUpLeft+'px',top:mouseDownTop<mouseUpTop?mouseDownTop:mouseUpTop+'px'}}></div>
       <EditAction actionName={actionName} showAction={showAction} changeActionJs={changeActionJs(800)} actionJs={actionJs} submitAction={submitAction} />
       <EditStyle showStyle={showStyle} changeStyleCss={changeStyleCss} styleCss={styleCss} submitStyle={submitStyle} />

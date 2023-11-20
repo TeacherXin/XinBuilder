@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Col, Row, Button,Input, message, Modal,Divider  } from 'antd';
+import { Card, Col, Row, Button,Input, message, Modal,Divider, Select  } from 'antd';
 import { useNavigate } from "react-router-dom";
 import './index.css'
 import axios from 'axios';
@@ -14,6 +14,7 @@ export default function PageList() {
   const [pageList,setPageList] = useState([])
   const [isModalOpen,setIsModalOpen] = useState(false)
   const [pageName,setPageName] = useState('')
+  const [pageType,setPageType] = useState('PC')
   const [searchValue,setSearchValue] = useState('')
 
   useEffect(() => {
@@ -74,6 +75,7 @@ export default function PageList() {
   const addNewPage = () => {
     setIsModalOpen(true);
     setPageName('')
+    setPageType('PC')
   }
   
   const handleOk = () => {
@@ -82,7 +84,8 @@ export default function PageList() {
       pageName: pageName,
       pageId:'pageInfo_' + new Date().getTime(),
       pageJson: {},
-      username: user.username
+      username: user.username,
+      isMobile: pageType === 'mobile'
     })
     .then(res => {
       messageApi.open({
@@ -107,6 +110,10 @@ export default function PageList() {
 
   const changePageName = (e) => {
     setPageName(e.target.value)
+  }
+
+  const changePageType = (value) => {
+    setPageType(value)
   }
 
   const deletePage = (pageId) => {
@@ -243,7 +250,9 @@ export default function PageList() {
         </div>
       </div>
       <Modal title="创建页面" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText='创建' cancelText='取消'>
-          <Input onPressEnter={handleOk} addonBefore="页面名称" value={pageName} onChange={changePageName} />
+          <Input addonBefore="页面名称" value={pageName} onChange={changePageName} />
+          <p>页面类型</p>
+          <Select style={{width:'200px'}} value={pageType} onChange={changePageType} options={[{label: 'PC端', value: 'PC'},{label: '移动端', value:'mobile'}]}></Select>
       </Modal>
     </div>
   )

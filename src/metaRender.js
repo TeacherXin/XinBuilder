@@ -7,10 +7,32 @@ import axios from 'axios'
 import Store from './store'
 import _ from 'lodash'
 
+var getMobile = {
+  Android: function() {
+      return navigator.userAgent.match(/Android/i);
+  },
+  BlackBerry: function() {
+      return navigator.userAgent.match(/BlackBerry/i);
+  },
+  iOS: function() {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+  },
+  Opera: function() {
+      return navigator.userAgent.match(/Opera Mini/i);
+  },
+  Windows: function() {
+      return navigator.userAgent.match(/IEMobile/i);
+  },
+  any: function() {
+      return (getMobile.Android() || getMobile.BlackBerry() || getMobile.iOS() || getMobile.Opera() || getMobile.Windows());
+  }
+};
+
 export default function MetaRender() {
   const state = useLocation().state;
   const [update,setUpdate] = useState();
   const [messageApi, contextHolder] = message.useMessage();
+  const [isMobile, setIsMobile] = useState(false)
   let attributeMap = _.cloneDeep(Store.getState().attributeMap);
 
   useEffect(() => {
@@ -21,6 +43,10 @@ export default function MetaRender() {
       })
       .then(res => {
         Store.dispatch({type:'change',attributeMap:res.data.data.pageJson})
+        setIsMobile(res.data.data.isMobile);
+        if(res.data.data.isMobile && !getMobile.any()) {
+          message.warning('移动页面，请在手机端打开')
+        }
       })
       .catch(err => {
         messageApi.open({
@@ -35,6 +61,9 @@ export default function MetaRender() {
       });
     }
   },[state])
+
+  useEffect(() => {
+  }, [])
 
   subscribeHook(() => {
     setUpdate({})
@@ -64,7 +93,7 @@ export default function MetaRender() {
   }
 
   return (
-    <div>
+    <div style={isMobile ? {transform: 'scale(1.5)', position:'relative', left: '-650px'} : {}}>
       {contextHolder}
       {(Object.keys(attributeMap)).map(item => {
         return getComponent(attributeMap[item])
