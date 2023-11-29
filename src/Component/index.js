@@ -21,6 +21,12 @@ import XinAvatar from './XinAvatar'
 import XinTabs from './XinTabs'
 import XinList from './XinList'
 import XinListItem from './XinListItem'
+import XinBoxGeometry from './3D/XinBoxGeometry'
+import XinCapsuleGeometry from './3D/XinCapsuleGeometry'
+import XinCircleGeometry from './3D/XinCircleGeometry'
+import XinConeGeometry from './3D/XinConeGeometry'
+import XinCylinderGeometry from './3D/XinCylinderGeometry'
+import XinDodecahedronGeometry from './3D/XinDodecahedronGeometry'
 
 export {
   XinButton,
@@ -45,5 +51,11 @@ export {
   XinAvatar,
   XinTabs,
   XinList,
-  XinListItem
+  XinListItem,
+  XinBoxGeometry,
+  XinCapsuleGeometry,
+  XinCircleGeometry,
+  XinConeGeometry,
+  XinCylinderGeometry,
+  XinDodecahedronGeometry
 }

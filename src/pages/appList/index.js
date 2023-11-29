@@ -85,7 +85,8 @@ export default function PageList() {
       pageId:'pageInfo_' + new Date().getTime(),
       pageJson: {},
       username: user.username,
-      isMobile: pageType === 'mobile'
+      isMobile: pageType === 'mobile',
+      is3D: pageType === '3D'
     })
     .then(res => {
       messageApi.open({
@@ -252,7 +253,7 @@ export default function PageList() {
       <Modal title="创建页面" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText='创建' cancelText='取消'>
           <Input addonBefore="页面名称" value={pageName} onChange={changePageName} />
           <p>页面类型</p>
-          <Select style={{width:'200px'}} value={pageType} onChange={changePageType} options={[{label: 'PC端', value: 'PC'},{label: '移动端', value:'mobile'}]}></Select>
+          <Select style={{width:'200px'}} value={pageType} onChange={changePageType} options={[{label: 'PC端', value: 'PC'},{label: '移动端', value:'mobile'},{label: '3D页面', value: '3D'}]}></Select>
       </Modal>
     </div>
   )

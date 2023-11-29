@@ -21,6 +21,8 @@ export default function LeftCom(props) {
   const [showLeftPanel,setShowLeftPanel] = useState(true)
   // 自定义组件列表
   const [defineComList, setDefineComList] = useState([])
+  // 3D组件
+  const [threeDList, setThreeDList] = useState([])
 
   /**
    * 获取自定义组件列表，在左侧组件列表进行展示
@@ -52,6 +54,8 @@ export default function LeftCom(props) {
         containerList.push(item)
       }else if(['XinTable','XinDiv','XinAvatar','XinListItem'].includes(item)){
         showDataList.push(item)
+      }else if(['XinBoxGeometry','XinCapsuleGeometry','XinCircleGeometry','XinConeGeometry','XinCylinderGeometry','XinDodecahedronGeometry'].includes(item)) {
+        threeDList.push(item)
       }else{
         controlList.push(item)
       }
@@ -59,6 +63,7 @@ export default function LeftCom(props) {
     setContanerList([...containerList])
     setControlList([...controlList])
     setShowDataList([...showDataList])
+    setThreeDList([...threeDList])
   },[])
 
   useEffect(() => {
@@ -115,7 +120,17 @@ export default function LeftCom(props) {
           </div>
           })}
         </Panel>
-        <Panel header={<span style={{fontWeight:"bold"}}>自定义组件</span>} key="4">
+        <Panel header={<span style={{fontWeight:"bold"}}>3D组件</span>} key="4">
+          {threeDList.map(cName => {
+            const Com = myComponent[cName];
+            const Icon = componentIconMap[cName]
+            const name = componentTextMap[cName]
+            return  <div onDragStart={onDragStart(Com,cName,'3DCom')} key={cName} className='componentItem'>
+              <div style={{display: 'inline-block'}} draggable><Icon style={{marginRight:'10px'}} /><span>{name}</span></div>
+          </div>
+          })}
+        </Panel>
+        <Panel header={<span style={{fontWeight:"bold"}}>自定义组件</span>} key="5">
           {defineComList.map(item => {
             const Com = item.Com;
             const Icon = componentIconMap['XinCard']
@@ -129,7 +144,7 @@ export default function LeftCom(props) {
       {
         key: 'data',
         label: <div style={{display:'flex'}}><div style={{fontSize:'16px',width:'80px',textAlign:'center'}}>数据</div><LeftOutlined onClick={() => {setShowLeftPanel(false)}} style={{color:'rgb(192, 190, 230)',cursor: 'pointer',position:'relative',left:'30px'}} /></div>,
-        children: <LeftList />
+        children: <LeftList changeRightPanel={props.changeRightPanel}/>
       }
     ];
   }

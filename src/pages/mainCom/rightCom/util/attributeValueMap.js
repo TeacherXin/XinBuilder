@@ -70,7 +70,22 @@ const attributeValueMap = {
   backgroundColor: '背景颜色',
   marginLeft: '左边距',
   marginTop: '上边距',
-  lineHeight: '行高'
+  lineHeight: '行高',
+  //3D
+  x: 'x轴',
+  y: 'y轴',
+  z: 'z轴',
+  width3d:'长度',
+  height3d:'宽度',
+  depth3d: '高度',
+  radius3d: '半径',
+  length3d: '长度',
+  capSegments: '曲线个数',
+  radialSegments: '分离面数',
+  segments: '三角面数',
+  radiusTop: '顶部半径',
+  radiusBottom: '底部半径',
+  detail: '顶点倍数'
 }
 
 export default attributeValueMap

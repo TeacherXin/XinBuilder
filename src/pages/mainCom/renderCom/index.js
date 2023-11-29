@@ -13,6 +13,8 @@ import { getItems } from './util/actionMenu';
 import {COMADAPTER, COMADAPTERSTYLE} from './util/attributeMenu';
 import { CONTAINERCOM } from './util/globalData'
 import SelectContainer from './util/selectContainer.js' 
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 export default function RenderCom(props) {
 
@@ -55,6 +57,10 @@ export default function RenderCom(props) {
   const [update,setUpdate] = useState({})
 
   const [isMobile, setIsMobile] = useState(false)
+  const [is3D, setIs3D] = useState(false)
+  const [scene, setScene] = useState(null)
+  const [renderer, setRenderer] = useState(null)
+  const [camera, setCamera] = useState(null)
 
   const state = useLocation().state;
   const [messageApi, contextHolder] = message.useMessage();
@@ -93,6 +99,7 @@ export default function RenderCom(props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         attributeMap = res.data.data?.pageJson || {};
         setIsMobile(res.data.data?.isMobile)
+        setIs3D(res.data.data?.is3D)
         Store.dispatch({type:'change',attributeMap})
       })
       .catch(err => {
@@ -110,6 +117,41 @@ export default function RenderCom(props) {
   },[])
 
   useEffect(() => {
+    if(is3D) {
+      const scene = new THREE.Scene();
+      setScene(scene)
+      const axesHelper = new THREE.AxesHelper(150);
+      scene.add(axesHelper);
+      const directionalLight = new THREE.DirectionalLight('red', 1);
+      // 设置光源的方向：通过光源position属性和目标指向对象的position属性计算
+      directionalLight.position.set(80, 100, 50);
+      // 方向光指向对象网格模型mesh，可以不设置，默认的位置是0,0,0
+      scene.add(directionalLight);
+      const width = document.getElementById('renderCom').clientWidth; //宽度
+      const height = document.getElementById('renderCom').clientHeight; //高度
+      const camera = new THREE.PerspectiveCamera(30, width/height, 1, 3000);
+      setCamera(camera)
+      camera.position.set(200, 200, 200);
+      //相机观察目标指向Threejs 3D空间中某个位置
+      camera.lookAt(0,0,0); //坐标原点
+  
+      const renderer = new THREE.WebGLRenderer();
+      setRenderer(renderer)
+  
+      // 设置相机控件轨道控制器OrbitControls
+      const controls = new OrbitControls(camera, renderer.domElement);
+      // 如果OrbitControls改变了相机参数，重新调用渲染器渲染三维场景
+      controls.addEventListener('change', function () {
+          renderer.render(scene, camera); //执行渲染操作
+      });//监听鼠标、键盘事件
+  
+      renderer.setSize(width, height);
+      renderer.render(scene, camera);
+      document.getElementById('renderCom').replaceChildren(renderer.domElement);
+    }
+  },[is3D])
+
+  useEffect(() => {
     setActionJs(window.findNodeByComId(actionId,attributeMap)?.actionJs)
     setStyleCss(window.findNodeByComId(styleId,attributeMap)?.styleCss)
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -121,6 +163,19 @@ export default function RenderCom(props) {
    * @level 4
    */
   const onDrop = (e) => {
+    // 3D
+    if(is3D) {
+      let newCom = {comId: NowCom.name + e.clientX,comType: NowCom.name,groupType: NowCom.groupType, component: NowCom.component}
+      setNewCom(newCom)
+      let flag = dragToContainer(e.clientX,e.clientY,newCom);
+      if(flag){
+        return;
+      }
+      attributeMap[newCom.comId] = newCom;
+      Store.dispatch({type: 'change',attributeMap});
+      return
+    }
+
     //用来确定拖拽的节点的位置
 
     endLeft = e.clientX;
@@ -155,6 +210,16 @@ export default function RenderCom(props) {
       attributeMap[newCom.comId] = newCom
     }
     Store.dispatch({type: 'change',attributeMap})
+  }
+
+  const render3D = () => {
+    if(scene) {
+      scene.children = [scene.children[0],scene.children[1]]
+    }
+    Object.values(attributeMap).forEach(item => {
+      let Com = myComponent[item.comType];
+      Com({scene,renderer,camera,...item})
+    })
   }
 
   /**
@@ -489,16 +554,22 @@ export default function RenderCom(props) {
   }
 
   return (
-    <div className={isMobile ? 'isMobile':'renderCom'} onDrop={onDrop} onDragOver={onDragOver} onDragEnter={onDragEnter}>
-      {contextHolder}
-      {(Object.keys(attributeMap)).map(item => {
-          return isMobile ? getMobileComponent(attributeMap[item]) :  getComponent(attributeMap[item])
-        })}
-      <div style={{ display:(showMouse?'block':'none'),border:'1px solid blue',width: Math.abs(mouseUpLeft-mouseDownLeft)+'px',height:Math.abs(mouseUpTop-mouseDownTop)+'px',position:'absolute',left:mouseDownLeft<mouseUpLeft?mouseDownLeft:mouseUpLeft+'px',top:mouseDownTop<mouseUpTop?mouseDownTop:mouseUpTop+'px'}}></div>
-      <EditAction actionName={actionName} showAction={showAction} changeActionJs={changeActionJs(800)} actionJs={actionJs} submitAction={submitAction} />
-      <EditStyle showStyle={showStyle} changeStyleCss={changeStyleCss} styleCss={styleCss} submitStyle={submitStyle} />
-      <SelectContainer newCom={newCom} containerOptions={containerOptions} setShowSelectContainer={setShowSelectContainer} showSelectContainer={showSelectContainer}/>
-      <div onMouseUp={mouseUp} onMouseMove={mouseMove} onMouseDown={mouseDown} style={{width:'60%',height:'100%',position:'absolute',zIndex:'10'}}></div>
+    <div id='renderCom' className={isMobile ? 'isMobile':'renderCom'} onDrop={onDrop} onDragOver={onDragOver} onDragEnter={onDragEnter}>
+      {
+        !is3D ? <div>
+          {contextHolder}
+          {(Object.keys(attributeMap)).map(item => {
+              return isMobile ? getMobileComponent(attributeMap[item]) :  getComponent(attributeMap[item])
+            })}
+          <div style={{ display:(showMouse?'block':'none'),border:'1px solid blue',width: Math.abs(mouseUpLeft-mouseDownLeft)+'px',height:Math.abs(mouseUpTop-mouseDownTop)+'px',position:'absolute',left:mouseDownLeft<mouseUpLeft?mouseDownLeft:mouseUpLeft+'px',top:mouseDownTop<mouseUpTop?mouseDownTop:mouseUpTop+'px'}}></div>
+          <EditAction actionName={actionName} showAction={showAction} changeActionJs={changeActionJs(800)} actionJs={actionJs} submitAction={submitAction} />
+          <EditStyle showStyle={showStyle} changeStyleCss={changeStyleCss} styleCss={styleCss} submitStyle={submitStyle} />
+          <SelectContainer newCom={newCom} containerOptions={containerOptions} setShowSelectContainer={setShowSelectContainer} showSelectContainer={showSelectContainer}/>
+          <div onMouseUp={mouseUp} onMouseMove={mouseMove} onMouseDown={mouseDown} style={{width:'60%',height:'100%',position:'absolute',zIndex:'10'}}></div>
+        </div> : <div>
+          {render3D()}
+        </div>
+      }
     </div>
   )
 }

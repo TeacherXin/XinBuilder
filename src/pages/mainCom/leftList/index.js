@@ -6,6 +6,7 @@ import subscribeHook from '../../../component/subscribe'
 import { Tree } from 'antd';
 import EditJson from '../../../modal/editJson'
 import { Dropdown } from 'antd';
+import {COMADAPTER} from '../renderCom/util/attributeMenu';
 
 const items = [
   {
@@ -15,11 +16,15 @@ const items = [
   {
     label: '删除节点',
     key: 'deleteNode'
+  },
+  {
+    label: '设置属性',
+    key: 'setAttribute'
   }
 ]
 
 export default function LeftList(props) {
-
+  const { changeRightPanel } = props
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
   // redux更新时，更新当前组件
   const [update,setUpdate] = useState({})
@@ -52,6 +57,9 @@ export default function LeftList(props) {
         }else{
           delete attributeMap[com.comId]
         }
+      }
+      if(menuItem.key === 'setAttribute') {
+        changeRightPanel(COMADAPTER[com.comType],com.comId)
       }
       Store.dispatch({type:'change',attributeMap})
     }

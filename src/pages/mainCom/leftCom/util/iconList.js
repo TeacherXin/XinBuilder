@@ -21,7 +21,13 @@ import
   UserOutlined,
   ClusterOutlined,
   UnorderedListOutlined,
-  SmallDashOutlined
+  SmallDashOutlined,
+  CodeSandboxOutlined,
+  ShakeOutlined,
+  CodepenCircleOutlined,
+  ExperimentOutlined,
+  FilterOutlined,
+  GlobalOutlined
 } from '@ant-design/icons';
 
 const componentIconMap = {
@@ -47,7 +53,13 @@ const componentIconMap = {
   XinAvatar: UserOutlined,
   XinTabs: ClusterOutlined,
   XinList: UnorderedListOutlined,
-  XinListItem: SmallDashOutlined
+  XinListItem: SmallDashOutlined,
+  XinBoxGeometry: CodeSandboxOutlined,
+  XinCapsuleGeometry: ShakeOutlined,
+  XinCircleGeometry: CodepenCircleOutlined,
+  XinConeGeometry: ExperimentOutlined,
+  XinCylinderGeometry: FilterOutlined,
+  XinDodecahedronGeometry: GlobalOutlined
 }
 
 const componentTextMap = {
@@ -73,7 +85,13 @@ const componentTextMap = {
   XinAvatar: '头像',
   XinTabs: '多页签',
   XinList: '列表',
-  XinListItem: '列表项'
+  XinListItem: '列表项',
+  XinBoxGeometry: '长方体',
+  XinCapsuleGeometry: '胶囊',
+  XinCircleGeometry: '圆形缓冲',
+  XinConeGeometry: '圆锥体',
+  XinCylinderGeometry: '圆柱体',
+  XinDodecahedronGeometry: '十二面体'
 }
 
 export {

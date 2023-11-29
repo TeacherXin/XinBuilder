@@ -21,7 +21,13 @@ const COMADAPTER = {
   XinTabs: ['activeKey','animated','centered','size','tabPosition','tabBarGutter','tabsType'],
   XinListItem: ['title','description'],
   XinList: ['size','bordered','attributeValue'],
-  XinUpload: ['attributeValue']
+  XinUpload: ['attributeValue'],
+  XinBoxGeometry: ['x','y','z','width3d','height3d','depth3d'],
+  XinCapsuleGeometry: ['x','y','z','radius3d','length3d','capSegments','radialSegments'],
+  XinCircleGeometry: ['x','y','z','radius3d','length3d','segments'],
+  XinConeGeometry:['x','y','z','radius3d','height3d','radialSegments'],
+  XinCylinderGeometry:['x','y','z','radiusTop','radiusBottom','height3d','radialSegments'],
+  XinDodecahedronGeometry: ['x','y','z','radius3d','detail']
 }
 
 const COMADAPTERSTYLE = {

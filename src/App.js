@@ -46,7 +46,7 @@ function App() {
   return (
     <div className="App">
       <DesignTop></DesignTop>
-      <LeftCom changeTopCom={changeTopCom}></LeftCom>
+      <LeftCom changeRightPanel={changeRightPanel} changeTopCom={changeTopCom}></LeftCom>
       <RenderCom comId={comId} changeRightPanel={changeRightPanel}  NowCom={nowCom}></RenderCom>
       <RightCom comId={comId} rightPanel={rightPanel}></RightCom>
     </div>
