@@ -85,7 +85,8 @@ const attributeValueMap = {
   segments: '三角面数',
   radiusTop: '顶部半径',
   radiusBottom: '底部半径',
-  detail: '顶点倍数'
+  detail: '顶点倍数',
+  color3d: '物体颜色'
 }
 
 export default attributeValueMap

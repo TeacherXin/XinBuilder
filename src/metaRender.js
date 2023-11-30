@@ -67,7 +67,7 @@ export default function MetaRender() {
 
   useEffect(() => {
     const scene = new THREE.Scene();
-    const directionalLight = new THREE.DirectionalLight('red', 1);
+    const directionalLight = new THREE.DirectionalLight('white', 1);
     // 设置光源的方向：通过光源position属性和目标指向对象的position属性计算
     directionalLight.position.set(80, 100, 50);
     // 方向光指向对象网格模型mesh，可以不设置，默认的位置是0,0,0

@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 import * as THREE from 'three'
 
 export default function XinCylinderGeometry(props) {
-  const { scene,renderer,camera,x, y, z, radiusTop, radiusBottom, height3d, radialSegments} = props
+  const { scene,renderer,camera,x, y, z, radiusTop, radiusBottom, height3d, radialSegments,color3d} = props
   if(scene) {
     const geometry = new THREE.CylinderGeometry( radiusTop || 5, radiusBottom || 5, height3d || 20, radialSegments || 32 );
     const material = new THREE.MeshLambertMaterial({
-      color:'red'
+      color:color3d || '#1677ff',
     }); 
     const mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
     //设置网格模型在三维空间中的位置坐标，默认是坐标原点

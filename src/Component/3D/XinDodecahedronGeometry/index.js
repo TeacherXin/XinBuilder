@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 import * as THREE from 'three'
 
 export default function XinDodecahedronGeometry(props) {
-  const { scene,renderer,camera,x, y, z, radius3d, detail} = props
+  const { scene,renderer,camera,x, y, z, radius3d, detail, color3d} = props
   if(scene) {
     const geometry = new THREE.DodecahedronGeometry( radius3d || 10, detail || 0);
     const material = new THREE.MeshLambertMaterial({
-      color:'red'
+      color:color3d || '#1677ff',
     }); 
     const mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
     //设置网格模型在三维空间中的位置坐标，默认是坐标原点
