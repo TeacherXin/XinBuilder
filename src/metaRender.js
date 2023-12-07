@@ -66,6 +66,9 @@ export default function MetaRender() {
   },[state])
 
   useEffect(() => {
+    if(!is3D) {
+      return
+    }
     const scene = new THREE.Scene();
     const directionalLight = new THREE.DirectionalLight('white', 1);
     // 设置光源的方向：通过光源position属性和目标指向对象的position属性计算
