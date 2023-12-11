@@ -22,12 +22,12 @@ const COMADAPTER = {
   XinListItem: ['title','description'],
   XinList: ['size','bordered','attributeValue'],
   XinUpload: ['attributeValue'],
-  XinBoxGeometry: ['x','y','z','color3d','width3d','height3d','depth3d'],
-  XinCapsuleGeometry: ['x','y','z','color3d','radius3d','length3d','capSegments','radialSegments'],
-  XinCircleGeometry: ['x','y','z','color3d','radius3d','length3d','segments'],
-  XinConeGeometry:['x','y','z','color3d','radius3d','height3d','radialSegments'],
-  XinCylinderGeometry:['x','y','z','color3d','radiusTop','radiusBottom','height3d','radialSegments'],
-  XinDodecahedronGeometry: ['x','y','z','color3d','radius3d','detail']
+  XinBoxGeometry: ['x','y','z','color3d','width3d','height3d','depth3d','setMaterial'],
+  XinCapsuleGeometry: ['x','y','z','color3d','radius3d','length3d','capSegments','radialSegments','setMaterial'],
+  XinCircleGeometry: ['x','y','z','color3d','radius3d','length3d','segments','setMaterial'],
+  XinConeGeometry:['x','y','z','color3d','radius3d','height3d','radialSegments','setMaterial'],
+  XinCylinderGeometry:['x','y','z','color3d','radiusTop','radiusBottom','height3d','radialSegments','setMaterial'],
+  XinDodecahedronGeometry: ['x','y','z','color3d','radius3d','detail','setMaterial']
 }
 
 const COMADAPTERSTYLE = {

@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 import * as THREE from 'three'
 
 export default function XinCircleGeometry(props) {
-  const { scene,renderer,camera,x, y, z, radius3d, segments, color3d} = props
+  const { scene,renderer,camera,x, y, z, radius3d, segments, color3d, materialType} = props
   if(scene) {
     const geometry = new THREE.CircleGeometry( radius3d || 10, segments || 32 );
-    const material = new THREE.MeshLambertMaterial({
+    const material = new THREE[materialType || 'MeshLambertMaterial']({
       color:color3d || '#1677ff',
     }); 
     const mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh

@@ -86,7 +86,9 @@ const attributeValueMap = {
   radiusTop: '顶部半径',
   radiusBottom: '底部半径',
   detail: '顶点倍数',
-  color3d: '物体颜色'
+  color3d: '物体颜色',
+  setMaterial: '材质'
+
 }
 
 export default attributeValueMap

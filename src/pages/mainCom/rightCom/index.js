@@ -6,6 +6,7 @@ import subscribeHook from '../../../component/subscribe';
 import SetColumns from '../../../modal/setColumns';
 import SetTableData from '../../../modal/setTableData';
 import SetIcon from '../../../modal/setIcon';
+import SetMaterial from '../../../modal/editMaterial'
 import { Select, Input, Switch, Button } from 'antd';
 import {RightOutlined, LeftOutlined} from '@ant-design/icons'
 import attributeValueMap from './util/attributeValueMap';
@@ -17,6 +18,7 @@ export default function RightCom(props) {
   const [showSetColumns,setShowSetColumns] = useState(false)
   const [showSetTableData,setShowTableData] = useState(false)
   const [showIcon, setShowIcon] = useState(false)
+  const [showMaterial, setShowMaterial] = useState(false)
   const attributeMapRight = _.cloneDeep(Store.getState().attributeMap)
   // eslint-disable-next-line no-unused-vars
   const [update,setUpdate] = useState({})
@@ -336,6 +338,9 @@ export default function RightCom(props) {
       case 'setIcon': {
         return <Button onClick={() => {setShowIcon(true)}} style={{width:'120px',position: 'relative',bottom: '5px'}}>选择图标</Button>
       }
+      case 'setMaterial': {
+        return <Button onClick={() => {setShowMaterial(true)}} style={{width:'120px',position: 'relative',bottom: '5px'}}>配置材质</Button>
+      }
       case 'attributeValueNumber': {
         return <Input style={{ width: 120,height: 30 }} type={'number'} key={index} onChange={onChange(item)} value={window.findNodeByComId(comId,attributeMapRight)?.[item] || ''}></Input>
       }
@@ -434,6 +439,7 @@ export default function RightCom(props) {
       <SetColumns comId={comId} setShowSetColumns={setShowSetColumns} showSetColumns={showSetColumns} />
       <SetTableData comId={comId} setShowTableData={setShowTableData} showSetTableData={showSetTableData} />
       <SetIcon comId={comId} showIcon={showIcon} setShowIcon={setShowIcon} />
+      <SetMaterial comId={comId} showMaterial={showMaterial} setShowMaterial={setShowMaterial}/>
       <div>
         <RightOutlined onClick={() => {setShowRightPanel(false)}} style={{color:'rgb(192, 190, 230)',cursor: 'pointer',marginRight:'10px'}} />
         <div style={{height:'30px'}}><span style={{fontWeight:'bold'}}>{comId}</span></div>
