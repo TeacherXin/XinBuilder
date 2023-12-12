@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^5.2.6",
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -12,6 +13,8 @@
     "axios": "^1.4.0",
     "classnames": "^2.3.2",
     "customize-cra": "^1.0.0",
+    "dayjs": "^1.11.10",
+    "history": "^5.3.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-ace": "^10.1.0",
