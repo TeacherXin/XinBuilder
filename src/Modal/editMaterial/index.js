@@ -44,10 +44,10 @@ export default function EditMeterial(props) {
 
   useEffect(() => {
     const node = window.findNodeByComId(comId, attributeMap);
-    if(node?.material) {
-      setMaterial(node.material)
+    if(node?.materialType) {
+      setMaterial(node.materialType)
     }
-  },[])
+  },[showMaterial])
 
   const handleChange = (value) => {
     setMaterial(value)

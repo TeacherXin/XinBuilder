@@ -190,6 +190,17 @@ export default function PageList() {
     }
   }
 
+  const copyToClipboard = (pageId) => {
+    const text = `http://www.xbuilder.top/renderPage?pageId=${pageId}`
+    return () => {
+      navigator.clipboard.writeText(text).then(function() {
+        message.success('URL已经复制到剪贴板，可在浏览器中打开')
+      }, function(err) {
+        message.error('URL生成失败')
+      });
+    }
+  }
+
   return (
     <div className='PageList'>
       {contextHolder}
@@ -239,9 +250,10 @@ export default function PageList() {
                       <Button type='text' onClick={toBuilderPage(item.pageId)}>编辑页面</Button>
                       <Button type='text' onClick={toShowPage(item.pageId)}>预览页面</Button>
                       {
-                        item.isRelease ? <Button disabled type='text'>已发布</Button>:
+                        item.isRelease ? <Button style={{width: '87px'}} disabled type='text'>已发布</Button>:
                         <Button type='text' onClick={releasePage(item.pageId)}>发布页面</Button>
                       }
+                      <Button type='text' onClick={copyToClipboard(item.pageId)}>生成URL</Button>
                     </div>
                   </Card>
                 </Col>
