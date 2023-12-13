@@ -62,7 +62,9 @@ export default function EditMeterial(props) {
   const submitMaterial = () => {
     const node = window.findNodeByComId(comId,attributeMap);
     node.materialType = material;
-    node.mapUrl = mapUrl;
+    if(mapUrl) {
+      node.mapUrl = mapUrl;
+    }
     Store.dispatch({type:'change',attributeMap})
     setShowMaterial(false)
   }

@@ -23,6 +23,7 @@ export default function XinBoxGeometry(props) {
     mesh.position.set(x || 0,y || 0,z || 0);
     mesh.rotation.set(rotateX || 0,rotateY || 0,rotateZ || 0)
     scene.add(mesh); 
+    renderer.render(scene, camera);
   }
   return (
     <div id='XinBoxGeometry'>
