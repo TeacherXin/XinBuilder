@@ -88,7 +88,7 @@ export default function MetaRender() {
     document.getElementById('metaRender').replaceChildren(renderer.domElement);
     render3D(scene, camera, renderer)
 
-  },[is3D])
+  },[is3D, update])
 
   const render3D = (scene, camera, renderer) => {
     Object.values(attributeMap).forEach(item => {

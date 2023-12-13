@@ -75,6 +75,9 @@ const attributeValueMap = {
   x: 'x轴',
   y: 'y轴',
   z: 'z轴',
+  rotateX: 'x轴旋转',
+  rotateY: 'y轴旋转',
+  rotateZ: 'z轴旋转',
   width3d:'长度',
   height3d:'宽度',
   depth3d: '高度',
@@ -88,7 +91,6 @@ const attributeValueMap = {
   detail: '顶点倍数',
   color3d: '物体颜色',
   setMaterial: '材质'
-
 }
 
 export default attributeValueMap

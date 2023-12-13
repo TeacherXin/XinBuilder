@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Modal, Select } from 'antd'
+import { Modal, Select, Form, Input } from 'antd'
 import _ from 'lodash'
 import Store from '../../store';
 
 export default function EditMeterial(props) {
   const {showMaterial, setShowMaterial, comId} = props;
+  const [mapUrl, setMapUrl] = useState('')
   const [material, setMaterial] = useState('MeshLambertMaterial')
   const attributeMap = _.cloneDeep(Store.getState().attributeMap)
   const options = [
@@ -47,28 +48,54 @@ export default function EditMeterial(props) {
     if(node?.materialType) {
       setMaterial(node.materialType)
     }
+    if(node?.mapUrl) {
+      setMapUrl(node.mapUrl)
+    }
   },[showMaterial])
+
 
   const handleChange = (value) => {
     setMaterial(value)
+    setMapUrl('')
   }
 
   const submitMaterial = () => {
     const node = window.findNodeByComId(comId,attributeMap);
     node.materialType = material;
+    node.mapUrl = mapUrl;
     Store.dispatch({type:'change',attributeMap})
     setShowMaterial(false)
+  }
+
+  const cancel = () => {
+    setShowMaterial(false)
+    setMapUrl('')
   }
 
   return (
     <div>
       <Modal
         open={showMaterial}
-        onCancel={() => {setShowMaterial(false)}}
+        onCancel={cancel}
         closable={false}
         onOk={submitMaterial}
       >
         <Select onChange={handleChange} style={{width:180}} value={material} options={options} />
+        <Form
+          style={{width: '400px', marginTop:'40px'}}
+          labelCol={{
+            span: 8,
+            }}
+          wrapperCol={{
+            span: 16,
+          }}
+        >
+          <Form.Item
+            label="贴图URL"
+          >
+            <Input value={mapUrl} onChange={(e) => {setMapUrl(e.target.value)}} />
+          </Form.Item>
+        </Form>
       </Modal>
     </div>
   )
