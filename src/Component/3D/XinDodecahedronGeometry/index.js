@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import * as THREE from 'three'
 
 export default function XinDodecahedronGeometry(props) {
-  const { scene,renderer,camera,x, y, z, radius3d, detail, color3d, materialType, rotateX, rotateY, rotateZ, mapUrl} = props
+  const { scene,renderer,camera,x, y, z, radius3d, detail, color3d, materialType, rotateX, rotateY, rotateZ, mapUrl, actionJs} = props
   if(scene) {
     const geometry = new THREE.DodecahedronGeometry( radius3d || 10, detail || 0);
     const material = new THREE[materialType || 'MeshLambertMaterial']({
@@ -24,38 +24,14 @@ export default function XinDodecahedronGeometry(props) {
     mesh.rotation.set(rotateX || 0,rotateY || 0,rotateZ || 0)
     scene.add(mesh); 
     renderer.render(scene, camera);
-    let flag = 'stop'
-    window.addEventListener("keydown", function(event) {
-      // 检查是否按下了空格键（键码为32）
-      if (event.keyCode === 32 && flag === 'stop') {
-        flag = 'top'
-        jump()
-        renderer.render(scene, camera);
-      }
-    });
-
-    function jump() {
-      if(flag === 'down') {
-        renderer.render(scene, camera);
-        mesh.position.y = parseInt(mesh.position.y) - 1;
-        mesh.position.x = parseInt(mesh.position.x) - 1;
-        mesh.rotateZ(0.5)
-        if(mesh.position.y < 15) {
-          mesh.position.y = 15;
-          flag = 'stop'
+    for(let propName in actionJs) {
+      let clickFun = new Function(actionJs?.[propName]);
+      window.addEventListener("keydown", function(event) {
+        // 检查是否按下了空格键（键码为32）
+        if (event.key === propName) {
+          clickFun({mesh, renderer, camera, scene})
         }
-      }else if(flag === 'top'){
-        renderer.render(scene, camera);
-        mesh.position.y = parseInt( mesh.position.y) +  1
-        mesh.position.x = parseInt(mesh.position.x) -  1
-        mesh.rotateZ(0.5)
-        if(mesh.position.y >= 40) {
-          flag = 'down'
-        }
-      }else if(flag === 'stop'){
-        return;
-      }
-      requestAnimationFrame(jump)
+      });
     }
   }
   return (

@@ -158,15 +158,27 @@ export default function PageList() {
   }
 
   const toDataBase = () => {
-    window.open(`/#/dataBase`)
+    if(window.location.hostname.includes('localhost')) {
+      window.open(`/#/dataBase`)
+    }else{
+      window.open('http://www.xbuilder.top/builder/#/dataBase')
+    }
   }
 
   const toSquare = () => {
-    window.open(`/#/square`)
+    if(window.location.hostname.includes('localhost')) {
+      window.open(`/#/square`)
+    }else{
+      window.open('http://www.xbuilder.top/builder/#/square')
+    }
   }
 
   const toSocket = () => {
-    window.open(`/#/socket`)
+    if(window.location.hostname.includes('localhost')) {
+      window.open(`/#/socket`)
+    }else{
+      window.open('http://www.xbuilder.top/builder/#/socket')
+    }
   }
 
   const releasePage = (pageId) => {

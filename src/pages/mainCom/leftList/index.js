@@ -7,6 +7,7 @@ import { Tree } from 'antd';
 import EditJson from '../../../modal/editJson'
 import { Dropdown } from 'antd';
 import {COMADAPTER} from '../renderCom/util/attributeMenu';
+import EditKeyAction from '../../../modal/editKeyAction'
 
 const items = [
   {
@@ -20,6 +21,10 @@ const items = [
   {
     label: '设置属性',
     key: 'setAttribute'
+  },
+  {
+    label: '设置动作',
+    key: 'setAction'
   }
 ]
 
@@ -32,6 +37,7 @@ export default function LeftList(props) {
   const [nowCom,setNowCom] = useState({})
   // 是否展示Json展示弹窗
   const [showJson, setShowJson] = useState(false)
+  const [showEditAction, setShowEditAction] = useState(false)
 
   subscribeHook(() => {
     setUpdate({})
@@ -60,6 +66,10 @@ export default function LeftList(props) {
       }
       if(menuItem.key === 'setAttribute') {
         changeRightPanel(COMADAPTER[com.comType],com.comId)
+      }
+      if(menuItem.key === 'setAction') {
+        setNowCom(com)
+        setShowEditAction(true)
       }
       Store.dispatch({type:'change',attributeMap})
     }
@@ -95,6 +105,7 @@ export default function LeftList(props) {
         treeData={getTreeData(attributeMap)}
       />
       <EditJson setShowJson={setShowJson} nowCom={nowCom} showJson={showJson} />
+      <EditKeyAction comId={nowCom.comId}  showEditAction={showEditAction} setShowEditAction={setShowEditAction}/>
     </div>
   )
 }
