@@ -205,11 +205,28 @@ export default function PageList() {
   const copyToClipboard = (pageId) => {
     const text = `http://www.xbuilder.top/renderPage?pageId=${pageId}`
     return () => {
-      navigator.clipboard.writeText(text).then(function() {
-        message.success('URL已经复制到剪贴板，可在浏览器中打开')
-      }, function(err) {
-        message.error('URL生成失败')
-      });
+      if(!navigate.clipboard) {
+        var textArea = document.createElement("textarea");
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+    
+        try {
+            document.execCommand('copy');
+            message.success('URL已经复制到剪贴板，可在浏览器中打开')
+        } catch (err) {
+          message.error('URL生成失败')
+        }
+    
+        document.body.removeChild(textArea);
+      }else{
+        navigator.clipboard.writeText(text).then(function() {
+          message.success('URL已经复制到剪贴板，可在浏览器中打开')
+        }, function(err) {
+          message.error('URL生成失败')
+        });
+      }
     }
   }
 
