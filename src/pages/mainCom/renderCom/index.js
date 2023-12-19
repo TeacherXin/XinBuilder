@@ -165,7 +165,7 @@ export default function RenderCom(props) {
   const onDrop = (e) => {
     // 3D
     if(is3D) {
-      if(NowCom.groupType !== '3DCom') {
+      if(NowCom && NowCom?.groupType !== '3DCom') {
         message.error('请在3D页面中，使用3D组件');
         return;
       }
@@ -181,7 +181,7 @@ export default function RenderCom(props) {
     }
 
     //用来确定拖拽的节点的位置
-    if(NowCom.groupType === '3DCom') {
+    if(NowCom && NowCom.groupType === '3DCom') {
       message.error('在H5页面中，禁止使用3D组件');
       return;
     }
